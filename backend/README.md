@@ -72,22 +72,68 @@ rather than empty strings.
 
 ## API
 
-| Method | Path | Notes |
-|---|---|---|
-| GET | `/health` | liveness (no DB) |
-| GET | `/health/db` | readiness (checks Postgres) |
-| GET | `/api/questions` | filter + paginate |
-| GET | `/api/questions/<id>` | |
-| POST | `/api/questions` | 201, or 422 with per-field errors |
-| PATCH | `/api/questions/<id>` | partial; re-validates the merged record |
-| DELETE | `/api/questions/<id>` | 204 |
+| Method | Path | Auth | Notes |
+|---|---|---|---|
+| GET | `/health` | public | liveness (no DB) |
+| GET | `/health/db` | public | readiness (checks Postgres) |
+| POST | `/api/auth/register` | public | creates a student, returns a token pair |
+| POST | `/api/auth/login` | public | returns a token pair |
+| POST | `/api/auth/refresh` | public | rotates: revokes the old refresh token |
+| POST | `/api/auth/logout` | public | revokes the presented refresh token |
+| GET | `/api/auth/me` | user | current account |
+| POST | `/api/auth/password` | user | changes password, revokes all sessions |
+| GET | `/api/questions` | **user** | filter + paginate |
+| GET | `/api/questions/<id>` | **user** | |
+| POST | `/api/questions` | **admin** | 201, or 422 with per-field errors |
+| PATCH | `/api/questions/<id>` | **admin** | partial; re-validates the merged record |
+| DELETE | `/api/questions/<id>` | **admin** | 204 |
 
 Filters: `section`, `domain`, `skill`, `difficulty`, `question_type`, `source`,
 plus `page` / `per_page` (max 200).
 
 ```bash
-curl "http://127.0.0.1:5055/api/questions?section=math&difficulty=hard&per_page=10"
+curl "http://127.0.0.1:5055/api/questions?section=math&difficulty=hard&per_page=10" \
+     -H "Authorization: Bearer <access_token>"
 ```
+
+## Authentication
+
+Reading the question bank requires an account. Register, then send the access
+token as a bearer token:
+
+```bash
+curl -X POST $API/api/auth/register -H "Content-Type: application/json" \
+     -d '{"email":"you@example.com","password":"your long password 1"}'
+
+curl "$API/api/questions" -H "Authorization: Bearer <access_token>"
+```
+
+Access tokens last 15 minutes and cannot be revoked; refresh tokens last 30
+days, are stored per-`jti`, and are rotated on every refresh so a stolen one
+stops working as soon as the real client refreshes. Changing a password
+revokes every outstanding session.
+
+Registration always creates a `student`. Create the first admin out-of-band:
+
+```bash
+python -m scripts.create_admin admin@example.com            # create
+python -m scripts.create_admin someone@example.com --promote  # promote existing
+```
+
+The password is read from `EDUNEXUS_ADMIN_PASSWORD` or prompted for — never
+passed as an argument, which would leak it into shell history.
+
+Auth routes are rate limited (default 10 attempts / 5 minutes per IP). The
+limiter is in-process, so with N gunicorn workers the effective limit is N x
+that; move it to Redis before scaling up.
+
+### Validation rules
+
+Enforced in the schema and mirrored by database check constraints:
+
+- `domain` must belong to its `section` (taxonomy in `CLAUDE.md` §5)
+- `multiple_choice` requires `choices`; `grid_in` must not have them
+- `grid_in` is math-only
 
 ## Deployment
 
@@ -112,11 +158,3 @@ Required environment variables in Railway:
 
 `ProductionConfig` raises at startup if `DATABASE_URL` or `SECRET_KEY` is
 missing — a misconfigured deploy fails loudly instead of booting broken.
-
-### Validation rules
-
-Enforced in the schema and mirrored by database check constraints:
-
-- `domain` must belong to its `section` (taxonomy in `CLAUDE.md` §5)
-- `multiple_choice` requires `choices`; `grid_in` must not have them
-- `grid_in` is math-only

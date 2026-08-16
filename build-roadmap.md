@@ -37,7 +37,7 @@ green; every route driven live via `curl`; README written.
 
 ---
 
-## Phase 2 — Auth + user accounts
+## Phase 2 — Auth + user accounts  ✅ COMPLETE (2026-08-16)
 
 JWT bearer tokens (not cookie sessions) so web and Flutter clients use one identical API.
 
@@ -52,9 +52,11 @@ JWT bearer tokens (not cookie sessions) so web and Flutter clients use one ident
 | 2.7 | Rate limiting on auth routes |
 | 2.8 | Tests: auth flows, token expiry/rotation, role enforcement on every protected route |
 
-**Exit criteria:** unauthenticated writes rejected 401; non-admin writes 403; reads still public; token refresh + revocation verified live.
+**Decision taken:** question reads are **login-required**, not public — access to the bank is gated behind signing up.
 
-**Decision needed at phase start:** are question *reads* public, or login-required? Assumed public-read for now.
+**Exit criteria — all met:** anonymous callers get 401 on every question route (auth is checked before existence, so ids cannot be probed); students read but get 403 on writes; admins have full access; refresh rotation, replay rejection, logout revocation and password-change session revocation all verified against the live deployment. 69/69 tests pass; migration 0002 applied to Supabase and verified drift-free.
+
+**Deferred:** the auth rate limiter is in-process, so its effective limit scales with gunicorn worker count. Move to Redis before scaling beyond a couple of workers.
 
 ---
 
