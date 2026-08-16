@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from marshmallow import ValidationError
 
+from app.auth import require_admin, require_auth
 from app.schemas import question_schema, questions_schema, question_update_schema
 from app.services.question_service import (
     create_question,
@@ -14,6 +15,7 @@ bp = Blueprint("questions", __name__, url_prefix="/api/questions")
 
 
 @bp.get("")
+@require_auth
 def list_questions():
     filters = {
         "section": request.args.get("section"),
@@ -39,6 +41,7 @@ def list_questions():
 
 
 @bp.get("/<question_id>")
+@require_auth
 def get_question_route(question_id):
     question = get_question(question_id)
     if question is None:
@@ -47,6 +50,7 @@ def get_question_route(question_id):
 
 
 @bp.post("")
+@require_admin
 def create_question_route():
     try:
         data = question_schema.load(request.get_json(force=True, silent=True) or {})
@@ -58,6 +62,7 @@ def create_question_route():
 
 
 @bp.patch("/<question_id>")
+@require_admin
 def update_question_route(question_id):
     question = get_question(question_id)
     if question is None:
@@ -88,6 +93,7 @@ def update_question_route(question_id):
 
 
 @bp.delete("/<question_id>")
+@require_admin
 def delete_question_route(question_id):
     question = get_question(question_id)
     if question is None:

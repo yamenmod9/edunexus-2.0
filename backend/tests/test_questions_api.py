@@ -7,8 +7,8 @@ def test_health(client):
     assert resp.get_json() == {"status": "ok"}
 
 
-def test_create_multiple_choice(client):
-    resp = client.post("/api/questions", json=make_question())
+def test_create_multiple_choice(admin_client):
+    resp = admin_client.post("/api/questions", json=make_question())
     assert resp.status_code == 201
     body = resp.get_json()
     assert body["id"]
@@ -16,55 +16,55 @@ def test_create_multiple_choice(client):
     assert len(body["choices"]) == 4
 
 
-def test_create_grid_in_stores_null_choices(client):
-    resp = client.post("/api/questions", json=make_grid_in())
+def test_create_grid_in_stores_null_choices(admin_client):
+    resp = admin_client.post("/api/questions", json=make_grid_in())
     assert resp.status_code == 201
     assert resp.get_json()["choices"] is None
 
 
-def test_domain_must_match_section(client):
-    resp = client.post("/api/questions", json=make_question(domain="craft_structure"))
+def test_domain_must_match_section(admin_client):
+    resp = admin_client.post("/api/questions", json=make_question(domain="craft_structure"))
     assert resp.status_code == 422
     assert "domain" in resp.get_json()["errors"]
 
 
-def test_grid_in_is_math_only(client):
+def test_grid_in_is_math_only(admin_client):
     payload = make_grid_in(section="reading_writing", domain="information_ideas")
-    resp = client.post("/api/questions", json=payload)
+    resp = admin_client.post("/api/questions", json=payload)
     assert resp.status_code == 422
     assert "question_type" in resp.get_json()["errors"]
 
 
-def test_multiple_choice_requires_choices(client):
-    resp = client.post("/api/questions", json=make_question(choices=None))
+def test_multiple_choice_requires_choices(admin_client):
+    resp = admin_client.post("/api/questions", json=make_question(choices=None))
     assert resp.status_code == 422
     assert "choices" in resp.get_json()["errors"]
 
 
-def test_grid_in_rejects_choices(client):
+def test_grid_in_rejects_choices(admin_client):
     payload = make_grid_in(choices=[{"id": "A", "text": "3"}])
-    resp = client.post("/api/questions", json=payload)
+    resp = admin_client.post("/api/questions", json=payload)
     assert resp.status_code == 422
     assert "choices" in resp.get_json()["errors"]
 
 
-def test_invalid_difficulty_rejected(client):
-    resp = client.post("/api/questions", json=make_question(difficulty="impossible"))
+def test_invalid_difficulty_rejected(admin_client):
+    resp = admin_client.post("/api/questions", json=make_question(difficulty="impossible"))
     assert resp.status_code == 422
     assert "difficulty" in resp.get_json()["errors"]
 
 
-def test_get_by_id_and_404(client):
-    created = client.post("/api/questions", json=make_question()).get_json()
+def test_get_by_id_and_404(admin_client):
+    created = admin_client.post("/api/questions", json=make_question()).get_json()
 
-    assert client.get(f"/api/questions/{created['id']}").status_code == 200
-    assert client.get("/api/questions/nope").status_code == 404
+    assert admin_client.get(f"/api/questions/{created['id']}").status_code == 200
+    assert admin_client.get("/api/questions/nope").status_code == 404
 
 
-def test_filter_by_section_and_domain(client):
-    client.post("/api/questions", json=make_question())
-    client.post("/api/questions", json=make_grid_in())
-    client.post(
+def test_filter_by_section_and_domain(admin_client):
+    admin_client.post("/api/questions", json=make_question())
+    admin_client.post("/api/questions", json=make_grid_in())
+    admin_client.post(
         "/api/questions",
         json=make_question(
             section="reading_writing",
@@ -73,48 +73,48 @@ def test_filter_by_section_and_domain(client):
         ),
     )
 
-    assert client.get("/api/questions").get_json()["total"] == 3
-    assert client.get("/api/questions?section=math").get_json()["total"] == 2
-    assert client.get("/api/questions?section=reading_writing").get_json()["total"] == 1
-    assert client.get("/api/questions?domain=algebra").get_json()["total"] == 1
-    assert client.get("/api/questions?difficulty=hard").get_json()["total"] == 1
+    assert admin_client.get("/api/questions").get_json()["total"] == 3
+    assert admin_client.get("/api/questions?section=math").get_json()["total"] == 2
+    assert admin_client.get("/api/questions?section=reading_writing").get_json()["total"] == 1
+    assert admin_client.get("/api/questions?domain=algebra").get_json()["total"] == 1
+    assert admin_client.get("/api/questions?difficulty=hard").get_json()["total"] == 1
     assert (
-        client.get("/api/questions?section=math&domain=algebra").get_json()["total"] == 1
+        admin_client.get("/api/questions?section=math&domain=algebra").get_json()["total"] == 1
     )
 
 
-def test_pagination(client):
+def test_pagination(admin_client):
     for i in range(5):
-        client.post("/api/questions", json=make_question(skill=f"Skill {i}"))
+        admin_client.post("/api/questions", json=make_question(skill=f"Skill {i}"))
 
-    body = client.get("/api/questions?page=1&per_page=2").get_json()
+    body = admin_client.get("/api/questions?page=1&per_page=2").get_json()
     assert body["total"] == 5
     assert body["pages"] == 3
     assert len(body["items"]) == 2
 
 
-def test_patch_updates_field(client):
-    created = client.post("/api/questions", json=make_question()).get_json()
+def test_patch_updates_field(admin_client):
+    created = admin_client.post("/api/questions", json=make_question()).get_json()
 
-    resp = client.patch(f"/api/questions/{created['id']}", json={"difficulty": "easy"})
+    resp = admin_client.patch(f"/api/questions/{created['id']}", json={"difficulty": "easy"})
     assert resp.status_code == 200
     assert resp.get_json()["difficulty"] == "easy"
 
 
-def test_patch_rejects_invalid_merged_state(client):
+def test_patch_rejects_invalid_merged_state(admin_client):
     """A partial update must not be able to leave section/domain inconsistent."""
-    created = client.post("/api/questions", json=make_question()).get_json()
+    created = admin_client.post("/api/questions", json=make_question()).get_json()
 
-    resp = client.patch(
+    resp = admin_client.patch(
         f"/api/questions/{created['id']}", json={"domain": "information_ideas"}
     )
     assert resp.status_code == 422
     assert "domain" in resp.get_json()["errors"]
 
 
-def test_delete(client):
-    created = client.post("/api/questions", json=make_question()).get_json()
+def test_delete(admin_client):
+    created = admin_client.post("/api/questions", json=make_question()).get_json()
 
-    assert client.delete(f"/api/questions/{created['id']}").status_code == 204
-    assert client.get(f"/api/questions/{created['id']}").status_code == 404
-    assert client.delete(f"/api/questions/{created['id']}").status_code == 404
+    assert admin_client.delete(f"/api/questions/{created['id']}").status_code == 204
+    assert admin_client.get(f"/api/questions/{created['id']}").status_code == 404
+    assert admin_client.delete(f"/api/questions/{created['id']}").status_code == 404

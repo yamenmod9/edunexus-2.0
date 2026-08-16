@@ -6,6 +6,7 @@ from app.models.question import (
     QUESTION_TYPES,
     SOURCES,
 )
+from app.models.user import ROLES, RefreshToken, User
 
 __all__ = [
     "Question",
@@ -14,4 +15,7 @@ __all__ = [
     "DIFFICULTIES",
     "QUESTION_TYPES",
     "SOURCES",
+    "User",
+    "RefreshToken",
+    "ROLES",
 ]

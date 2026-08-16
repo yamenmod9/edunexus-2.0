@@ -14,6 +14,17 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = None
 
+    # Access tokens are short-lived because they cannot be revoked; refresh
+    # tokens are long-lived but individually revocable (see RefreshToken).
+    ACCESS_TOKEN_TTL_MINUTES = int(os.environ.get("ACCESS_TOKEN_TTL_MINUTES", 15))
+    REFRESH_TOKEN_TTL_DAYS = int(os.environ.get("REFRESH_TOKEN_TTL_DAYS", 30))
+
+    RATE_LIMIT_ENABLED = True
+    AUTH_RATE_LIMIT_ATTEMPTS = int(os.environ.get("AUTH_RATE_LIMIT_ATTEMPTS", 10))
+    AUTH_RATE_LIMIT_WINDOW_SECONDS = int(
+        os.environ.get("AUTH_RATE_LIMIT_WINDOW_SECONDS", 300)
+    )
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
@@ -28,6 +39,9 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    # Off by default so unrelated tests aren't throttled; the rate-limit
+    # tests re-enable it explicitly.
+    RATE_LIMIT_ENABLED = False
 
     def __init__(self):
         self.SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"

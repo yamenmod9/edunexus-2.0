@@ -24,6 +24,48 @@ def db(app):
     return _db
 
 
+class AuthedClient:
+    """Test client that attaches a bearer token to every request, so tests
+    about question behaviour don't have to restate auth plumbing. Access
+    control itself is covered in test_question_access_control.py."""
+
+    def __init__(self, client, token):
+        self._client = client
+        self._headers = {"Authorization": f"Bearer {token}"}
+
+    def _call(self, method, *args, **kwargs):
+        headers = {**self._headers, **kwargs.pop("headers", {})}
+        return getattr(self._client, method)(*args, headers=headers, **kwargs)
+
+    def get(self, *a, **kw):
+        return self._call("get", *a, **kw)
+
+    def post(self, *a, **kw):
+        return self._call("post", *a, **kw)
+
+    def patch(self, *a, **kw):
+        return self._call("patch", *a, **kw)
+
+    def delete(self, *a, **kw):
+        return self._call("delete", *a, **kw)
+
+
+@pytest.fixture
+def admin_client(client, db):
+    """A client authenticated as an admin — full access to the question bank."""
+    from app.models import User
+
+    creds = {"email": "fixture-admin@example.com", "password": "fixture pass 1"}
+    client.post("/api/auth/register", json=creds)
+
+    user = db.session.query(User).filter_by(email=creds["email"]).one()
+    user.role = "admin"
+    db.session.commit()
+
+    token = client.post("/api/auth/login", json=creds).get_json()["access_token"]
+    return AuthedClient(client, token)
+
+
 def make_question(**overrides):
     """A valid multiple-choice math question; override fields per test."""
     question = {
