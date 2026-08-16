@@ -61,7 +61,7 @@ def open_attempt_for(user):
     )
 
 
-def start_attempt(user, form, threshold):
+def start_attempt(user, form, threshold, scale_table_id=None):
     """Creates the attempt and opens module 1. One attempt at a time per user:
     a second live attempt would let a student scout a form's module 1, abandon,
     and restart knowing the questions."""
@@ -83,6 +83,7 @@ def start_attempt(user, form, threshold):
         form=form,
         status="in_progress",
         routing_threshold=threshold,
+        scale_table_id=scale_table_id,
         started_at=_utcnow(),
     )
     db.session.add(attempt)

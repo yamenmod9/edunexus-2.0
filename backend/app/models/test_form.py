@@ -181,7 +181,10 @@ class FormQuestion(db.Model):
     position = db.Column(db.Integer, nullable=False)
 
     module = db.relationship("Module", back_populates="form_questions")
-    question = db.relationship("Question")
+    # selectin, not the default lazy select: assembling or delivering a module
+    # touches every question in it, and one query per question makes a
+    # full-length 27-question module 27 round trips.
+    question = db.relationship("Question", lazy="selectin")
 
     __table_args__ = (
         db.UniqueConstraint("module_id", "position", name="uq_form_question_position"),

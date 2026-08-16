@@ -101,6 +101,7 @@ rather than empty strings.
 | POST | `/api/attempts/<id>/submit` | **user** | end the attempt wherever you are |
 | POST | `/api/attempts/<id>/abandon` | **user** | discard without finishing |
 | GET | `/api/attempts/<id>/review` | **user** | 409 until the attempt is over |
+| GET | `/api/attempts/<id>/score` | **user** | score report; 409 until the attempt is over |
 
 Attempt and form routes are owner-scoped and answer 404 — not 403 — for
 someone else's attempt, so ids cannot be probed. Admins get no back door into
@@ -219,6 +220,56 @@ question that is part of the caller's in-progress attempt.
 abandoned; afterwards it returns the key, the grading, and the routing
 decision with its inputs. It reports **raw counts only** — scaled scores are
 Phase 4.
+
+## Scoring
+
+**These scores are an approximation and are not official SAT equating.**
+Real scaling is IRT-based and needs College Board's per-item calibration
+data, which we do not have (`CLAUDE.md` §7). Every score payload carries
+`approximation: true` and a note saying so; any UI that displays a score must
+surface that caveat rather than presenting the number bare.
+
+`GET /api/attempts/<id>/score` returns the report, and `/review` embeds the
+same object under `score` so a result screen needs one request, not two.
+
+### Conversion tables are data
+
+The curves live in `app/data/scoring/edunexus_approx_v1.json`, not in code, so
+better estimates can be dropped in without touching `scoring_service.py`.
+Regenerate with:
+
+```bash
+.venv/Scripts/python.exe -m scripts.generate_scale_table
+.venv/Scripts/python.exe -m scripts.generate_scale_table --stdout   # preview
+```
+
+Each section has two curves. Routing to the easier module 2 **caps the
+section** — the easy path tops out at 600, the hard path at 800 — because a
+student who never saw the harder questions has not shown they can answer
+them. The practical effect: the same raw score is worth about 140 points more
+on the hard path.
+
+Section scores are 200–800 in multiples of 10, totals 400–1600. Curves are
+generated non-decreasing, so an extra correct answer can never lower a score.
+
+`SCALE_TABLE_ID` selects the table for **new** attempts. Each attempt stores
+the id it was started under, so re-scaling never rewrites a score a student
+has already been shown.
+
+### Short forms
+
+A practice form may run 8 questions a module rather than 27. Raw scores are
+projected onto the table's canonical length (54 R&W, 44 Math) before lookup.
+That projection is itself an approximation — 6/8 is treated as equivalent to
+40/54, which real equating would not accept.
+
+### Incomplete attempts
+
+A section the student never finished reports `scaled_score: null` with an
+`incomplete_reason`, and the total is null unless both sections are complete.
+Raw counts and the per-domain breakdown are still reported. Half a test does
+not have a 400–1600 score, and inventing one would be the wrong kind of
+helpful.
 
 ## Deployment
 

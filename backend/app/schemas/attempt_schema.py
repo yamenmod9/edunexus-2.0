@@ -10,6 +10,7 @@ answer key.
 from marshmallow import Schema, ValidationError, fields, validate, validates_schema
 
 from app.models import MODULES_PER_SECTION, SECTION_ORDER
+from app.services.scoring_service import score_attempt
 
 # Fields a student may see while the question is live in front of them.
 # `correct_answer` and `rationale` are the obvious exclusions. `difficulty` is
@@ -107,8 +108,9 @@ def serialize_attempt(attempt, now=None):
 
 
 def serialize_review(attempt):
-    """Only ever called once the attempt is finished. Scoring itself is Phase
-    4 - this reports raw correct counts, not a scaled score."""
+    """Only ever called once the attempt is finished. Carries the score report
+    inline so a client does not need a second round trip to show a result
+    alongside the question-by-question review."""
     modules = []
     for module_attempt in attempt.module_attempts:
         module = module_attempt.module
@@ -165,10 +167,7 @@ def serialize_review(attempt):
             )
             for section in SECTION_ORDER
         },
-        "scoring_note": (
-            "Raw counts only. Scaled scores (200-800 per section) arrive in "
-            "Phase 4 and will be an approximation, not IRT equating."
-        ),
+        "score": score_attempt(attempt),
     }
 
 

@@ -106,16 +106,28 @@ section. No scaled score yet.
 
 ---
 
-## Phase 4 — Scoring
+## Phase 4 — Scoring  ✅ COMPLETE (2026-08-16)
 
-| # | Task |
-|---|---|
-| 4.1 | Raw score per section from responses |
-| 4.2 | Raw → scaled conversion tables (200–800/section), module-2-variant aware, as data not hardcoded logic |
-| 4.3 | Score report: total, per-section, per-domain breakdown |
-| 4.4 | Tests incl. boundary raw scores (0, max, off-by-one at table edges) |
+| # | Task | Status |
+|---|---|---|
+| 4.1 | Raw score per section from responses | ✅ |
+| 4.2 | Raw → scaled conversion tables (200–800/section), module-2-variant aware, as data not hardcoded logic | ✅ |
+| 4.3 | Score report: total, per-section, per-domain breakdown | ✅ |
+| 4.4 | Tests incl. boundary raw scores (0, max, off-by-one at table edges) | ✅ |
+| 4.5 | `scripts/generate_scale_table.py` — regenerates the table as data | ✅ |
+| 4.6 | Migration `0004` — snapshot `scale_table_id` per attempt | ✅ |
 
-**Constraint (`CLAUDE.md` §7):** this is an **approximation**, not IRT equating — real equating needs College Board calibration data we don't have. Must be commented as such in code and surfaced in any UI that displays a score.
+**Constraint (`CLAUDE.md` §7):** this is an **approximation**, not IRT equating — real equating needs College Board calibration data we don't have. Honoured in three places: a header warning in `scoring_service.py`, `"approximation": true` plus a note on every score payload, and `"approximation": true` inside the table file itself.
+
+**Exit criteria — all met:** raw 0 scores 200 and raw max scores 800 (hard) / 600 (easy) in both sections; curves verified dense, non-decreasing, in-scale and multiples of 10; off-by-one at both table edges pinned; driven live through to a score report. 214/214 tests pass.
+
+**Decisions taken:**
+- **The easier module 2 caps the section** (600 vs 800). Live-verified: the same 8/16 raw scores 570 on the hard path and 430 on the easy one, 140 points apart. Without this, adaptive routing would have no effect on the score and Phase 3 would be decorative.
+- **Short forms are projected onto the canonical length** (54 R&W / 44 Math) before lookup, so practice forms score. Flagged as an approximation on top of an approximation.
+- **Incomplete sections score `null`, not a number.** A section whose module 2 was never reached has no routed path to scale against, and the total is null unless both sections are complete.
+- **`scale_table_id` is snapshotted per attempt**, like `routing_threshold` in Phase 3, so re-scaling cannot rewrite a score already shown.
+
+**Bug found while auditing:** delivering a module issued one SELECT per question (27 on a full-length module) and scoring issued one per delivered question (98 on a full attempt). Both relationships are now `lazy="selectin"`; `tests/test_query_efficiency.py` guards the regression.
 
 ---
 

@@ -21,6 +21,7 @@ from app.services.attempt_service import (
     sync_timers,
 )
 from app.services.form_service import get_form
+from app.services.scoring_service import ScoringError, score_attempt
 
 bp = Blueprint("attempts", __name__, url_prefix="/api/attempts")
 
@@ -49,7 +50,10 @@ def start_attempt_route():
 
     try:
         attempt = start_attempt(
-            g.current_user, form, current_app.config["ROUTING_THRESHOLD"]
+            g.current_user,
+            form,
+            current_app.config["ROUTING_THRESHOLD"],
+            current_app.config["SCALE_TABLE_ID"],
         )
     except AttemptError as exc:
         return jsonify({"error": str(exc)}), exc.status
@@ -205,4 +209,31 @@ def review_attempt_route(attempt_id):
             409,
         )
 
-    return jsonify(serialize_review(attempt))
+    try:
+        return jsonify(serialize_review(attempt))
+    except ScoringError as exc:
+        return jsonify({"error": str(exc)}), 500
+
+
+@bp.get("/<attempt_id>/score")
+@require_auth
+def score_attempt_route(attempt_id):
+    """The score report on its own, for a client that wants the result without
+    pulling every question back down with it."""
+    attempt, error = _load_attempt(attempt_id)
+    if error:
+        return error
+
+    sync_timers(attempt)
+    if attempt.is_open:
+        return (
+            jsonify({"error": "a score is available once the attempt is submitted"}),
+            409,
+        )
+
+    try:
+        return jsonify(score_attempt(attempt))
+    except ScoringError as exc:
+        # A missing or malformed table is an operator problem, not the
+        # student's, and should not read as a client error.
+        return jsonify({"error": str(exc)}), 500

@@ -234,15 +234,15 @@ def test_review_exposes_the_routing_decision_after_the_fact(student_client, form
     assert review["routing_threshold"] == 0.6
 
 
-def test_review_reports_raw_counts_and_flags_scoring_as_later_work(
-    student_client, form
-):
+def test_review_reports_raw_counts_alongside_the_score(student_client, form):
     state = start(student_client, form)
     student_client.post(f"/api/attempts/{state['id']}/submit")
     review = student_client.get(f"/api/attempts/{state['id']}/review").get_json()
 
     assert set(review["raw_correct_by_section"]) == {"reading_writing", "math"}
-    assert "Phase 4" in review["scoring_note"]
+    # Scoring itself is covered in test_scoring.py; what matters here is that
+    # the review carries it and carries the caveat with it.
+    assert review["score"]["approximation"] is True
 
 
 def test_review_of_an_abandoned_attempt_is_allowed(student_client, form):

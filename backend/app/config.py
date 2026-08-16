@@ -36,6 +36,10 @@ class Config:
     # so changing this never rewrites a test already under way.
     ROUTING_THRESHOLD = _routing_threshold()
 
+    # Which raw-to-scaled conversion table new attempts are scored against.
+    # See app/data/scoring/ and CLAUDE.md section 7 - these are approximate.
+    SCALE_TABLE_ID = os.environ.get("SCALE_TABLE_ID", "edunexus-approx-v1")
+
     RATE_LIMIT_ENABLED = True
     AUTH_RATE_LIMIT_ATTEMPTS = int(os.environ.get("AUTH_RATE_LIMIT_ATTEMPTS", 10))
     AUTH_RATE_LIMIT_WINDOW_SECONDS = int(

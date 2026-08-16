@@ -37,6 +37,12 @@ class TestAttempt(db.Model):
     # and so any past routing decision stays explainable from stored data.
     routing_threshold = db.Column(db.Float, nullable=False)
 
+    # Snapshotted for the same reason: re-scaling the conversion tables must
+    # not silently rewrite a score a student has already been shown. Nullable
+    # because attempts predating Phase 4 have none; scoring falls back to the
+    # current default for those.
+    scale_table_id = db.Column(db.String(64), nullable=True)
+
     started_at = db.Column(db.DateTime, nullable=False, default=_utcnow_naive)
     submitted_at = db.Column(db.DateTime, nullable=True)
 
@@ -164,7 +170,9 @@ class AnswerResponse(db.Model):
     answered_at = db.Column(db.DateTime, nullable=True)
 
     module_attempt = db.relationship("ModuleAttempt", back_populates="responses")
-    question = db.relationship("Question")
+    # See FormQuestion.question - same batching, for delivery, grading and the
+    # score report's per-domain breakdown.
+    question = db.relationship("Question", lazy="selectin")
 
     __table_args__ = (
         db.UniqueConstraint(
