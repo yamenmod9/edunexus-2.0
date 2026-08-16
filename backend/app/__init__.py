@@ -1,6 +1,7 @@
 from flask import Flask
 
 from app.config import get_config
+from app.cors import init_cors
 from app.extensions import db, migrate
 from app.routes import register_routes
 
@@ -16,6 +17,7 @@ def create_app(config_name=None):
     db.init_app(app)
     migrate.init_app(app, db)
 
+    init_cors(app)
     register_routes(app)
 
     return app

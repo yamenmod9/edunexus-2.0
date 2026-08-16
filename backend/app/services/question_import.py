@@ -1,4 +1,5 @@
 import csv
+import io
 import json
 from dataclasses import dataclass, field
 
@@ -78,3 +79,20 @@ def import_from_csv(file_path: str) -> ImportResult:
         reader = csv.DictReader(f)
         records = [_clean_row(row) for row in reader]
     return import_records(records)
+
+
+def parse_csv_text(text: str) -> list[dict]:
+    """CSV rows from an uploaded body rather than a path. Split out so the
+    admin upload endpoint and the CLI share one parser and cannot drift in
+    how they treat empty cells or JSON columns."""
+    reader = csv.DictReader(io.StringIO(text))
+    return [_clean_row(row) for row in reader]
+
+
+def parse_json_text(text: str) -> list[dict]:
+    data = json.loads(text)
+    if isinstance(data, dict):
+        data = data.get("questions", [])
+    if not isinstance(data, list):
+        raise ValueError("expected a JSON array of questions")
+    return [_clean_row(record) for record in data]

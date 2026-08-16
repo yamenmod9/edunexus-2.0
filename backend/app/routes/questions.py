@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, g, jsonify, request
 from marshmallow import ValidationError
 
@@ -11,6 +13,11 @@ from app.schemas import (
     student_questions_schema,
 )
 from app.services.attempt_service import question_ids_in_open_attempts
+from app.services.question_import import (
+    import_records,
+    parse_csv_text,
+    parse_json_text,
+)
 from app.services.grading_service import grade
 from app.services.question_service import (
     create_question,
@@ -168,4 +175,60 @@ def check_answer_route(question_id):
             "correct_answer": question.correct_answer,
             "rationale": question.rationale,
         }
+    )
+
+
+MAX_IMPORT_BYTES = 2 * 1024 * 1024
+
+
+@bp.post("/import")
+@require_admin
+def import_questions_route():
+    """Bulk import for the admin UI. Accepts a multipart file upload (.csv or
+    .json) or a raw JSON array body.
+
+    Mirrors the CLI: every row is validated on its own, valid rows import even
+    when siblings fail, and failures come back with their row index so the
+    admin can fix the source file rather than guess.
+    """
+    upload = request.files.get("file")
+    try:
+        if upload is not None:
+            raw = upload.read(MAX_IMPORT_BYTES + 1)
+            if len(raw) > MAX_IMPORT_BYTES:
+                return jsonify({"error": "file is larger than 2 MB"}), 413
+            text = raw.decode("utf-8")
+            name = (upload.filename or "").lower()
+            if name.endswith(".csv"):
+                records = parse_csv_text(text)
+            elif name.endswith(".json"):
+                records = parse_json_text(text)
+            else:
+                return (
+                    jsonify({"error": "file must be .csv or .json"}),
+                    422,
+                )
+        else:
+            payload = request.get_json(force=True, silent=True)
+            if payload is None:
+                return jsonify({"error": "provide a file upload or a JSON body"}), 422
+            records = parse_json_text(json.dumps(payload))
+    except UnicodeDecodeError:
+        return jsonify({"error": "file must be UTF-8 encoded"}), 422
+    except (ValueError, json.JSONDecodeError) as exc:
+        return jsonify({"error": f"could not parse the import: {exc}"}), 422
+
+    if not records:
+        return jsonify({"error": "no questions found in the import"}), 422
+
+    result = import_records(records)
+    return (
+        jsonify(
+            {
+                "imported": result.created,
+                "failed": len(result.errors),
+                "errors": result.errors,
+            }
+        ),
+        200 if result.success else 207,
     )

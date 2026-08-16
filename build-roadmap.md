@@ -131,22 +131,34 @@ section. No scaled score yet.
 
 ---
 
-## Phase 5 — React web frontend
+## Phase 5 — React web frontend  ⚠️ BUILT, NOT DEPLOYED
 
 First frontend. `web/`, React + Vite + Tailwind.
 
-| # | Task |
-|---|---|
-| 5.1 | Scaffold, routing, API client with token refresh interception |
-| 5.2 | Auth screens (register/login/logout) |
-| 5.3 | Practice mode: filter bank, solve, rationale after answer, KaTeX math |
-| 5.4 | Test player: module UI, timer display (server clock is source of truth), navigation, review screen, submit |
-| 5.5 | Score report screen |
-| 5.6 | Admin: question authoring/edit + CSV import UI |
-| 5.7 | Responsive + keyboard accessible |
-| 5.8 | Backend CORS allowlist for the deployed web origin |
+| # | Task | Status |
+|---|---|---|
+| 5.1 | Scaffold, routing, API client with token refresh interception | ✅ |
+| 5.2 | Auth screens (register/login/logout) | ✅ |
+| 5.3 | Practice mode: filter bank, solve, rationale after answer, KaTeX math | ✅ |
+| 5.4 | Test player: module UI, timer display (server clock is source of truth), navigation, review screen, submit | ✅ |
+| 5.5 | Score report screen | ✅ |
+| 5.6 | Admin: question authoring/edit + CSV import UI | ✅ |
+| 5.7 | Responsive + keyboard accessible | ✅ |
+| 5.8 | Backend CORS allowlist for the deployed web origin | ⛔ blocked |
+| 5.9 | Backend `GET /api/taxonomy` so the client never hard-codes the taxonomy | ✅ |
+| 5.10 | Backend `POST /api/questions/import` for the admin CSV upload | ✅ |
 
-**Exit criteria:** full student journey (register → practice → full adaptive test → score report) driven in a real browser.
+**Exit criteria — met locally:** the full journey (register → practice → full 4-module adaptive test → score report) runs in real Chromium via `web/e2e/journey.spec.js`. 7/7 journey, 10/10 accessibility, 16/16 API-client unit tests, 238/238 backend tests.
+
+**Blocked:** 5.8 needs the deployed origin, which needs a Cloudflare Pages deploy, which needs the user's Cloudflare account auth (`wrangler login` or an API token). Everything else in the phase is done.
+
+**Scope added beyond the original task list:** the frontend needed three things the backend did not have — CORS (none existed), a taxonomy endpoint (otherwise the client duplicates the `CLAUDE.md` §5 taxonomy and drifts), and a bulk-import endpoint (import was CLI-only, so 5.6's "CSV import UI" had nothing to call).
+
+**Decisions taken:**
+- **Refresh is single-flight.** The backend rotates refresh tokens, so two concurrent 401s each firing their own refresh would make the second present a revoked token and log the student out mid-test. Verified by removing the guard: the test fails with 3 refreshes instead of 1.
+- **The countdown never ends a module.** It re-syncs to the server's `seconds_remaining` on every response and, at zero, asks the server what happens. A client that expired its own module would hand anyone with devtools extra time.
+- **Tokens live in `localStorage`.** Bearer tokens are a `CLAUDE.md` requirement so one API serves web and Flutter alike; the XSS tradeoff is why access tokens are 15 minutes and refresh tokens are revocable.
+- **The score is never rendered without its approximation caveat**, per §7.
 
 **Note:** the client renders and reports; it never decides routing or computes scores.
 

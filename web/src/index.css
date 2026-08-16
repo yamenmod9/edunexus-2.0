@@ -1,0 +1,26 @@
+@import 'katex/dist/katex.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-slate-50 text-ink antialiased;
+  }
+  /* Visible keyboard focus everywhere. The default outline is removed by
+     Tailwind's reset, and without this the app is unusable by keyboard. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-slate-50;
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply absolute left-2 top-2 z-50 -translate-y-16 rounded bg-accent px-4 py-2
+           text-white transition focus:translate-y-0;
+  }
+}

@@ -40,6 +40,14 @@ class Config:
     # See app/data/scoring/ and CLAUDE.md section 7 - these are approximate.
     SCALE_TABLE_ID = os.environ.get("SCALE_TABLE_ID", "edunexus-approx-v1")
 
+    # Exact origins allowed to call this API from a browser. Comma-separated
+    # in the environment. Native clients ignore CORS entirely.
+    CORS_ORIGINS = tuple(
+        origin.strip()
+        for origin in os.environ.get("CORS_ORIGINS", "").split(",")
+        if origin.strip()
+    )
+
     RATE_LIMIT_ENABLED = True
     AUTH_RATE_LIMIT_ATTEMPTS = int(os.environ.get("AUTH_RATE_LIMIT_ATTEMPTS", 10))
     AUTH_RATE_LIMIT_WINDOW_SECONDS = int(
@@ -51,6 +59,11 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
     def __init__(self):
+        # Vite's dev server, so the SPA works locally with no configuration.
+        self.CORS_ORIGINS = Config.CORS_ORIGINS or (
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+        )
         # Local dev works without Supabase credentials; set DATABASE_URL to
         # point at the real Postgres instance.
         self.SQLALCHEMY_DATABASE_URI = _normalize_db_url(
@@ -60,6 +73,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    CORS_ORIGINS = ("http://localhost:5173",)
     # Off by default so unrelated tests aren't throttled; the rate-limit
     # tests re-enable it explicitly.
     RATE_LIMIT_ENABLED = False
@@ -80,6 +94,7 @@ class ProductionConfig(Config):
 
         self.SECRET_KEY = os.environ["SECRET_KEY"]
         self.SQLALCHEMY_DATABASE_URI = _normalize_db_url(database_url)
+        self.CORS_ORIGINS = Config.CORS_ORIGINS
         # Supabase's pooler drops idle connections; recycle before it does.
         self.SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True, "pool_recycle": 280}
 

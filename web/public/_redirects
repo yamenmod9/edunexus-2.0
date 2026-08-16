@@ -1,0 +1,3 @@
+# SPA fallback: React Router owns the URL space, so any unknown path must be
+# served index.html. Without this, refreshing on /tests/<id> 404s on Pages.
+/*    /index.html   200
