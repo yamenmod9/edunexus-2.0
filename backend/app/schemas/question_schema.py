@@ -70,3 +70,28 @@ class QuestionSchema(Schema):
 question_schema = QuestionSchema()
 questions_schema = QuestionSchema(many=True)
 question_update_schema = QuestionSchema(partial=True)
+
+# What a non-admin sees when browsing the bank. An allowlist, not an exclude
+# list, so a field added to QuestionSchema later cannot leak by default. Note
+# what is missing: `correct_answer` and `rationale`. Students check an answer
+# through POST /api/questions/<id>/check, which grades server-side and refuses
+# questions that are live in their current test attempt.
+STUDENT_QUESTION_FIELDS = (
+    "id",
+    "section",
+    "domain",
+    "skill",
+    "difficulty",
+    "question_type",
+    "stimulus",
+    "stem",
+    "choices",
+    "figure_url",
+    "source",
+    "external_id",
+    "created_at",
+    "updated_at",
+)
+
+student_question_schema = QuestionSchema(only=STUDENT_QUESTION_FIELDS)
+student_questions_schema = QuestionSchema(only=STUDENT_QUESTION_FIELDS, many=True)

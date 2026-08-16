@@ -13,6 +13,18 @@ from app.schemas.question_schema import (
     question_schema,
     question_update_schema,
     questions_schema,
+    student_question_schema,
+    student_questions_schema,
+)
+from app.schemas.form_schema import CreateFormSchema, create_form_schema
+from app.schemas.attempt_schema import (
+    check_answer_schema,
+    response_schema,
+    serialize_attempt,
+    serialize_current_module,
+    serialize_delivered_question,
+    serialize_review,
+    start_attempt_schema,
 )
 
 __all__ = [
@@ -20,6 +32,17 @@ __all__ = [
     "question_schema",
     "questions_schema",
     "question_update_schema",
+    "student_question_schema",
+    "student_questions_schema",
+    "CreateFormSchema",
+    "create_form_schema",
+    "start_attempt_schema",
+    "response_schema",
+    "check_answer_schema",
+    "serialize_attempt",
+    "serialize_current_module",
+    "serialize_delivered_question",
+    "serialize_review",
     "RegisterSchema",
     "LoginSchema",
     "RefreshSchema",

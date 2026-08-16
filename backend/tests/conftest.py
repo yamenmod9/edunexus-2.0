@@ -46,6 +46,9 @@ class AuthedClient:
     def patch(self, *a, **kw):
         return self._call("patch", *a, **kw)
 
+    def put(self, *a, **kw):
+        return self._call("put", *a, **kw)
+
     def delete(self, *a, **kw):
         return self._call("delete", *a, **kw)
 
@@ -101,3 +104,89 @@ def make_grid_in(**overrides):
     }
     question.update(overrides)
     return question
+
+
+@pytest.fixture
+def student_client(client, db):
+    """A client authenticated as an ordinary student."""
+    creds = {"email": "fixture-student@example.com", "password": "fixture pass 1"}
+    client.post("/api/auth/register", json=creds)
+    token = client.post("/api/auth/login", json=creds).get_json()["access_token"]
+    return AuthedClient(client, token)
+
+
+def register_student(client, email, password="fixture pass 1"):
+    client.post("/api/auth/register", json={"email": email, "password": password})
+    token = client.post(
+        "/api/auth/login", json={"email": email, "password": password}
+    ).get_json()["access_token"]
+    return AuthedClient(client, token)
+
+
+# A short blueprint: 2 questions per module means a section needs 6 in the
+# bank, which keeps the end-to-end attempt tests fast to drive and read.
+SHORT_BLUEPRINT = {
+    "reading_writing": {"questions_per_module": 2, "time_limit_seconds": 1800},
+    "math": {"questions_per_module": 2, "time_limit_seconds": 1800},
+}
+
+DOMAINS = {
+    "math": ("algebra", "advanced_math", "problem_solving_data_analysis", "geometry_trigonometry"),
+    "reading_writing": (
+        "information_ideas",
+        "craft_structure",
+        "expression_of_ideas",
+        "standard_english_conventions",
+    ),
+}
+
+
+def seed_bank(db, per_difficulty=3):
+    """Fills the bank with questions spread over both sections, all four
+    domains of each, and every difficulty. Answers are deterministic: the
+    correct choice is always 'B', which lets a test answer exactly as many
+    questions right as it means to."""
+    from app.models import Question
+
+    created = []
+    for section, domains in DOMAINS.items():
+        for difficulty in ("easy", "medium", "hard"):
+            for index in range(per_difficulty):
+                domain = domains[index % len(domains)]
+                question = Question(
+                    section=section,
+                    domain=domain,
+                    skill=f"{domain} skill",
+                    difficulty=difficulty,
+                    question_type="multiple_choice",
+                    stem=f"{section} / {difficulty} / {index}",
+                    choices=[
+                        {"id": "A", "text": "wrong"},
+                        {"id": "B", "text": "right"},
+                        {"id": "C", "text": "wrong"},
+                        {"id": "D", "text": "wrong"},
+                    ],
+                    correct_answer="B",
+                    rationale="Because B.",
+                    source="self_authored",
+                )
+                db.session.add(question)
+                created.append(question)
+    db.session.commit()
+    return created
+
+
+def build_form(db, name="Practice Form A", blueprint=None, seed=7):
+    from app.services.form_service import assemble_form
+
+    form, _ = assemble_form(
+        name=name, blueprint=blueprint or SHORT_BLUEPRINT, seed=seed
+    )
+    return form
+
+
+@pytest.fixture
+def form(db):
+    """A seeded bank plus one short, playable form."""
+    seed_bank(db)
+    return build_form(db)

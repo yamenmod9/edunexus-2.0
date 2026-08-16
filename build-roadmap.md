@@ -60,23 +60,49 @@ JWT bearer tokens (not cookie sessions) so web and Flutter clients use one ident
 
 ---
 
-## Phase 3 — Adaptive test engine
+## Phase 3 — Adaptive test engine  ✅ COMPLETE (2026-08-16)
 
 The MST state machine. Server-side only (`CLAUDE.md` §7) — never in a client.
 
-| # | Task |
-|---|---|
-| 3.1 | Models: `TestForm`, `Module`, `TestAttempt`, `ModuleAttempt`, `AnswerResponse` |
-| 3.2 | Form assembly: build a form from the bank by section/domain/difficulty blueprint |
-| 3.3 | Attempt lifecycle: start → module 1 → route → module 2 → next section → submit |
-| 3.4 | **Routing service** — module 1 performance → easy/hard module 2 variant, threshold configurable and recorded per attempt |
-| 3.5 | Server-tracked timers: per-module deadline stored server-side; late submissions rejected/flagged |
-| 3.6 | Answer submission, per-question review flags, navigation within a module |
-| 3.7 | Resume-in-progress attempt (network drop / app close) |
-| 3.8 | Correct answers + rationales withheld until the attempt is submitted |
-| 3.9 | Tests: routing at/above/below threshold, timer expiry, resume, no answer-key leakage |
+| # | Task | Status |
+|---|---|---|
+| 3.1 | Models: `TestForm`, `Module`, `FormQuestion`, `TestAttempt`, `ModuleAttempt`, `AnswerResponse` | ✅ |
+| 3.2 | Form assembly: build a form from the bank by section/domain/difficulty blueprint | ✅ |
+| 3.3 | Attempt lifecycle: start → module 1 → route → module 2 → next section → submit | ✅ |
+| 3.4 | **Routing service** — module 1 performance → easy/hard module 2 variant, threshold configurable and recorded per attempt | ✅ |
+| 3.5 | Server-tracked timers: per-module deadline stored server-side; late submissions rejected/flagged | ✅ |
+| 3.6 | Answer submission, per-question review flags, navigation within a module | ✅ |
+| 3.7 | Resume-in-progress attempt (network drop / app close) | ✅ |
+| 3.8 | Correct answers + rationales withheld until the attempt is submitted | ✅ |
+| 3.9 | Tests: routing at/above/below threshold, timer expiry, resume, no answer-key leakage | ✅ |
+| 3.10 | `scripts/build_form.py` — form assembly CLI with `--dry-run` | ✅ |
+| 3.11 | Migration `0003`, applied to Supabase and verified drift-free | ✅ |
 
-**Exit criteria:** a full 4-module attempt driven end to end via API; routing decision provably server-side; no response payload leaks a correct answer before submission.
+**Exit criteria — all met:** a full 4-module attempt driven end to end over
+HTTP, routing up in one section and down in the other in the same run; the
+routing decision is made only in `app/services/routing_service.py` and its
+inputs are stored per module attempt; no payload before submission contains
+`correct_answer`, `rationale`, `difficulty` or `is_correct`. 170/170 tests
+pass.
+
+**Scope added beyond the original task list:** 3.8 was not enforceable on its
+own. An attempt hands the student real question ids, and `GET
+/api/questions/<id>` returned the answer outright — so the bank routes now
+omit `correct_answer`/`rationale` for non-admins, and practice-mode grading
+moved to `POST /api/questions/<id>/check`, which refuses questions inside the
+caller's live attempt.
+
+**Decisions taken:**
+- One open attempt per user at a time. Otherwise a student could scout a
+  form's module 1, abandon, and restart already knowing the questions.
+- An expired module chains the next module's clock from its **deadline**, not
+  from reconnect, so closing the app cannot buy extra time.
+- Routing at exactly the threshold routes **up** (inclusive boundary).
+- Attempts are owner-scoped with 404, and admins get no back door — support
+  access, if it is ever wanted, should be a deliberate audited feature.
+
+**Deferred to Phase 4:** review returns raw correct counts per module and
+section. No scaled score yet.
 
 ---
 

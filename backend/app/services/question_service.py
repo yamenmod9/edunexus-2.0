@@ -1,5 +1,5 @@
 from app.extensions import db
-from app.models import Question
+from app.models import AnswerResponse, FormQuestion, Question
 
 
 def create_question(data: dict) -> Question:
@@ -22,6 +22,24 @@ def update_question(question: Question, data: dict) -> Question:
         setattr(question, key, value)
     db.session.commit()
     return question
+
+
+def question_usage(question: Question) -> dict:
+    """Where a question is referenced by the test engine. Both foreign keys are
+    ON DELETE RESTRICT, so without this check a delete surfaces as a database
+    integrity error rather than an explainable 409."""
+    return {
+        "forms": (
+            db.session.query(FormQuestion)
+            .filter_by(question_id=question.id)
+            .count()
+        ),
+        "attempts": (
+            db.session.query(AnswerResponse)
+            .filter_by(question_id=question.id)
+            .count()
+        ),
+    }
 
 
 def delete_question(question: Question) -> None:

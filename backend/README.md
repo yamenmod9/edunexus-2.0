@@ -84,9 +84,27 @@ rather than empty strings.
 | POST | `/api/auth/password` | user | changes password, revokes all sessions |
 | GET | `/api/questions` | **user** | filter + paginate |
 | GET | `/api/questions/<id>` | **user** | |
+| POST | `/api/questions/<id>/check` | **user** | practice grading; 409 for a question in your live attempt |
 | POST | `/api/questions` | **admin** | 201, or 422 with per-field errors |
 | PATCH | `/api/questions/<id>` | **admin** | partial; re-validates the merged record |
 | DELETE | `/api/questions/<id>` | **admin** | 204 |
+| GET | `/api/forms` | **user** | active forms; admins see every form and its variants |
+| GET | `/api/forms/<id>` | **user** | |
+| POST | `/api/forms` | **admin** | assembles a form from the bank; 422 with shortfalls if the bank is thin |
+| DELETE | `/api/forms/<id>` | **admin** | 204; 409 once the form has attempts |
+| POST | `/api/attempts` | **user** | starts an attempt; 409 if one is already open |
+| GET | `/api/attempts` | **user** | your own attempts, newest first |
+| GET | `/api/attempts/current` | **user** | resume: the open attempt, or `null` |
+| GET | `/api/attempts/<id>` | **user** | current module, questions, time left |
+| PUT | `/api/attempts/<id>/responses/<qid>` | **user** | `{"answer": "B", "flagged": true}` |
+| POST | `/api/attempts/<id>/module/complete` | **user** | finish the module early; triggers routing |
+| POST | `/api/attempts/<id>/submit` | **user** | end the attempt wherever you are |
+| POST | `/api/attempts/<id>/abandon` | **user** | discard without finishing |
+| GET | `/api/attempts/<id>/review` | **user** | 409 until the attempt is over |
+
+Attempt and form routes are owner-scoped and answer 404 — not 403 — for
+someone else's attempt, so ids cannot be probed. Admins get no back door into
+a student's attempt.
 
 Filters: `section`, `domain`, `skill`, `difficulty`, `question_type`, `source`,
 plus `page` / `per_page` (max 200).
@@ -134,6 +152,73 @@ Enforced in the schema and mirrored by database check constraints:
 - `domain` must belong to its `section` (taxonomy in `CLAUDE.md` §5)
 - `multiple_choice` requires `choices`; `grid_in` must not have them
 - `grid_in` is math-only
+
+## Adaptive test engine
+
+A **form** is a pre-assembled test: six modules, being module 1 plus both
+module 2 variants, for each of the two sections. An **attempt** walks four of
+them:
+
+```
+1  Reading & Writing module 1   same for everyone
+2  Reading & Writing module 2   routed from module 1
+3  Math module 1                same for everyone
+4  Math module 2                routed from module 3
+```
+
+Assemble a form from the bank:
+
+```bash
+.venv/Scripts/python.exe -m scripts.build_form "Practice Test 1"
+.venv/Scripts/python.exe -m scripts.build_form "Mini 1" --questions-per-module 8 --minutes 12
+.venv/Scripts/python.exe -m scripts.build_form "Practice Test 2" --seed 42 --dry-run
+```
+
+Defaults are the real Digital SAT shape — R&W 27 questions / 32 min per
+module, Math 22 / 35 — which needs 81 R&W and 66 Math questions in the bank.
+Assembly is all-or-nothing: a bank too thin for the blueprint fails with a
+per-section shortfall rather than writing a half-built form that would route
+students into an empty module 2.
+
+### Routing
+
+`app/services/routing_service.py` is the only place the module 2 decision is
+made. It compares the module 1 raw-score ratio against `ROUTING_THRESHOLD`
+(default `0.6`, inclusive — meeting it routes up). Every input is written to
+the module attempt, so a past decision stays explainable from stored data.
+
+The threshold is snapshotted onto the attempt when it starts, so changing the
+config never re-routes a test already under way.
+
+This is an **approximation**. The real exam routes on an IRT ability estimate
+that needs College Board item calibration data we do not have.
+
+### Timers
+
+Each module attempt stores `expires_at`, set server-side from the module's
+limit. The client is never the clock. Reading an attempt is what rolls an
+expired module forward, and the next module starts at the previous module's
+**deadline**, not at reconnect — otherwise closing the app during module 1
+would buy a fresh clock for module 2. A long enough absence expires every
+remaining module in one pass and submits the attempt.
+
+### Withholding the answer key
+
+Questions delivered during an attempt carry an explicit allowlist of fields
+(`app/schemas/attempt_schema.py`): no `correct_answer`, no `rationale`, and no
+`difficulty` — a module 2 full of hard questions would otherwise announce that
+the student routed up. Answers are graded server-side the moment they are
+submitted, but `is_correct` is never serialized back until the attempt is.
+
+The question bank is the other way in, so it is narrowed too: non-admin reads
+of `/api/questions` omit `correct_answer` and `rationale` entirely. Practice
+mode grades through `POST /api/questions/<id>/check`, which refuses any
+question that is part of the caller's in-progress attempt.
+
+`GET /api/attempts/<id>/review` returns 409 until the attempt is submitted or
+abandoned; afterwards it returns the key, the grading, and the routing
+decision with its inputs. It reports **raw counts only** — scaled scores are
+Phase 4.
 
 ## Deployment
 

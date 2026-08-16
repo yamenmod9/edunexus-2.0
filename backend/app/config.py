@@ -1,6 +1,18 @@
 import os
 
 
+def _routing_threshold():
+    """Validated at import, not at the first attempt: an out-of-range value
+    would otherwise surface as a 500 from a database check constraint, on a
+    student trying to start a test."""
+    value = float(os.environ.get("ROUTING_THRESHOLD", 0.6))
+    if not 0 <= value <= 1:
+        raise RuntimeError(
+            f"ROUTING_THRESHOLD must be between 0 and 1, got {value}"
+        )
+    return value
+
+
 def _normalize_db_url(url):
     """Supabase hands out `postgres://` URLs; SQLAlchemy 2.x requires
     the `postgresql://` scheme."""
@@ -18,6 +30,11 @@ class Config:
     # tokens are long-lived but individually revocable (see RefreshToken).
     ACCESS_TOKEN_TTL_MINUTES = int(os.environ.get("ACCESS_TOKEN_TTL_MINUTES", 15))
     REFRESH_TOKEN_TTL_DAYS = int(os.environ.get("REFRESH_TOKEN_TTL_DAYS", 30))
+
+    # Share of module 1 answered correctly at or above which a student is
+    # routed to the harder module 2. Snapshotted onto each attempt at start,
+    # so changing this never rewrites a test already under way.
+    ROUTING_THRESHOLD = _routing_threshold()
 
     RATE_LIMIT_ENABLED = True
     AUTH_RATE_LIMIT_ATTEMPTS = int(os.environ.get("AUTH_RATE_LIMIT_ATTEMPTS", 10))
