@@ -89,6 +89,30 @@ plus `page` / `per_page` (max 200).
 curl "http://127.0.0.1:5055/api/questions?section=math&difficulty=hard&per_page=10"
 ```
 
+## Deployment
+
+Deployed on Railway (project `gleaming-vitality`, service `edunexus-api`) from
+the `main` branch of `yamenmod9/edunexus-2.0-`.
+
+Railway service settings that matter:
+
+| Setting | Value |
+|---|---|
+| Root directory | `/backend` |
+| Start command | from `Procfile` (gunicorn) |
+| Healthcheck path | `/health` |
+
+Required environment variables in Railway:
+
+| Variable | Notes |
+|---|---|
+| `DATABASE_URL` | Supabase Postgres connection string |
+| `SECRET_KEY` | set in Railway, never committed |
+| `FLASK_ENV` | `production` |
+
+`ProductionConfig` raises at startup if `DATABASE_URL` or `SECRET_KEY` is
+missing — a misconfigured deploy fails loudly instead of booting broken.
+
 ### Validation rules
 
 Enforced in the schema and mirrored by database check constraints:
