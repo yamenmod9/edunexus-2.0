@@ -274,7 +274,7 @@ helpful.
 ## Deployment
 
 Deployed on Railway (project `gleaming-vitality`, service `edunexus-api`) from
-the `main` branch of `yamenmod9/edunexus-2.0-`.
+the `main` branch of `yamenmod9/edunexus-2.0`.
 
 Railway service settings that matter:
 

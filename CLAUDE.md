@@ -125,7 +125,7 @@ If question import is pulling from College Board's official Question Bank, confi
 
 ## 8. Repo & deployment
 
-Single GitHub repo containing all three top-level folders (`backend/`, `web/`, `mobile/`). Remote: `https://github.com/yamenmod9/edunexus-2.0-.git`.
+Single GitHub repo containing all three top-level folders (`backend/`, `web/`, `mobile/`). Remote: `https://github.com/yamenmod9/edunexus-2.0.git`.
 
 **While building:**
 - Work only within the current phase's folder (see §2 for phase order — Phase 1 is `backend/`).
@@ -135,7 +135,7 @@ Single GitHub repo containing all three top-level folders (`backend/`, `web/`, `
 **When the backend (Phase 1) is complete and its tests pass:**
 1. Run the full backend test suite and confirm it passes.
 2. Stage and commit all backend changes.
-3. If `origin` isn't already set, add it: `git remote add origin https://github.com/yamenmod9/edunexus-2.0-.git`
+3. If `origin` isn't already set, add it: `git remote add origin https://github.com/yamenmod9/edunexus-2.0.git`
 4. Push to `main`.
 5. Deploy to Railway:
    - Create a Railway service connected to this GitHub repo.
