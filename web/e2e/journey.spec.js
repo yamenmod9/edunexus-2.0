@@ -23,9 +23,42 @@ async function register(page, email) {
   await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeVisible()
 }
 
+/**
+ * Starts the short "Quick Check" form rather than whichever card happens to be
+ * first. Full-length forms carry 98 questions; clicking through them in the
+ * browser turns a 40-second suite into a 7-minute one, and the behaviour under
+ * test does not depend on module length.
+ */
+async function startQuickCheck(page) {
+  await page.getByRole('link', { name: 'Tests' }).click()
+  // The div must contain both the form's name and its button: filtering on the
+  // text alone matches the innermost wrapper, which holds the heading and not
+  // the button.
+  const card = page
+    .locator('div')
+    .filter({ hasText: 'Quick Check' })
+    .filter({ has: page.getByRole('button', { name: 'Start test' }) })
+    .last()
+  await card.getByRole('button', { name: 'Start test' }).click()
+}
+
+
 test('a visitor is sent to the login screen', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible()
+})
+
+test('the trademark disclaimer shows signed out and signed in', async ({ page }) => {
+  // A nominative-use disclaimer that quietly regresses away is a compliance
+  // problem, not a cosmetic one - so it is pinned on both shells. The
+  // non-affiliation clause is the load-bearing half; assert on that.
+  const notice = page.getByText(/not affiliated with, and does not endorse, this site/)
+
+  await page.goto('/login')
+  await expect(notice).toBeVisible()
+
+  await register(page, uniqueEmail('footer'))
+  await expect(notice).toBeVisible()
 })
 
 test('registration rejects a weak password with the server message', async ({ page }) => {
@@ -78,10 +111,7 @@ test('the full adaptive test runs through to a score report', async ({ page }) =
   test.setTimeout(120_000)
   await register(page, uniqueEmail('test-taker'))
 
-  await page.getByRole('link', { name: 'Tests' }).click()
-  await expect(page.getByRole('heading', { name: 'Practice tests' })).toBeVisible()
-
-  await page.getByRole('button', { name: 'Start test' }).first().click()
+  await startQuickCheck(page)
 
   // Four modules, answering everything. The client is told nothing about
   // routing; it just renders whatever module the server hands back.
@@ -137,8 +167,7 @@ test('the progress page shows an empty state, then fills in after a finished tes
   await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()
   await expect(page.getByText('Finish a full adaptive test')).toBeVisible()
 
-  await page.getByRole('link', { name: 'Take a test' }).click()
-  await page.getByRole('button', { name: 'Start test' }).first().click()
+  await startQuickCheck(page)
 
   for (let module = 0; module < 4; module += 1) {
     await expect(page.getByText(/Module \d+ of 4/)).toBeVisible()
@@ -165,11 +194,10 @@ test('the progress page shows an empty state, then fills in after a finished tes
 
 test('an in-progress test can be resumed after a reload', async ({ page }) => {
   await register(page, uniqueEmail('resume'))
-  await page.getByRole('link', { name: 'Tests' }).click()
-  await page.getByRole('button', { name: 'Start test' }).first().click()
+  await startQuickCheck(page)
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
 
-  await page.getByRole('button', { name: /^Question 1/ }).click()
+  await page.getByRole('button', { name: /^Question 1,/ }).click()
   await page.getByRole('radio').first().check()
 
   await page.reload()

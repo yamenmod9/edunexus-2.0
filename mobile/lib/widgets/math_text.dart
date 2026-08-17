@@ -7,6 +7,12 @@ import 'package:flutter_math_fork/flutter_math.dart';
 /// display block. A lone `$` stays a literal dollar sign, because "costs $5"
 /// turns up far more often in these questions than an unclosed expression.
 ///
+/// Currency is written `\$`. A lone `$` survives on its own, but two prices on
+/// one line would otherwise be read as a math span — "costs \$4 each and pens
+/// cost \$2" rendering "4 each and pens cost" as italic math and eating both
+/// signs. Escaped dollars are masked out before matching and restored after,
+/// mirroring `web/src/components/MathText.jsx` so both clients agree.
+///
 /// An expression flutter_math cannot parse renders as its own source rather
 /// than throwing — a broken question should look wrong, not take the screen
 /// down mid-test.
@@ -32,10 +38,23 @@ class MathText extends StatelessWidget {
 
   static final _pattern = RegExp(r'(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)');
 
+  /// A control character that cannot occur in authored content, so the masking
+  /// round-trip is lossless.
+  static const _escapedDollar = '\u0000';
+
+  static String _mask(String value) => value.replaceAll(r'\$', _escapedDollar);
+
+  static String _unmaskText(String value) =>
+      value.replaceAll(_escapedDollar, r'$');
+
+  static String _unmaskMath(String value) =>
+      value.replaceAll(_escapedDollar, r'\$');
+
   @override
   Widget build(BuildContext context) {
-    final source = text;
-    if (source == null || source.isEmpty) return const SizedBox.shrink();
+    final raw0 = text;
+    if (raw0 == null || raw0.isEmpty) return const SizedBox.shrink();
+    final source = _mask(raw0);
 
     final effective = style ?? DefaultTextStyle.of(context).style;
     final spans = <InlineSpan>[];
@@ -43,12 +62,15 @@ class MathText extends StatelessWidget {
 
     for (final match in _pattern.allMatches(source)) {
       if (match.start > index) {
-        spans.add(TextSpan(text: source.substring(index, match.start)));
+        spans.add(
+          TextSpan(text: _unmaskText(source.substring(index, match.start))),
+        );
       }
       final raw = match.group(0)!;
       final display = raw.startsWith(r'$$');
-      final expression =
-          display ? raw.substring(2, raw.length - 2) : raw.substring(1, raw.length - 1);
+      final expression = _unmaskMath(
+        display ? raw.substring(2, raw.length - 2) : raw.substring(1, raw.length - 1),
+      );
 
       spans.add(
         WidgetSpan(
@@ -57,7 +79,7 @@ class MathText extends StatelessWidget {
             expression,
             mathStyle: display ? MathStyle.display : MathStyle.text,
             textStyle: effective,
-            onErrorFallback: (_) => Text(raw, style: effective),
+            onErrorFallback: (_) => Text(_unmaskText(raw), style: effective),
           ),
         ),
       );
@@ -65,7 +87,7 @@ class MathText extends StatelessWidget {
     }
 
     if (index < source.length) {
-      spans.add(TextSpan(text: source.substring(index)));
+      spans.add(TextSpan(text: _unmaskText(source.substring(index))));
     }
 
     final span = TextSpan(style: effective, children: spans);

@@ -13,9 +13,30 @@ import { useMemo } from 'react'
  * Delimiters: $$...$$ renders as a display block, $...$ inline. A lone $ is
  * left as a literal dollar sign, because "costs $5" is far more common in
  * these questions than a stray unclosed expression.
+ *
+ * Currency: a lone $ survives, but TWO prices on one line used to be read as a
+ * math span - "costs $4 each and pens cost $2" rendered "4 each and pens cost"
+ * as italic math and ate both dollar signs. Authors therefore write currency as
+ * `\$`, which is masked out below before delimiter matching and restored
+ * afterwards: as a literal `$` in prose, and as KaTeX's own `\$` inside math.
  */
 
 const PATTERN = /(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g
+
+// A character that cannot appear in authored content, so masking is reversible.
+const ESCAPED_DOLLAR = '\u0000'
+
+function mask(text) {
+  return text.replace(/\\\$/g, ESCAPED_DOLLAR)
+}
+
+function unmaskText(text) {
+  return text.split(ESCAPED_DOLLAR).join('$')
+}
+
+function unmaskMath(expression) {
+  return expression.split(ESCAPED_DOLLAR).join('\\$')
+}
 
 function renderMath(expression, displayMode) {
   try {
@@ -30,28 +51,33 @@ function renderMath(expression, displayMode) {
   }
 }
 
-function segment(text) {
+function segment(rawText) {
+  // Escaped currency is masked first so it can never open or close a math span.
+  const text = mask(rawText)
   const parts = []
   let lastIndex = 0
 
   for (const match of text.matchAll(PATTERN)) {
     if (match.index > lastIndex) {
-      parts.push({ type: 'text', value: text.slice(lastIndex, match.index) })
+      parts.push({
+        type: 'text',
+        value: unmaskText(text.slice(lastIndex, match.index)),
+      })
     }
     const raw = match[0]
     const display = raw.startsWith('$$')
-    const expression = display ? raw.slice(2, -2) : raw.slice(1, -1)
+    const expression = unmaskMath(display ? raw.slice(2, -2) : raw.slice(1, -1))
     const html = renderMath(expression, display)
     parts.push(
       html === null
-        ? { type: 'text', value: raw } // unparseable: show the source, not a crash
+        ? { type: 'text', value: unmaskText(raw) } // unparseable: show the source, not a crash
         : { type: 'math', html, display },
     )
     lastIndex = match.index + raw.length
   }
 
   if (lastIndex < text.length) {
-    parts.push({ type: 'text', value: text.slice(lastIndex) })
+    parts.push({ type: 'text', value: unmaskText(text.slice(lastIndex)) })
   }
   return parts
 }

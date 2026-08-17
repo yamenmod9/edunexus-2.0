@@ -1,0 +1,437 @@
+{
+  "_note": "Original items authored for EduNexus, written to the Digital SAT taxonomy in CLAUDE.md section 5. Not College Board content.",
+  "questions": [
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The results of the experiment ______ published in a journal last spring.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "was"},
+        {"id": "B", "text": "were"},
+        {"id": "C", "text": "is"},
+        {"id": "D", "text": "has been"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The subject is 'results,' which is plural, so the verb must be plural and in the past tense to match 'last spring.' 'Were' is correct; the other options are singular.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The storm knocked out power to the entire district ______ classes were canceled for two days.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ", and"},
+        {"id": "B", "text": ","},
+        {"id": "C", "text": " and"},
+        {"id": "D", "text": ""}
+      ],
+      "correct_answer": "A",
+      "rationale": "Both halves are independent clauses, so joining them requires a comma plus a coordinating conjunction. A comma alone creates a comma splice, and the remaining options run the clauses together.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Each of the participants ______ asked to complete a short questionnaire before the session began.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "were"},
+        {"id": "B", "text": "have been"},
+        {"id": "C", "text": "was"},
+        {"id": "D", "text": "are"}
+      ],
+      "correct_answer": "C",
+      "rationale": "The subject is 'Each,' a singular pronoun; 'of the participants' is a prepositional phrase that does not change the subject's number. The past-tense singular 'was' is correct.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "After finishing her degree in marine biology ______ Ortiz spent two years studying coral reefs in the Philippines.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ","},
+        {"id": "B", "text": ";"},
+        {"id": "C", "text": ":"},
+        {"id": "D", "text": ""}
+      ],
+      "correct_answer": "A",
+      "rationale": "The opening phrase is an introductory modifier, not an independent clause, so it is set off with a comma. Semicolons and colons require what precedes them to be an independent clause.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The library extended ______ hours during the examination period.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "it's"},
+        {"id": "B", "text": "its'"},
+        {"id": "C", "text": "its"},
+        {"id": "D", "text": "their"}
+      ],
+      "correct_answer": "C",
+      "rationale": "A possessive pronoun is needed for the singular 'library.' 'Its' is that possessive; 'it's' means 'it is,' 'its'' is not a word, and 'their' is plural.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The recipe calls for three ingredients ______ flour, butter, and salt.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ":"},
+        {"id": "B", "text": ";"},
+        {"id": "C", "text": ""},
+        {"id": "D", "text": " and"}
+      ],
+      "correct_answer": "A",
+      "rationale": "A colon introduces a list after an independent clause, which 'The recipe calls for three ingredients' is. A semicolon would require an independent clause after it, and the other options produce a run-on.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "By the time the rescue team arrived, the hikers ______ shelter under an overhang.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "take"},
+        {"id": "B", "text": "had taken"},
+        {"id": "C", "text": "will take"},
+        {"id": "D", "text": "takes"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The sheltering happened before the team's arrival, and both are in the past, so the past perfect 'had taken' is required to mark the earlier action.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Kenji studied architecture in Osaka ______ he now designs public libraries.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ","},
+        {"id": "B", "text": ";"},
+        {"id": "C", "text": " and,"},
+        {"id": "D", "text": ""}
+      ],
+      "correct_answer": "B",
+      "rationale": "Two independent clauses may be joined by a semicolon. A comma alone creates a splice, 'and,' misplaces the comma, and omitting punctuation creates a run-on.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The committee, along with several outside consultants, ______ scheduled to review the proposal next month.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "are"},
+        {"id": "B", "text": "is"},
+        {"id": "C", "text": "were"},
+        {"id": "D", "text": "have been"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The subject is the singular 'committee.' A phrase beginning 'along with' is parenthetical and does not make the subject plural, so the singular 'is' agrees, matching the future reference in 'next month.'",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The novel's first edition ______ printed in 1847 and now extremely rare ______ sold at auction for a record sum.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ", . . . ,"},
+        {"id": "B", "text": ", . . . (no punctuation)"},
+        {"id": "C", "text": "(no punctuation) . . . ,"},
+        {"id": "D", "text": "; . . . ;"}
+      ],
+      "correct_answer": "A",
+      "rationale": "'Printed in 1847 and now extremely rare' is a nonessential modifier interrupting the subject and verb, so it must be set off with a matching pair of commas. Using only one comma leaves the interruption unclosed, and semicolons cannot enclose a phrase.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Neither the director nor the producers ______ willing to comment on the delay.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "was"},
+        {"id": "B", "text": "is"},
+        {"id": "C", "text": "were"},
+        {"id": "D", "text": "has been"}
+      ],
+      "correct_answer": "C",
+      "rationale": "In a 'neither...nor' construction, the verb agrees with the nearer subject, here the plural 'producers.' The plural past-tense 'were' is correct.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The technique has one significant drawback ______ it cannot be used on samples smaller than a cubic centimeter.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ","},
+        {"id": "B", "text": ":"},
+        {"id": "C", "text": " and"},
+        {"id": "D", "text": ""}
+      ],
+      "correct_answer": "B",
+      "rationale": "The first clause is independent and the second explains the drawback it announces, which is exactly what a colon signals. A comma alone would splice two independent clauses, and 'and' would obscure the explanatory relationship.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Having reviewed the data for several weeks, ______",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "the conclusion was revised by the researchers."},
+        {"id": "B", "text": "it was decided that the conclusion should be revised."},
+        {"id": "C", "text": "the researchers revised their conclusion."},
+        {"id": "D", "text": "there was a revision of the conclusion."}
+      ],
+      "correct_answer": "C",
+      "rationale": "The introductory participial phrase must modify whoever did the reviewing. Only C places 'the researchers' immediately after it; the other options leave the modifier dangling, implying the conclusion or an unnamed subject did the reviewing.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Marie Tharp mapped the ocean floor for decades ______ her work revealed the mid-Atlantic ridge and helped confirm plate tectonics.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ", and"},
+        {"id": "B", "text": ", however"},
+        {"id": "C", "text": " but"},
+        {"id": "D", "text": ","}
+      ],
+      "correct_answer": "A",
+      "rationale": "Two independent clauses in an additive relationship need a comma plus a coordinating conjunction. 'And' fits the relationship; 'however' after only a comma creates a splice, 'but' signals a contrast that is not present, and a bare comma splices.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The number of applications the office receives each spring ______ risen sharply since the program was expanded.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "have"},
+        {"id": "B", "text": "has"},
+        {"id": "C", "text": "were"},
+        {"id": "D", "text": "are"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The subject is 'The number,' which is singular; 'of applications the office receives each spring' modifies it without changing its number. The singular 'has' is correct.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The vessel carried cargo from three ports ______ Lisbon, Portugal ______ Valencia, Spain ______ and Genoa, Italy.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ": . . . ; . . . ;"},
+        {"id": "B", "text": ", . . . , . . . ,"},
+        {"id": "C", "text": "; . . . , . . . ,"},
+        {"id": "D", "text": ": . . . , . . . ,"}
+      ],
+      "correct_answer": "A",
+      "rationale": "A colon introduces the list after the independent clause, and because each item already contains a comma separating city from country, semicolons must separate the items to keep them distinct.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The archive holds letters from dozens of correspondents, many of ______ were never identified by name.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "whom"},
+        {"id": "B", "text": "who"},
+        {"id": "C", "text": "which"},
+        {"id": "D", "text": "them"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The pronoun is the object of the preposition 'of,' which requires the objective form 'whom.' 'Who' is subjective, 'which' cannot refer to people, and 'them' would leave the clause without a relative pronoun, creating a splice.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Researchers had expected the compound to degrade within hours ______ instead, it remained stable for more than three weeks under identical conditions.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ","},
+        {"id": "B", "text": ";"},
+        {"id": "C", "text": " and"},
+        {"id": "D", "text": ""}
+      ],
+      "correct_answer": "B",
+      "rationale": "Both clauses are independent, and 'instead' is a conjunctive adverb rather than a coordinating conjunction, so a semicolon is required before it. A comma alone would create a splice.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The survey found that residents of the coastal districts were more likely to support the levy than ______",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "the inland districts."},
+        {"id": "B", "text": "residents of the inland districts were."},
+        {"id": "C", "text": "inland."},
+        {"id": "D", "text": "that of the inland districts."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The comparison is between two groups of residents, so both terms must be parallel. Choice B compares residents to residents. Choice A compares residents to districts, C is not a comparable term, and D introduces a singular pronoun with no matching antecedent.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The 1906 earthquake destroyed much of the city ______ rebuilding began almost immediately, and within a decade the population had surpassed its pre-disaster peak.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ", but"},
+        {"id": "B", "text": ", nevertheless"},
+        {"id": "C", "text": " however"},
+        {"id": "D", "text": ","}
+      ],
+      "correct_answer": "A",
+      "rationale": "Two independent clauses in a contrastive relationship require a comma plus a coordinating conjunction, and 'but' supplies both. 'Nevertheless' and 'however' are conjunctive adverbs that cannot join clauses with only a comma, and a bare comma splices.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Neither of the two proposed routes ______ without significant drawbacks, according to the engineers who evaluated them.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "are"},
+        {"id": "B", "text": "were"},
+        {"id": "C", "text": "is"},
+        {"id": "D", "text": "have been"}
+      ],
+      "correct_answer": "C",
+      "rationale": "'Neither' functions as a singular subject, and 'of the two proposed routes' is a prepositional phrase that does not affect agreement. The singular 'is' is correct.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Boundaries",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The composer Ethel Smyth ______ whose opera *The Wreckers* premiered in Leipzig in 1906 ______ was also active in the campaign for women's suffrage.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": ", . . . ,"},
+        {"id": "B", "text": "(no punctuation) . . . ,"},
+        {"id": "C", "text": ", . . . (no punctuation)"},
+        {"id": "D", "text": ": . . . ,"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The relative clause beginning 'whose' is nonessential, since the composer is already identified by name, so it takes a matching pair of commas. Omitting either comma leaves the interruption unbalanced, and a colon cannot open a nonessential clause.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "If the sample ______ contaminated during transport, the entire analysis would have to be repeated.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "was"},
+        {"id": "B", "text": "were to be"},
+        {"id": "C", "text": "is being"},
+        {"id": "D", "text": "has been"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The main clause uses 'would have to be,' which signals a hypothetical condition and calls for the subjunctive in the 'if' clause. 'Were to be' supplies it; the indicative forms do not match the conditional main clause.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "standard_english_conventions",
+      "skill": "Form, Structure, and Sense",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The new telescope will allow astronomers to observe fainter objects, map distant galaxies, and ______ the composition of exoplanet atmospheres.",
+      "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+      "choices": [
+        {"id": "A", "text": "determining"},
+        {"id": "B", "text": "to determine"},
+        {"id": "C", "text": "determine"},
+        {"id": "D", "text": "will determine"}
+      ],
+      "correct_answer": "C",
+      "rationale": "The series follows 'to' once: 'to observe, map, and determine.' Parallel structure requires the bare infinitive form to match 'observe' and 'map,' so 'determine' is correct.",
+      "source": "self_authored"
+    }
+  ]
+}

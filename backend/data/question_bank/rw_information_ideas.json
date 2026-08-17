@@ -1,0 +1,725 @@
+{
+  "_note": "Original items authored for EduNexus, written to the Digital SAT taxonomy in CLAUDE.md section 5. Not College Board content. Passages are original short-form texts in the digital SAT style (one question per passage).",
+  "questions": [
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The axolotl, a salamander native to a small set of lakes near Mexico City, is unusual among amphibians: it never undergoes the metamorphosis that would move it onto land. Instead it keeps its feathery external gills and remains aquatic for its entire life. Biologists call this retention of juvenile traits into adulthood neoteny.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The axolotl is the only amphibian that lives in water."
+        },
+        {
+          "id": "B",
+          "text": "The axolotl retains juvenile features throughout its life instead of metamorphosing."
+        },
+        {
+          "id": "C",
+          "text": "Biologists disagree about how to classify the axolotl."
+        },
+        {
+          "id": "D",
+          "text": "The lakes near Mexico City support unusual wildlife."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The text centers on the axolotl's failure to metamorphose and its retention of gills into adulthood, which it names neoteny. Choice B captures this. The text never claims the axolotl is the only aquatic amphibian, mentions no disagreement, and discusses the lakes only as habitat.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "For decades, cartographers assumed that the earliest maps served primarily as navigational tools. Recent scholarship complicates that view. Many surviving maps from ancient Mesopotamia depict regions their makers had no practical means of reaching, suggesting the maps functioned less as guides than as statements about how the world was ordered.",
+      "stem": "According to the text, what does recent scholarship suggest about ancient Mesopotamian maps?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "They were more accurate than scholars once believed."
+        },
+        {
+          "id": "B",
+          "text": "They were used mainly by traders on long journeys."
+        },
+        {
+          "id": "C",
+          "text": "They expressed ideas about world order rather than aiding navigation."
+        },
+        {
+          "id": "D",
+          "text": "They were produced later than cartographers originally thought."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The final sentence states the maps 'functioned less as guides than as statements about how the world was ordered.' Choice C restates this. The text makes no claim about accuracy, traders, or dating.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Honeybees communicate the location of food through a movement known as the waggle dance. The angle of the dance relative to vertical indicates direction, and its duration indicates distance. A forager returning from a source ten meters away performs a dance so brief that observers often fail to register it as a dance at all.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "This suggests that the duration of the dance increases with the distance to the food source."
+        },
+        {
+          "id": "B",
+          "text": "This suggests that honeybees prefer distant food sources."
+        },
+        {
+          "id": "C",
+          "text": "This suggests that the waggle dance is not actually a form of communication."
+        },
+        {
+          "id": "D",
+          "text": "This suggests that observers are poorly trained."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The text states duration indicates distance, then notes that a very near source produces a very brief dance. It follows that greater distance produces longer dances. The text supports no claim about bee preferences, denies nothing about communication, and does not evaluate observers.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "A student claims that the invention of the mechanical clock changed how European towns organized labor.",
+      "stem": "Which finding, if true, would most directly support the student's claim?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Mechanical clocks were expensive and difficult to maintain."
+        },
+        {
+          "id": "B",
+          "text": "Town records show workdays defined by fixed hours only after public clocks were installed."
+        },
+        {
+          "id": "C",
+          "text": "Mechanical clocks were first developed in monasteries."
+        },
+        {
+          "id": "D",
+          "text": "Sundials remained in use in rural areas for centuries afterward."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The claim links clocks to changes in labor organization. Choice B provides exactly that link, showing fixed-hour workdays appearing only after clocks arrived. The other choices concern cost, origin, and rural practice, none of which addresses how labor was organized.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Mangrove forests grow along tropical coastlines, their roots arching above the waterline. Because those roots slow incoming water, sediment settles among them rather than washing away. Over time this accumulation builds land, and coastlines fringed with mangroves erode far more slowly than bare ones.",
+      "stem": "Which choice best describes the function of the second sentence in the text as a whole?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "It introduces a problem that mangroves cannot solve."
+        },
+        {
+          "id": "B",
+          "text": "It explains the mechanism behind the effect described in the final sentence."
+        },
+        {
+          "id": "C",
+          "text": "It questions a common assumption about coastlines."
+        },
+        {
+          "id": "D",
+          "text": "It provides a counterexample to the first sentence."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The second sentence explains how roots trap sediment, which is the mechanism producing the reduced erosion stated at the end. It introduces no problem, questions nothing, and contradicts nothing.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Archaeologists excavating a settlement found large quantities of fish bones but almost no fishing equipment. The settlement sits forty kilometers inland, far from any river large enough to support the species identified.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The residents most likely obtained the fish through trade rather than catching it themselves."
+        },
+        {
+          "id": "B",
+          "text": "The residents most likely built the settlement beside a river that has since dried up."
+        },
+        {
+          "id": "C",
+          "text": "The archaeologists most likely misidentified the bones."
+        },
+        {
+          "id": "D",
+          "text": "The residents most likely ate very little fish."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Abundant fish bones with no fishing gear, at a site far from suitable water, points to fish arriving from elsewhere. Choice A follows. Large quantities of bones contradict D, and B and C introduce explanations the evidence does not favor.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Quantitative)",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A researcher measured germination rates for seeds stored at four temperatures for one year.\n\n| Storage temperature | Germination rate |\n|---|---|\n| $-20°$C | 94% |\n| $4°$C | 88% |\n| $20°$C | 61% |\n| $35°$C | 23% |\n\nThe researcher concluded that colder storage better preserves seed viability.",
+      "stem": "Which choice best uses data from the table to support the researcher's conclusion?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Seeds stored at $4°$C germinated at a rate of 88%."
+        },
+        {
+          "id": "B",
+          "text": "Germination rates fell steadily as storage temperature rose, from 94% at $-20°$C to 23% at $35°$C."
+        },
+        {
+          "id": "C",
+          "text": "Seeds stored at $35°$C germinated at a rate of 23%."
+        },
+        {
+          "id": "D",
+          "text": "Germination rates at $-20°$C and $4°$C differed by 6 percentage points."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The conclusion concerns the relationship between temperature and viability across the range, so the supporting evidence must show that trend. Only B describes the full pattern. A, C, and D report isolated values that do not by themselves establish a relationship.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Composer Florence Price completed her First Symphony in 1932, and the Chicago Symphony Orchestra premiered it the following year, making Price the first Black woman whose work was performed by a major American orchestra. Yet after her death in 1953 her scores went largely unplayed. When a cache of her manuscripts surfaced in an abandoned house in 2009, performers encountered works that had never been recorded.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Price's symphony was poorly received at its premiere."
+        },
+        {
+          "id": "B",
+          "text": "Price achieved a notable early success, but her music fell into obscurity until a later rediscovery."
+        },
+        {
+          "id": "C",
+          "text": "Price composed more works than any other American of her era."
+        },
+        {
+          "id": "D",
+          "text": "The Chicago Symphony Orchestra was unusual in its programming choices."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The text traces an arc: a landmark premiere, decades of neglect, then rediscovery in 2009. Choice B captures all three stages. The text says nothing about reception, output relative to peers, or the orchestra's broader programming.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Ecologist Sofia Marchetti hypothesizes that a particular beetle species disperses the seeds of a rare desert shrub. Her hypothesis predicts that the shrub's seedlings should appear at characteristic distances from parent plants rather than clustered directly beneath them.",
+      "stem": "Which finding, if true, would most strongly support Marchetti's hypothesis?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The beetles are most active during the season when the shrub flowers."
+        },
+        {
+          "id": "B",
+          "text": "Seedlings are found predominantly in a ring several meters from mature shrubs, matching typical beetle foraging ranges."
+        },
+        {
+          "id": "C",
+          "text": "The shrub produces more seeds than most desert plants of similar size."
+        },
+        {
+          "id": "D",
+          "text": "The beetles have been observed feeding on the shrub's leaves."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The hypothesis makes a specific spatial prediction about seedling distribution. Choice B tests exactly that prediction and matches the distances to beetle behavior. Activity timing, seed output, and leaf feeding are consistent with the hypothesis but do not test its distinctive claim.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Certain deep-sea fish produce light through bioluminescence. Species living above 1,000 meters, where faint sunlight still penetrates, typically emit blue light, which travels farthest in seawater. A few species living well below that depth, in total darkness, instead emit red light, which seawater absorbs quickly and which most deep-sea animals cannot see.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Red light is therefore more energetically costly for fish to produce than blue light."
+        },
+        {
+          "id": "B",
+          "text": "Red emission may function as a private signal, visible to the emitting species but not to others around it."
+        },
+        {
+          "id": "C",
+          "text": "Bioluminescence is therefore more common in shallow water than in deep water."
+        },
+        {
+          "id": "D",
+          "text": "Fish living below 1,000 meters have therefore lost the ability to see entirely."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The text stresses that red light is absorbed quickly and is invisible to most deep-sea animals, which makes a private channel the natural inference. The text gives no information about energetic cost, relative frequency by depth, or total blindness.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The Antikythera mechanism, recovered from a shipwreck in 1901, is a corroded assembly of bronze gears dated to roughly the second century BCE. Imaging has revealed at least thirty interlocking gears arranged to model the motions of the sun and moon. No comparable geared device is known from the following millennium, a gap that has forced historians to revise assumptions about the limits of ancient engineering.",
+      "stem": "Which choice best describes the overall structure of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "It describes an artifact and then explains the challenge it poses to existing historical assumptions."
+        },
+        {
+          "id": "B",
+          "text": "It presents two competing theories about an artifact's origin."
+        },
+        {
+          "id": "C",
+          "text": "It traces the gradual development of a technology over a millennium."
+        },
+        {
+          "id": "D",
+          "text": "It argues that an artifact has been misdated."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The text first describes the mechanism and its gearing, then notes the thousand-year gap and its effect on historians' assumptions. No competing theories are presented, no gradual development is traced, and the dating is not disputed.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Quantitative)",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A city tracked bicycle commuting before and after installing protected bike lanes on four corridors.\n\n| Corridor | Riders before | Riders after |\n|---|---|---|\n| North | 210 | 385 |\n| East | 340 | 502 |\n| South | 150 | 166 |\n| West | 275 | 448 |\n\nA planner argued that protected lanes substantially increase ridership on most corridors where they are installed.",
+      "stem": "Which choice best uses data from the table to support the planner's argument?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Ridership rose on all four corridors, with three of the four increasing by more than 50%."
+        },
+        {
+          "id": "B",
+          "text": "The South corridor had the fewest riders both before and after installation."
+        },
+        {
+          "id": "C",
+          "text": "The East corridor had the most riders after installation, at 502."
+        },
+        {
+          "id": "D",
+          "text": "Ridership on the South corridor rose from 150 to 166."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The argument is about substantial increases on most corridors, so the evidence must speak to the magnitude and breadth of the change. Choice A does both. B and C report rankings rather than change, and D cites the one corridor whose small increase does not support the claim.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Linguists once treated the rapid vocabulary growth of toddlers as evidence of a dedicated mental module for word learning. Recent work complicates this. When researchers modeled word acquisition using only general statistical learning, with no word-specific machinery, the models reproduced the same growth curve, including its characteristic acceleration around eighteen months.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The acceleration in vocabulary growth therefore does not by itself establish a dedicated word-learning module."
+        },
+        {
+          "id": "B",
+          "text": "Toddlers therefore learn words more slowly than linguists previously believed."
+        },
+        {
+          "id": "C",
+          "text": "Statistical learning therefore plays no role in language acquisition."
+        },
+        {
+          "id": "D",
+          "text": "The models therefore prove that no mental module for language exists."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "If a general mechanism reproduces the same curve, the curve cannot serve as evidence uniquely favoring a dedicated module. Choice A states this carefully. B misstates the finding, C inverts it, and D overreaches: failing to require a module is not proving none exists.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "In her study of nineteenth-century serialized novels, critic Adaeze Okonkwo argues that serialization did not merely change how novels were distributed but altered their internal structure, producing recurring moments of heightened tension positioned to close each installment.",
+      "stem": "Which quotation from a nineteenth-century novel would best support Okonkwo's argument?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "A passage in which the narrator digresses at length about the history of a rural parish."
+        },
+        {
+          "id": "B",
+          "text": "A passage from the final page of an installment in which a character opens a letter and cries out, with the contents withheld until the next installment."
+        },
+        {
+          "id": "C",
+          "text": "A passage in which two characters discuss the rising cost of printing."
+        },
+        {
+          "id": "D",
+          "text": "A passage from the middle of an installment describing a character's childhood."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Okonkwo's claim is specifically about tension engineered at installment boundaries. Choice B shows exactly that: a withheld revelation placed at an installment's end. The others are not positioned at boundaries and show no engineered tension.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Conventional accounts hold that the domestication of maize proceeded through steady selection for larger ears. Genomic evidence unsettles this picture. Analyses of ancient cobs indicate that several traits distinguishing maize from its wild ancestor teosinte, including the loss of a hard casing around each kernel, appear abruptly rather than incrementally, and appear before any significant increase in ear size.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Maize was domesticated more recently than researchers once believed."
+        },
+        {
+          "id": "B",
+          "text": "Genomic evidence indicates that maize domestication did not follow the gradual, size-driven path conventionally assumed."
+        },
+        {
+          "id": "C",
+          "text": "Teosinte and maize are more closely related than previously thought."
+        },
+        {
+          "id": "D",
+          "text": "The hard casing around teosinte kernels made the plant inedible."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The text sets a conventional account against genomic findings showing abrupt change preceding size increase. Choice B captures that contrast. Dating, relatedness, and edibility are not the text's concerns.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "A materials scientist tested two alloys intended for turbine blades. Alloy A withstood higher peak temperatures before deforming, while Alloy B deformed at a lower temperature but recovered its original shape once cooled. Turbine blades in the intended application undergo thousands of heating and cooling cycles but rarely approach the peak temperature at which Alloy A fails.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Alloy B may be the better choice for this application despite its lower peak tolerance."
+        },
+        {
+          "id": "B",
+          "text": "Alloy A is clearly superior because it tolerates higher temperatures."
+        },
+        {
+          "id": "C",
+          "text": "Neither alloy is suitable for turbine blades."
+        },
+        {
+          "id": "D",
+          "text": "The two alloys will perform identically in service."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The application involves many cycles but not extreme peaks, which makes recoverability more relevant than peak tolerance. Choice A draws that inference. B applies a criterion the text has just made less relevant, and C and D are unsupported.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Quantitative)",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Researchers measured recall accuracy for participants who studied material once versus those who studied it once and were later tested on it, then measured recall after two delays.\n\n| Condition | Recall after 5 minutes | Recall after 1 week |\n|---|---|---|\n| Study only | 81% | 34% |\n| Study plus test | 75% | 62% |\n\nThe researchers concluded that testing improves long-term retention even when it appears to offer no immediate advantage.",
+      "stem": "Which choice best uses data from the table to support the researchers' conclusion?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Recall after 1 week was 62% in the study-plus-test condition."
+        },
+        {
+          "id": "B",
+          "text": "At 5 minutes the study-only condition scored higher, 81% versus 75%, but at 1 week the ordering reversed sharply, 34% versus 62%."
+        },
+        {
+          "id": "C",
+          "text": "Recall declined over time in both conditions."
+        },
+        {
+          "id": "D",
+          "text": "The study-only condition scored 81% after 5 minutes."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The conclusion has two parts: no immediate advantage, and a long-term benefit. Only B addresses both, giving the initial deficit and the later reversal. A and D cite single values, and C describes a pattern common to both conditions that distinguishes nothing.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Urban historians have long described the mid-century decline of American streetcar systems as a straightforward consequence of automobile ownership. Transit scholar Reuben Hallowell resists this framing. He notes that many systems were privately operated under municipal contracts that fixed fares for decades while costs rose, leaving operators unable to reinvest well before car ownership became widespread.",
+      "stem": "Which choice best describes the function of the final sentence in the text as a whole?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "It provides evidence for an alternative explanation that challenges the conventional account."
+        },
+        {
+          "id": "B",
+          "text": "It concedes a weakness in Hallowell's position."
+        },
+        {
+          "id": "C",
+          "text": "It offers a specific example illustrating the conventional account."
+        },
+        {
+          "id": "D",
+          "text": "It proposes a solution to a contemporary transit problem."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The final sentence supplies Hallowell's grounds for resisting the standard explanation: fixed fares and rising costs undermined operators before cars were widespread. That supports his alternative rather than conceding, illustrating the conventional view, or proposing a remedy.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "A team hypothesizes that a species of tropical orchid depends on a single moth species for pollination. Critics counter that the orchid may be pollinated by several insects, with the moth simply the most frequently observed.",
+      "stem": "Which finding, if true, would most weaken the critics' counterargument?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The moth visits the orchid more often than any other insect."
+        },
+        {
+          "id": "B",
+          "text": "The orchid's nectar sits at the base of a spur longer than the feeding apparatus of every local insect except the moth."
+        },
+        {
+          "id": "C",
+          "text": "The moth also visits several other plant species in the region."
+        },
+        {
+          "id": "D",
+          "text": "The orchid produces large quantities of pollen."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The critics argue other insects could also pollinate the orchid. Choice B removes that possibility structurally: no other local insect can physically reach the nectar. Choice A shows only frequency, which is precisely what the critics say is being misread, while C and D are irrelevant to exclusivity.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Sea otters feed heavily on sea urchins, which in turn graze on kelp. Along stretches of coast where otter populations collapsed in the nineteenth century, kelp forests thinned to bare rock within decades. Where otters have since been reintroduced, kelp cover has returned.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Otters appear to sustain kelp forests indirectly, by limiting the urchin populations that consume kelp."
+        },
+        {
+          "id": "B",
+          "text": "Otters appear to feed on kelp directly when urchins are scarce."
+        },
+        {
+          "id": "C",
+          "text": "Urchins appear to benefit kelp forests by removing dead material."
+        },
+        {
+          "id": "D",
+          "text": "Kelp forests appear to recover regardless of otter presence."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Otters eat urchins, urchins eat kelp, and kelp tracks otter presence in both directions. The indirect chain in choice A follows. The text describes otters eating urchins rather than kelp, casts urchins as consumers rather than benefactors, and ties recovery to reintroduction.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Lichens are not single organisms but partnerships, typically between a fungus and an alga. The fungus provides structure and retains water; the alga photosynthesizes, supplying sugars. Neither partner can occupy the bare rock surfaces where lichens thrive if separated from the other.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Lichens grow more slowly than other organisms."
+        },
+        {
+          "id": "B",
+          "text": "A lichen is a partnership in which each organism supplies what the other lacks."
+        },
+        {
+          "id": "C",
+          "text": "Fungi are more important to lichens than algae are."
+        },
+        {
+          "id": "D",
+          "text": "Bare rock surfaces support little life of any kind."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The text defines lichens as partnerships, describes each partner's contribution, and notes neither can survive alone in that habitat. Choice B captures this mutual dependence. Growth rate is not mentioned, neither partner is ranked, and the rock surface is context rather than the topic.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Quantitative)",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "A survey recorded how many hours per week students at four schools spent reading for pleasure.\n\n| School | Hours per week |\n|---|---|\n| Ashford | 4.2 |\n| Belmont | 2.8 |\n| Carver | 5.1 |\n| Dunbar | 3.6 |\n\nA student claimed that Carver students read for pleasure more than students at any other surveyed school.",
+      "stem": "Which choice best uses data from the table to support the student's claim?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Carver students read 5.1 hours per week, more than students at Ashford, Belmont, or Dunbar."
+        },
+        {
+          "id": "B",
+          "text": "Belmont students read the fewest hours per week, at 2.8."
+        },
+        {
+          "id": "C",
+          "text": "Ashford students read 4.2 hours per week."
+        },
+        {
+          "id": "D",
+          "text": "All four schools reported more than 2 hours per week."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The claim is a comparison favoring Carver, so the evidence must show Carver's figure exceeding the others. Only A does. B concerns the lowest value, and C and D report figures that do not establish Carver's ranking.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A historian argues that a medieval town's prosperity derived chiefly from its position on a river crossing rather than from its textile workshops, as earlier accounts held.",
+      "stem": "Which finding, if true, would most directly support the historian's argument?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The town's textile workshops employed a large share of its residents."
+        },
+        {
+          "id": "B",
+          "text": "Tax records show revenue from crossing tolls exceeding all textile-related revenue combined throughout the period."
+        },
+        {
+          "id": "C",
+          "text": "The town's textiles were exported to several neighboring regions."
+        },
+        {
+          "id": "D",
+          "text": "The river crossing was rebuilt in stone during the fourteenth century."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The argument is comparative, ranking the crossing above textiles as a source of prosperity. Choice B makes exactly that comparison with revenue figures. A and C support the account the historian is arguing against, and D shows investment without addressing relative economic weight.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Astronomers detect exoplanets partly by measuring the dimming of a star as a planet crosses in front of it. The technique favors planets whose orbits happen to lie edge-on as seen from Earth, and larger planets in tight orbits produce deeper, more frequent dimmings than small planets in wide ones.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Catalogs built from this technique likely overrepresent large, close-orbiting planets relative to their true frequency."
+        },
+        {
+          "id": "B",
+          "text": "Most planets in the galaxy are therefore large and close to their stars."
+        },
+        {
+          "id": "C",
+          "text": "The technique therefore cannot detect any small planets."
+        },
+        {
+          "id": "D",
+          "text": "Astronomers therefore prefer to study small planets in wide orbits."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "A method biased toward certain planets yields a catalog skewed the same way, which is a fact about the sample rather than the population. Choice A states this. B mistakes the biased sample for reality, C overstates a bias into an impossibility, and D concerns preference rather than the method's effect.",
+      "source": "self_authored"
+    }
+  ]
+}

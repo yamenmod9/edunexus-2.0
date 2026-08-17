@@ -1,0 +1,596 @@
+{
+  "_note": "Original items authored for EduNexus, written to the Digital SAT taxonomy in CLAUDE.md section 5. Not College Board content.",
+  "questions": [
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "If $4x + 9 = 33$, what is the value of $x$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "4"
+        },
+        {
+          "id": "B",
+          "text": "6"
+        },
+        {
+          "id": "C",
+          "text": "8"
+        },
+        {
+          "id": "D",
+          "text": "10"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Subtract 9 from both sides: $4x = 24$. Divide both sides by 4: $x = 6$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear functions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "The function $f$ is defined by $f(x) = 3x - 7$. What is the value of $f(5)$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "2"
+        },
+        {
+          "id": "B",
+          "text": "8"
+        },
+        {
+          "id": "C",
+          "text": "15"
+        },
+        {
+          "id": "D",
+          "text": "22"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Substitute 5 for $x$: $f(5) = 3(5) - 7 = 15 - 7 = 8$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "A line in the $xy$-plane passes through the points $(0, 4)$ and $(2, 10)$. What is the slope of this line?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "2"
+        },
+        {
+          "id": "B",
+          "text": "3"
+        },
+        {
+          "id": "C",
+          "text": "4"
+        },
+        {
+          "id": "D",
+          "text": "7"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Slope is the change in $y$ over the change in $x$: $\\frac{10 - 4}{2 - 0} = \\frac{6}{2} = 3$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "easy",
+      "question_type": "grid_in",
+      "stem": "If $\\frac{x}{5} + 3 = 11$, what is the value of $x$?",
+      "correct_answer": "40",
+      "rationale": "Subtract 3 from both sides: $\\frac{x}{5} = 8$. Multiply both sides by 5: $x = 40$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear inequalities in one or two variables",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "Which of the following is a solution to the inequality $2x + 5 < 17$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "5"
+        },
+        {
+          "id": "B",
+          "text": "6"
+        },
+        {
+          "id": "C",
+          "text": "7"
+        },
+        {
+          "id": "D",
+          "text": "8"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Subtract 5: $2x < 12$, so $x < 6$. Of the options, only 5 is less than 6.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "$$x + y = 12$$\n$$x - y = 4$$\nWhat is the value of $x$ in the solution to the system of equations above?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "4"
+        },
+        {
+          "id": "B",
+          "text": "6"
+        },
+        {
+          "id": "C",
+          "text": "8"
+        },
+        {
+          "id": "D",
+          "text": "16"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Add the two equations: $2x = 16$, so $x = 8$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear functions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "A technician charges a flat fee of \\$45 for a service call plus \\$30 for each hour of work.",
+      "stem": "Which equation gives the total charge $C$, in dollars, for a service call lasting $h$ hours?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$C = 45h + 30$"
+        },
+        {
+          "id": "B",
+          "text": "$C = 30h + 45$"
+        },
+        {
+          "id": "C",
+          "text": "$C = 75h$"
+        },
+        {
+          "id": "D",
+          "text": "$C = 45 + 30 + h$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The \\$30 hourly rate is multiplied by the number of hours $h$, and the flat \\$45 fee is added once: $C = 30h + 45$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "If $5(x - 2) = 35$, what is the value of $x$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "5"
+        },
+        {
+          "id": "B",
+          "text": "7"
+        },
+        {
+          "id": "C",
+          "text": "9"
+        },
+        {
+          "id": "D",
+          "text": "12"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Divide both sides by 5: $x - 2 = 7$. Add 2 to both sides: $x = 9$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "Line $k$ is defined by the equation $3x + 4y = 24$. What is the $y$-intercept of line $k$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$(0, 4)$"
+        },
+        {
+          "id": "B",
+          "text": "$(0, 6)$"
+        },
+        {
+          "id": "C",
+          "text": "$(0, 8)$"
+        },
+        {
+          "id": "D",
+          "text": "$(0, 24)$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The $y$-intercept occurs where $x = 0$. Substituting gives $4y = 24$, so $y = 6$. The intercept is $(0, 6)$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "$$2x + 3y = 19$$\n$$x - y = 2$$\nWhat is the value of $y$ in the solution to the system of equations above?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "1"
+        },
+        {
+          "id": "B",
+          "text": "3"
+        },
+        {
+          "id": "C",
+          "text": "5"
+        },
+        {
+          "id": "D",
+          "text": "7"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "From the second equation, $x = y + 2$. Substitute into the first: $2(y + 2) + 3y = 19$, so $2y + 4 + 3y = 19$, giving $5y = 15$ and $y = 3$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear functions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A tank contains 800 liters of water and is drained at a constant rate of 25 liters per minute.",
+      "stem": "Which function $V$ gives the volume of water, in liters, remaining in the tank after $t$ minutes of draining?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$V(t) = 800 + 25t$"
+        },
+        {
+          "id": "B",
+          "text": "$V(t) = 800 - 25t$"
+        },
+        {
+          "id": "C",
+          "text": "$V(t) = 25t - 800$"
+        },
+        {
+          "id": "D",
+          "text": "$V(t) = 25 - 800t$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The tank starts at 800 liters, and 25 liters leave each minute, so $25t$ is subtracted from the starting amount: $V(t) = 800 - 25t$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "medium",
+      "question_type": "grid_in",
+      "stem": "If $3(2x - 4) = 4x + 10$, what is the value of $x$?",
+      "correct_answer": "11",
+      "rationale": "Distribute on the left: $6x - 12 = 4x + 10$. Subtract $4x$: $2x - 12 = 10$. Add 12: $2x = 22$, so $x = 11$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear inequalities in one or two variables",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A student has \\$60 to spend on notebooks and pens. Notebooks cost \\$4 each and pens cost \\$2 each.",
+      "stem": "If the student buys $n$ notebooks and $p$ pens, which inequality represents this situation?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$4n + 2p \\le 60$"
+        },
+        {
+          "id": "B",
+          "text": "$4n + 2p \\ge 60$"
+        },
+        {
+          "id": "C",
+          "text": "$2n + 4p \\le 60$"
+        },
+        {
+          "id": "D",
+          "text": "$6(n + p) \\le 60$"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Each notebook costs \\$4, contributing $4n$, and each pen costs \\$2, contributing $2p$. The total cannot exceed \\$60, so $4n + 2p \\le 60$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "A line passes through the point $(2, 5)$ and has slope $-3$. Which equation represents this line?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$y = -3x + 5$"
+        },
+        {
+          "id": "B",
+          "text": "$y = -3x + 11$"
+        },
+        {
+          "id": "C",
+          "text": "$y = -3x - 1$"
+        },
+        {
+          "id": "D",
+          "text": "$y = 3x - 1$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Using point-slope form, $y - 5 = -3(x - 2)$, so $y - 5 = -3x + 6$ and $y = -3x + 11$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear functions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "For the linear function $g$, the table below gives selected values of $x$ and $g(x)$.\n\n| $x$ | $g(x)$ |\n|---|---|\n| 1 | 9 |\n| 3 | 17 |\n| 5 | 25 |",
+      "stem": "What is the value of $g(0)$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "1"
+        },
+        {
+          "id": "B",
+          "text": "4"
+        },
+        {
+          "id": "C",
+          "text": "5"
+        },
+        {
+          "id": "D",
+          "text": "8"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The values of $x$ increase by 2 while $g(x)$ increases by 8, so the slope is $\\frac{8}{2} = 4$. Working backward from $(1, 9)$ by one unit of $x$ decreases $g(x)$ by 4, giving $g(0) = 9 - 4 = 5$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "$$y = 2x + 1$$\n$$y = -x + 10$$\nAt what point do the graphs of the equations above intersect?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$(2, 5)$"
+        },
+        {
+          "id": "B",
+          "text": "$(3, 7)$"
+        },
+        {
+          "id": "C",
+          "text": "$(4, 9)$"
+        },
+        {
+          "id": "D",
+          "text": "$(5, 11)$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Set the expressions equal: $2x + 1 = -x + 10$, so $3x = 9$ and $x = 3$. Then $y = 2(3) + 1 = 7$, giving the point $(3, 7)$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "In the $xy$-plane, line $m$ is perpendicular to the line $y = \\frac{2}{5}x + 3$ and passes through the point $(4, 1)$. What is the $y$-coordinate of the $y$-intercept of line $m$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$-9$"
+        },
+        {
+          "id": "B",
+          "text": "$1$"
+        },
+        {
+          "id": "C",
+          "text": "$9$"
+        },
+        {
+          "id": "D",
+          "text": "$11$"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "A perpendicular line has the negative reciprocal slope: $-\\frac{5}{2}$. Using point-slope form through $(4, 1)$: $y - 1 = -\\frac{5}{2}(x - 4)$, so $y = -\\frac{5}{2}x + 10 + 1 = -\\frac{5}{2}x + 11$. The $y$-intercept is 11.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "$$ax + 3y = 12$$\n$$4x + 6y = 24$$\nIn the system of equations above, $a$ is a constant. If the system has infinitely many solutions, what is the value of $a$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "1"
+        },
+        {
+          "id": "B",
+          "text": "2"
+        },
+        {
+          "id": "C",
+          "text": "4"
+        },
+        {
+          "id": "D",
+          "text": "8"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "A system has infinitely many solutions when one equation is a multiple of the other. Dividing the second equation by 2 gives $2x + 3y = 12$, which matches the first equation exactly when $a = 2$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear inequalities in one or two variables",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "A caterer needs at least 90 servings of food and has a budget of at most \\$400. Each tray of pasta provides 15 servings and costs \\$50. Each tray of salad provides 10 servings and costs \\$40.",
+      "stem": "If $p$ represents trays of pasta and $s$ represents trays of salad, which system of inequalities represents this situation?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$15p + 10s \\ge 90$ and $50p + 40s \\le 400$"
+        },
+        {
+          "id": "B",
+          "text": "$15p + 10s \\le 90$ and $50p + 40s \\ge 400$"
+        },
+        {
+          "id": "C",
+          "text": "$10p + 15s \\ge 90$ and $40p + 50s \\le 400$"
+        },
+        {
+          "id": "D",
+          "text": "$15p + 10s \\ge 90$ and $50p + 40s \\ge 400$"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Servings must be at least 90, so $15p + 10s \\ge 90$. Cost must be at most \\$400, so $50p + 40s \\le 400$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear functions",
+      "difficulty": "hard",
+      "question_type": "grid_in",
+      "stimulus": "The linear function $h$ satisfies $h(2) = 13$ and $h(7) = 43$.",
+      "stem": "What is the value of $h(0)$?",
+      "correct_answer": "1",
+      "rationale": "The slope is $\\frac{43 - 13}{7 - 2} = \\frac{30}{5} = 6$. Using $h(2) = 13$: $13 = 6(2) + b$, so $b = 13 - 12 = 1$. Since $h(0) = b$, the value is 1.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "In the equation $\\frac{2x + k}{3} = \\frac{x - 4}{2}$, $k$ is a constant. If the solution to the equation is $x = -20$, what is the value of $k$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$-4$"
+        },
+        {
+          "id": "B",
+          "text": "$4$"
+        },
+        {
+          "id": "C",
+          "text": "$8$"
+        },
+        {
+          "id": "D",
+          "text": "$22$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Cross-multiply: $2(2x + k) = 3(x - 4)$, so $4x + 2k = 3x - 12$, giving $x = -2k - 12$. Setting this equal to $-20$: $-2k - 12 = -20$, so $-2k = -8$ and $k = 4$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "A line in the $xy$-plane has equation $y = mx + b$, where $m$ and $b$ are constants. The line passes through the points $(-3, 8)$ and $(5, -8)$.",
+      "stem": "What is the value of $m + b$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$-2$"
+        },
+        {
+          "id": "B",
+          "text": "$0$"
+        },
+        {
+          "id": "C",
+          "text": "$2$"
+        },
+        {
+          "id": "D",
+          "text": "$4$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The slope is $\\frac{-8 - 8}{5 - (-3)} = \\frac{-16}{8} = -2$. Using $(-3, 8)$: $8 = -2(-3) + b = 6 + b$, so $b = 2$. Therefore $m + b = -2 + 2 = 0$.",
+      "source": "self_authored"
+    }
+  ]
+}

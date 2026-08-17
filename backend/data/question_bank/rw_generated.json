@@ -1,0 +1,2315 @@
+{
+  "_note": "Expanded by scripts/generate_rw_content.py from authored corpora. Original items.",
+  "questions": [
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Most antibiotics target features unique to bacterial cells. ______ they leave human cells largely unharmed.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "As a consequence,"
+        },
+        {
+          "id": "B",
+          "text": "In contrast,"
+        },
+        {
+          "id": "C",
+          "text": "Even so,"
+        },
+        {
+          "id": "D",
+          "text": "Beforehand,"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The targeting explains the safety, so the transition signals result.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The first draft of the constitution ran to ninety pages. ______ the ratified text fits on four.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Consequently,"
+        },
+        {
+          "id": "B",
+          "text": "Similarly,"
+        },
+        {
+          "id": "C",
+          "text": "In the end,"
+        },
+        {
+          "id": "D",
+          "text": "Furthermore,"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The contrast between draft and final length is resolved chronologically by 'In the end'.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A pottery workshop's output can often be traced by the clay it used. Vessels excavated at an inland fortress match, in mineral composition, clay beds found only on a coastal plain two hundred kilometres away. No kiln has been found at the fortress.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The coastal plain was most likely settled from the fortress."
+        },
+        {
+          "id": "B",
+          "text": "The vessels were most likely made on the coastal plain and transported inland."
+        },
+        {
+          "id": "C",
+          "text": "The mineral analysis is most likely mistaken."
+        },
+        {
+          "id": "D",
+          "text": "The fortress most likely imported clay and fired it on site."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Coastal clay plus no kiln at the fortress points to manufacture at the source and transport of finished vessels.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Emperor penguins breed during the Antarctic winter. ______ they endure temperatures that would kill most other birds.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Meanwhile,"
+        },
+        {
+          "id": "B",
+          "text": "For instance,"
+        },
+        {
+          "id": "C",
+          "text": "In contrast,"
+        },
+        {
+          "id": "D",
+          "text": "As a result,"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "Breeding in winter causes the exposure described, so a result transition is needed.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- The kakapo is a flightless parrot native to New Zealand.\n- It is nocturnal.\n- Adults can weigh up to 4 kilograms.\n- Fewer than 250 individuals remain.",
+      "stem": "The student wants to emphasize the kakapo's conservation status. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The kakapo is flightless and nocturnal."
+        },
+        {
+          "id": "B",
+          "text": "Adult kakapo can weigh up to 4 kilograms."
+        },
+        {
+          "id": "C",
+          "text": "The kakapo is a nocturnal parrot native to New Zealand."
+        },
+        {
+          "id": "D",
+          "text": "Fewer than 250 kakapo remain, making the flightless New Zealand parrot one of the world's rarest birds."
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "Only the choice citing the remaining population addresses conservation status.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The evidence for the hypothesis remains ______, resting on a single unreplicated experiment.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "tenuous"
+        },
+        {
+          "id": "B",
+          "text": "contested"
+        },
+        {
+          "id": "C",
+          "text": "recent"
+        },
+        {
+          "id": "D",
+          "text": "overwhelming"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "A single unreplicated experiment makes support thin, which 'tenuous' names.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The prosecution's case rested on ______ evidence, since no witness had seen the act itself.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "circumstantial"
+        },
+        {
+          "id": "B",
+          "text": "direct"
+        },
+        {
+          "id": "C",
+          "text": "abundant"
+        },
+        {
+          "id": "D",
+          "text": "forged"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Evidence in the absence of an eyewitness to the act is circumstantial, the opposite of direct.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The pistol shrimp hunts without touching its prey. Snapping one oversized claw shut produces a bubble that collapses so violently it generates a shock wave, stunning small fish at a distance of several centimetres.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The pistol shrimp has one claw larger than the other."
+        },
+        {
+          "id": "B",
+          "text": "Small fish are the pistol shrimp's only prey."
+        },
+        {
+          "id": "C",
+          "text": "The pistol shrimp stuns prey at a distance using a shock wave produced by its claw."
+        },
+        {
+          "id": "D",
+          "text": "The pistol shrimp is among the loudest animals in the ocean."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The text describes the claw, the collapsing bubble, and the resulting shock wave that stuns prey at a distance.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Accounts of the Irish famine often centre on the potato blight. Economic historian Declan Mulready does not dispute the pathogen's role but notes that Ireland continued exporting grain, butter, and livestock throughout the worst years. The catastrophe, on his account, lay less in what the land failed to produce than in where its produce went.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Mulready argues that Ireland produced more food than it needed."
+        },
+        {
+          "id": "B",
+          "text": "Mulready believes the famine has been exaggerated by historians."
+        },
+        {
+          "id": "C",
+          "text": "Mulready denies that the potato blight affected Ireland."
+        },
+        {
+          "id": "D",
+          "text": "Mulready locates the famine's severity in the distribution of Irish food rather than in crop failure alone."
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "Mulready accepts the blight but stresses continued exports, concluding the issue was where produce went.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Ecologists have long treated invasive species as uniformly damaging. Botanist Ingrid Sorensen resists the framing without denying the harm. On degraded land where native seed banks are exhausted, she argues, fast-colonizing non-natives can stabilize soil and shade out bare ground, creating conditions under which natives can later be reintroduced. The label describes an origin, not an effect.",
+      "stem": "Which choice best describes the function of the final sentence in the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "It concedes a limitation in Sorensen's argument."
+        },
+        {
+          "id": "B",
+          "text": "It restates the conventional ecological position."
+        },
+        {
+          "id": "C",
+          "text": "It states the conceptual point the preceding example was offered to establish."
+        },
+        {
+          "id": "D",
+          "text": "It introduces a new line of evidence about seed banks."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "'The label describes an origin, not an effect' generalizes from the degraded-land case into the claim the passage is making.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Ada Lovelace worked with Charles Babbage in the 1840s.\n- She wrote notes on his proposed Analytical Engine.\n- Her notes include an algorithm for computing Bernoulli numbers.\n- She also argued the machine could manipulate symbols, not just numbers.",
+      "stem": "The student wants to emphasize the conceptual leap in Lovelace's notes. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Lovelace wrote extensive notes on the Analytical Engine."
+        },
+        {
+          "id": "B",
+          "text": "Ada Lovelace worked with Charles Babbage in the 1840s."
+        },
+        {
+          "id": "C",
+          "text": "Lovelace argued that the Analytical Engine could manipulate symbols rather than merely calculate, anticipating uses beyond arithmetic."
+        },
+        {
+          "id": "D",
+          "text": "Lovelace's notes include an algorithm for Bernoulli numbers."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The conceptual leap is the claim about symbols; the algorithm and the collaboration are context.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Sea ice reflects most of the sunlight that strikes it. ______ open water absorbs it.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "In addition,"
+        },
+        {
+          "id": "B",
+          "text": "Consequently,"
+        },
+        {
+          "id": "C",
+          "text": "By contrast,"
+        },
+        {
+          "id": "D",
+          "text": "Afterward,"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Reflecting and absorbing are opposed behaviours, so contrast is required.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Neural networks and human learners both improve with practice on a task. ______ the resemblance breaks down under distribution shift, where humans generalize and networks often do not.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "For example,"
+        },
+        {
+          "id": "B",
+          "text": "Consequently,"
+        },
+        {
+          "id": "C",
+          "text": "Likewise,"
+        },
+        {
+          "id": "D",
+          "text": "Beyond that point,"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "The second sentence limits the analogy just drawn, marking where it stops holding.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Tree rings grow wider in years with ample rainfall and narrower in dry ones. A timber beam salvaged from a ruined farmhouse shows a run of unusually narrow rings near its outer edge.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The final years of the tree's growth were most likely unusually dry."
+        },
+        {
+          "id": "B",
+          "text": "The beam most likely came from a species that grows slowly."
+        },
+        {
+          "id": "C",
+          "text": "The farmhouse was most likely built during a wet period."
+        },
+        {
+          "id": "D",
+          "text": "The tree was most likely cut down before it matured."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Narrow rings indicate dry years, and rings near the outer edge are the most recent growth.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Quantitative)",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Researchers measured seedling survival under four canopy conditions after one year.\n\n| Canopy cover | Survival |\n|---|---|\n| 0% (open) | 22% |\n| 25% | 58% |\n| 50% | 71% |\n| 90% | 34% |\n\nThey concluded that seedlings of this species survive best under partial rather than full or absent canopy.",
+      "stem": "Which choice best uses data from the table to support the researchers' conclusion?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Survival under 25% cover was 58%."
+        },
+        {
+          "id": "B",
+          "text": "Survival was lowest in the open plots, at 22%."
+        },
+        {
+          "id": "C",
+          "text": "Survival declined between 50% and 90% cover."
+        },
+        {
+          "id": "D",
+          "text": "Survival peaked at 71% under 50% cover, exceeding both the open plots at 22% and the densest canopy at 34%."
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "The conclusion is that the middle of the range is best, so the evidence must compare the peak against both extremes.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Because the fossil was so ______, researchers could identify individual feather barbs.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "common"
+        },
+        {
+          "id": "B",
+          "text": "well preserved"
+        },
+        {
+          "id": "C",
+          "text": "fragmentary"
+        },
+        {
+          "id": "D",
+          "text": "distant"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Seeing individual barbs requires exceptional preservation; 'fragmentary' contradicts it.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The account is ______ in its detail yet strangely uninformative about the author's own role.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "scant"
+        },
+        {
+          "id": "B",
+          "text": "exhaustive"
+        },
+        {
+          "id": "C",
+          "text": "secondhand"
+        },
+        {
+          "id": "D",
+          "text": "hostile"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "'Yet' contrasts abundant detail with a specific silence, so the first term must mean extremely thorough.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The Voynich manuscript has resisted every attempt at translation since its rediscovery in 1912. Statistical analyses show its symbol frequencies behave like those of a natural language rather than random noise, yet no proposed decipherment has been reproducible. The text is either an unknown script or an unusually sophisticated hoax.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The manuscript was written in a language now extinct."
+        },
+        {
+          "id": "B",
+          "text": "The manuscript's linguistic statistics rule out randomness but have not settled whether it encodes a real language."
+        },
+        {
+          "id": "C",
+          "text": "The manuscript is almost certainly an elaborate hoax."
+        },
+        {
+          "id": "D",
+          "text": "Statistical analysis has produced a reproducible decipherment."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The text reports language-like statistics, no reproducible decipherment, and two remaining possibilities.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Excavations at the site have recovered thousands of animal bones but almost no cooking hearths. ______ the assemblage may represent butchery carried out for consumption elsewhere.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Beforehand,"
+        },
+        {
+          "id": "B",
+          "text": "Conversely,"
+        },
+        {
+          "id": "C",
+          "text": "Taken together,"
+        },
+        {
+          "id": "D",
+          "text": "Nonetheless,"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The inference draws on both observations at once, which 'Taken together' signals.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Bamboo reaches full height in a single growing season. ______ it is harvested on a far shorter cycle than hardwood timber.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "In contrast,"
+        },
+        {
+          "id": "B",
+          "text": "Previously,"
+        },
+        {
+          "id": "C",
+          "text": "For this reason,"
+        },
+        {
+          "id": "D",
+          "text": "Nonetheless,"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Fast growth causes the short harvest cycle, so a causal transition fits.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The metric system was designed to be reproducible from nature: the metre was defined as a fraction of the earth's meridian. That definition proved impractical to check, and the metre is now fixed by the distance light travels in a specified fraction of a second.",
+      "stem": "Which choice best describes the overall structure of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "It presents an original definition and then explains what replaced it and why."
+        },
+        {
+          "id": "B",
+          "text": "It argues that the metric system should be abandoned."
+        },
+        {
+          "id": "C",
+          "text": "It describes how the earth's meridian was first measured."
+        },
+        {
+          "id": "D",
+          "text": "It compares the metric system with older measurement systems."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The text gives the original meridian-based definition, notes it was impractical, and states the current one.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- The Silk Road was not a single road.\n- It was a network of overland and maritime routes.\n- It operated from roughly 130 BCE to 1450 CE.\n- It carried goods, technologies, religions, and disease.",
+      "stem": "The student wants to emphasize the breadth of what the routes transmitted. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The Silk Road was a network rather than a single road."
+        },
+        {
+          "id": "B",
+          "text": "The Silk Road included both overland and maritime routes."
+        },
+        {
+          "id": "C",
+          "text": "The Silk Road operated from roughly 130 BCE to 1450 CE."
+        },
+        {
+          "id": "D",
+          "text": "Along its overland and maritime routes the Silk Road carried not only goods but technologies, religions, and disease."
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "Only one choice lists the range of things transmitted rather than the network's shape or dates.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Archaeologist Sunil Rao proposes that a settlement's unusual grain-storage pits were communal rather than household property. Critics note that communal and household storage can look identical once abandoned.",
+      "stem": "Which finding, if true, would most weaken the critics' objection?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The pits were all dug to approximately the same depth."
+        },
+        {
+          "id": "B",
+          "text": "The pits are clustered in a single open area at the settlement's centre, away from every identified dwelling."
+        },
+        {
+          "id": "C",
+          "text": "The pits remained in use for several generations."
+        },
+        {
+          "id": "D",
+          "text": "Grain residue in the pits comes from several different crops."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Placement away from dwellings and grouped centrally distinguishes communal from household storage, which is exactly what the critics say cannot be told apart.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Critics found the sequel ______, noting that it repeated the original almost scene for scene.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "expensive"
+        },
+        {
+          "id": "B",
+          "text": "derivative"
+        },
+        {
+          "id": "C",
+          "text": "concise"
+        },
+        {
+          "id": "D",
+          "text": "inventive"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Repeating the original scene for scene is the definition of derivative work.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Aluminium is abundant in the earth's crust. ______ it was once more valuable than gold, because separating it was so difficult.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Similarly,"
+        },
+        {
+          "id": "B",
+          "text": "Therefore,"
+        },
+        {
+          "id": "C",
+          "text": "Afterward,"
+        },
+        {
+          "id": "D",
+          "text": "Nevertheless,"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "Abundance and high value are in tension, so the transition must mark contrast.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Her argument was ______: each claim followed from the one before it.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "popular"
+        },
+        {
+          "id": "B",
+          "text": "disjointed"
+        },
+        {
+          "id": "C",
+          "text": "coherent"
+        },
+        {
+          "id": "D",
+          "text": "brief"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Claims following from one another is coherence; 'disjointed' is the opposite.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The orchestra rehearsed the passage for three weeks. ______ the recording was completed in a single take.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Ultimately,"
+        },
+        {
+          "id": "B",
+          "text": "Likewise,"
+        },
+        {
+          "id": "C",
+          "text": "For example,"
+        },
+        {
+          "id": "D",
+          "text": "Similarly,"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The long rehearsal leads to the final outcome; 'Ultimately' marks that conclusion.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Venice was built on soft mud, which cannot bear the weight of stone. Its builders drove millions of wooden piles into the seabed until they reached firmer clay beneath. Submerged in oxygen-poor water, the wood never rotted, and much of it still holds the city up.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Venice stands on wooden piles that have survived because they sit in oxygen-poor water."
+        },
+        {
+          "id": "B",
+          "text": "Venice's builders preferred wood to stone for aesthetic reasons."
+        },
+        {
+          "id": "C",
+          "text": "Venice was built on ground too soft to support any structure."
+        },
+        {
+          "id": "D",
+          "text": "Wooden piles are stronger than stone foundations."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The text explains the soft ground, the piles driven to firmer clay, and why the wood survived.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Critics charged that the new tax would drive small firms out of the district. ______ registrations of new businesses rose in each of the three following years.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "In the event,"
+        },
+        {
+          "id": "B",
+          "text": "In addition,"
+        },
+        {
+          "id": "C",
+          "text": "Similarly,"
+        },
+        {
+          "id": "D",
+          "text": "Therefore,"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The outcome contradicts the prediction; 'In the event' introduces what actually happened.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Rather than ______ the conflicting accounts, the historian presents both and explains why they differ.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "publishing"
+        },
+        {
+          "id": "B",
+          "text": "recording"
+        },
+        {
+          "id": "C",
+          "text": "reconciling"
+        },
+        {
+          "id": "D",
+          "text": "translating"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The contrast is with presenting both accounts separately, so the rejected option is forcing them into agreement.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Far from being ______, the treaty's language was chosen to leave each signatory room to interpret it.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "translated"
+        },
+        {
+          "id": "B",
+          "text": "recent"
+        },
+        {
+          "id": "C",
+          "text": "lengthy"
+        },
+        {
+          "id": "D",
+          "text": "precise"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "'Far from being' contrasts with language leaving room for interpretation, whose opposite is precision.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The artist's late work is notably ______, stripping away the ornament that filled her early canvases.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "austere"
+        },
+        {
+          "id": "B",
+          "text": "colorful"
+        },
+        {
+          "id": "C",
+          "text": "commercial"
+        },
+        {
+          "id": "D",
+          "text": "cluttered"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Stripping away ornament produces austerity; 'cluttered' describes what was removed.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Musicologist Farah Nasser argues that the sudden popularity of the twelve-string guitar in the 1960s owed less to its sound than to its visibility: a handful of televised performances put the instrument in front of millions.",
+      "stem": "Which finding, if true, would most strongly support Nasser's argument?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Sales of twelve-string guitars rose sharply in the weeks immediately following each televised performance, with no change in their price or design."
+        },
+        {
+          "id": "B",
+          "text": "Twelve-string guitars produce a fuller sound than six-string models."
+        },
+        {
+          "id": "C",
+          "text": "Twelve-string guitars were more difficult to tune than six-string models."
+        },
+        {
+          "id": "D",
+          "text": "Several prominent musicians preferred twelve-string guitars."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Nasser attributes popularity to visibility, so evidence must tie sales to the broadcasts rather than to the instrument's qualities.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- The Antikythera mechanism dates to roughly the second century BCE.\n- It contains at least 30 bronze gears.\n- It modelled the motions of the sun and moon.\n- No comparably geared device is known for the next thousand years.\n- Historians have revised assumptions about ancient engineering.",
+      "stem": "The student wants to emphasize why the mechanism forced a reassessment of ancient technology. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The Antikythera mechanism dates to roughly the second century BCE."
+        },
+        {
+          "id": "B",
+          "text": "Because no comparably geared device appears for a thousand years afterward, the mechanism has forced historians to revise what they assumed ancient engineering could achieve."
+        },
+        {
+          "id": "C",
+          "text": "The Antikythera mechanism contains at least 30 bronze gears."
+        },
+        {
+          "id": "D",
+          "text": "The Antikythera mechanism modelled the motions of the sun and moon."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The reassessment follows from the thousand-year gap, which only one choice mentions.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The policy's effects proved ______: measures intended to reduce congestion increased it within a year.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "negligible"
+        },
+        {
+          "id": "B",
+          "text": "expensive"
+        },
+        {
+          "id": "C",
+          "text": "counterproductive"
+        },
+        {
+          "id": "D",
+          "text": "gradual"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "An intended reduction producing an increase is the definition of counterproductive.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The mayor's speech was deliberately ______, lasting under four minutes and naming only one policy.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "rambling"
+        },
+        {
+          "id": "B",
+          "text": "hostile"
+        },
+        {
+          "id": "C",
+          "text": "brief"
+        },
+        {
+          "id": "D",
+          "text": "musical"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Under four minutes and one policy describes shortness, which 'brief' names.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The committee's findings were ______ by the very data the committee had commissioned.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "confirmed"
+        },
+        {
+          "id": "B",
+          "text": "published"
+        },
+        {
+          "id": "C",
+          "text": "undermined"
+        },
+        {
+          "id": "D",
+          "text": "requested"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "'By the very data it commissioned' sets up an ironic reversal, so the findings were weakened, not supported.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Naked mole rats live in underground colonies with a single breeding female, an arrangement otherwise seen in insects rather than mammals. Workers dig tunnels with their teeth, and the colony can extend for kilometres beneath the soil.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Naked mole rats dig tunnels using their teeth."
+        },
+        {
+          "id": "B",
+          "text": "Insects and mammals often share social structures."
+        },
+        {
+          "id": "C",
+          "text": "Naked mole rats live in colonies organized in a way rarely found among mammals."
+        },
+        {
+          "id": "D",
+          "text": "Naked mole rat colonies extend for kilometres."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The text's emphasis is the insect-like social structure, unusual for a mammal; the digging and extent are supporting details.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The reforms were ______ rather than systemic, addressing individual complaints as they arose.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "unpopular"
+        },
+        {
+          "id": "B",
+          "text": "overdue"
+        },
+        {
+          "id": "C",
+          "text": "piecemeal"
+        },
+        {
+          "id": "D",
+          "text": "sweeping"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Addressing complaints one at a time contrasts with systemic change; 'piecemeal' names that fragmentary approach.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Rainfall in the region is ______: some years bring flooding, others almost none at all.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "predictable"
+        },
+        {
+          "id": "B",
+          "text": "seasonal"
+        },
+        {
+          "id": "C",
+          "text": "abundant"
+        },
+        {
+          "id": "D",
+          "text": "erratic"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "The colon describes wide swings between extremes, which is what 'erratic' names; 'predictable' is its opposite.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Translators of ancient poetry face a problem archaeologists do not. A broken pot can be displayed with its gaps visible, its incompleteness part of what the viewer sees. A translation cannot show its own fractures without ceasing to read as a poem, so the losses it incurs are precisely the ones its reader will never know about.",
+      "stem": "Which choice best states the main purpose of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "To compare the training of translators and archaeologists"
+        },
+        {
+          "id": "B",
+          "text": "To argue that ancient poetry should not be translated"
+        },
+        {
+          "id": "C",
+          "text": "To describe the methods archaeologists use to restore pottery"
+        },
+        {
+          "id": "D",
+          "text": "To explain why the losses in a translation are harder to perceive than those in a physical artifact"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "The pot's visible gaps are contrasted with a translation whose fractures cannot show, making its losses invisible to readers.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Migratory songbirds navigate partly by the stars. Birds raised in planetariums under an artificial sky oriented themselves toward whatever direction that sky designated as north, even when it conflicted with the earth's magnetic field.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Birds raised indoors lose the ability to navigate."
+        },
+        {
+          "id": "B",
+          "text": "Artificial skies disorient birds entirely."
+        },
+        {
+          "id": "C",
+          "text": "For these birds, celestial cues can override magnetic ones."
+        },
+        {
+          "id": "D",
+          "text": "These birds cannot detect magnetic fields at all."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The birds followed the artificial sky even when it conflicted with the magnetic field, so the celestial cue took precedence.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The study's conclusions are ______ by its sample, which was drawn entirely from one hospital.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "corroborated"
+        },
+        {
+          "id": "B",
+          "text": "duplicated"
+        },
+        {
+          "id": "C",
+          "text": "popularized"
+        },
+        {
+          "id": "D",
+          "text": "circumscribed"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "A sample from a single hospital limits how far conclusions extend; 'circumscribed' names that limiting.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The soil in the valley retains water well. ______ farmers there grow crops that would fail on the neighbouring slopes.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Beforehand,"
+        },
+        {
+          "id": "B",
+          "text": "Accordingly,"
+        },
+        {
+          "id": "C",
+          "text": "In contrast,"
+        },
+        {
+          "id": "D",
+          "text": "However,"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The soil property causes the farming outcome, so the transition signals result.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The library's collection of maps is ______, spanning six centuries and four continents.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "meager"
+        },
+        {
+          "id": "B",
+          "text": "extensive"
+        },
+        {
+          "id": "C",
+          "text": "recent"
+        },
+        {
+          "id": "D",
+          "text": "fragile"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Six centuries and four continents describes great range, which 'extensive' names.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Conventional wisdom holds that adding lanes relieves traffic congestion. Transport data repeatedly show otherwise: within a few years, new capacity fills with trips that were not previously made at all. Engineers call the effect induced demand, and it means a wider road often carries more vehicles at the same crawling speed.",
+      "stem": "Which choice best states the main purpose of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "To compare road widening with public transport investment"
+        },
+        {
+          "id": "B",
+          "text": "To describe how traffic engineers measure congestion"
+        },
+        {
+          "id": "C",
+          "text": "To recommend a specific transport policy for cities"
+        },
+        {
+          "id": "D",
+          "text": "To present evidence that contradicts a common assumption and name the mechanism behind it"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "The text states the assumption, gives contrary data, and names induced demand as the mechanism.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The editor's revisions were ______: she changed three commas and left the argument untouched.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "delayed"
+        },
+        {
+          "id": "B",
+          "text": "cosmetic"
+        },
+        {
+          "id": "C",
+          "text": "hostile"
+        },
+        {
+          "id": "D",
+          "text": "substantial"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Changing three commas while leaving the argument alone is surface-level, which 'cosmetic' names.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The survey found broad public support for the measure. ______ turnout at the referendum was among the lowest on record.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "In particular,"
+        },
+        {
+          "id": "B",
+          "text": "Even so,"
+        },
+        {
+          "id": "C",
+          "text": "Therefore,"
+        },
+        {
+          "id": "D",
+          "text": "Likewise,"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Support and low turnout are in tension, calling for a concessive contrast.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- The Rosetta Stone was found in 1799.\n- It carries the same decree in three scripts.\n- The scripts are hieroglyphic, Demotic, and Greek.\n- Scholars used the Greek to decipher the hieroglyphs.",
+      "stem": "The student wants to explain how the stone made decipherment possible. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The Rosetta Stone carries a decree in three scripts."
+        },
+        {
+          "id": "B",
+          "text": "The Rosetta Stone was found in 1799."
+        },
+        {
+          "id": "C",
+          "text": "The Rosetta Stone is written partly in Greek."
+        },
+        {
+          "id": "D",
+          "text": "Because the stone repeats one decree in hieroglyphic, Demotic, and Greek, scholars could use the Greek to decipher the hieroglyphs."
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "Only the choice linking the known script to the unknown one explains decipherment.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The alloy resists corrosion and weighs a third less than steel. ______ its cost has confined it to aerospace applications.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Still,"
+        },
+        {
+          "id": "B",
+          "text": "Thus,"
+        },
+        {
+          "id": "C",
+          "text": "Indeed,"
+        },
+        {
+          "id": "D",
+          "text": "Likewise,"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Advantages are followed by a limitation that overrides them, so a concessive contrast is needed.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The instructions were so ______ that even first-time users assembled the shelf without difficulty.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "lengthy"
+        },
+        {
+          "id": "B",
+          "text": "clear"
+        },
+        {
+          "id": "C",
+          "text": "optional"
+        },
+        {
+          "id": "D",
+          "text": "technical"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Assembling it without difficulty indicates instructions that were easy to follow.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The essay is valuable less for its conclusions, which are ______, than for the questions it raises.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "provocative"
+        },
+        {
+          "id": "B",
+          "text": "unremarkable"
+        },
+        {
+          "id": "C",
+          "text": "recent"
+        },
+        {
+          "id": "D",
+          "text": "extensive"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "'Less for X than for Y' downgrades the conclusions relative to the questions, so the conclusions are ordinary.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Restoring the fresco required matching pigments no longer manufactured. ______ the conservators ground their own from mineral samples.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Accordingly,"
+        },
+        {
+          "id": "B",
+          "text": "In contrast,"
+        },
+        {
+          "id": "C",
+          "text": "Nevertheless,"
+        },
+        {
+          "id": "D",
+          "text": "Similarly,"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Grinding their own pigments is the response to the stated difficulty.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Coffee rust is a fungal disease of coffee plants.\n- It first devastated plantations in Ceylon in the 1870s.\n- Growers there replaced coffee with tea.\n- Ceylon tea remains a major export today.",
+      "stem": "The student wants to emphasize the long-term economic consequence of the outbreak. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "After coffee rust destroyed Ceylon's plantations in the 1870s, growers switched to tea, which remains a major export today."
+        },
+        {
+          "id": "B",
+          "text": "Ceylon growers replaced their coffee plants with tea."
+        },
+        {
+          "id": "C",
+          "text": "Coffee rust reached Ceylon in the 1870s."
+        },
+        {
+          "id": "D",
+          "text": "Coffee rust is a fungal disease that attacks coffee plants."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The long-term consequence requires connecting the outbreak to tea's continuing importance.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Although the theory was initially ______, within a decade it appeared in every introductory textbook.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "testable"
+        },
+        {
+          "id": "B",
+          "text": "elegant"
+        },
+        {
+          "id": "C",
+          "text": "marginal"
+        },
+        {
+          "id": "D",
+          "text": "dominant"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "'Although' contrasts the later ubiquity with an obscure beginning, which 'marginal' names.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "A drug performed well in trials conducted at high-altitude clinics but showed no benefit at sea level. The compound's proposed mechanism depends on binding to haemoglobin, and residents at altitude carry substantially more haemoglobin than sea-level populations.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Haemoglobin levels therefore have no bearing on the drug's action."
+        },
+        {
+          "id": "B",
+          "text": "Altitude therefore causes the condition the drug treats."
+        },
+        {
+          "id": "C",
+          "text": "The drug's apparent effectiveness may depend on the elevated haemoglobin levels found at altitude rather than on altitude itself."
+        },
+        {
+          "id": "D",
+          "text": "The drug is therefore ineffective under all conditions."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The mechanism runs through haemoglobin, which is elevated at altitude, so the binding target rather than elevation explains the pattern.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The novel's structure is ______, moving between three centuries without signalling the shifts.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "elliptical"
+        },
+        {
+          "id": "B",
+          "text": "conventional"
+        },
+        {
+          "id": "C",
+          "text": "repetitive"
+        },
+        {
+          "id": "D",
+          "text": "chronological"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Unsignalled jumps across centuries leave gaps for the reader to bridge, which 'elliptical' names.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The museum offers free entry on the first Sunday of each month. ______ visitors should expect long queues on those days.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Consequently,"
+        },
+        {
+          "id": "B",
+          "text": "Nevertheless,"
+        },
+        {
+          "id": "C",
+          "text": "For example,"
+        },
+        {
+          "id": "D",
+          "text": "Previously,"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Free entry causes the crowds, so the transition must signal result.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The model reproduced the observed migration routes almost exactly. ______ it failed to predict the timing of departure, which its authors attribute to omitted weather variables.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Accordingly,"
+        },
+        {
+          "id": "B",
+          "text": "That said,"
+        },
+        {
+          "id": "C",
+          "text": "By comparison,"
+        },
+        {
+          "id": "D",
+          "text": "In turn,"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "A success followed by an acknowledged shortcoming calls for a concessive qualification.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The new alloy is ______ enough to be shaped by hand yet strong enough to bear a load.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "costly"
+        },
+        {
+          "id": "B",
+          "text": "opaque"
+        },
+        {
+          "id": "C",
+          "text": "pliable"
+        },
+        {
+          "id": "D",
+          "text": "brittle"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Being shaped by hand requires flexibility, which 'pliable' names; 'brittle' is the opposite.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Standard accounts credit the printing press with the rapid spread of vernacular literature. ______ manuscripts in vernacular languages circulated widely for a century beforehand.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Similarly,"
+        },
+        {
+          "id": "B",
+          "text": "Consequently,"
+        },
+        {
+          "id": "C",
+          "text": "In fact,"
+        },
+        {
+          "id": "D",
+          "text": "As a result,"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The second sentence corrects the standard account rather than following from it.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Honey does not spoil.\n- Sealed jars have been found in ancient tombs.\n- Its low water content inhibits bacteria.\n- It is also highly acidic.",
+      "stem": "The student wants to explain why honey does not spoil. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Honey does not spoil, even after thousands of years."
+        },
+        {
+          "id": "B",
+          "text": "Sealed jars of honey have been found in ancient tombs."
+        },
+        {
+          "id": "C",
+          "text": "Honey is both acidic and low in water."
+        },
+        {
+          "id": "D",
+          "text": "Honey resists spoilage because its low water content and high acidity together inhibit bacteria."
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "The goal is causal, and only one choice names both properties as the reason.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Early telescopes suffered from severe colour fringing. ______ Newton's reflecting design avoided the problem by using a mirror instead of a lens.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Beforehand,"
+        },
+        {
+          "id": "B",
+          "text": "In response,"
+        },
+        {
+          "id": "C",
+          "text": "Similarly,"
+        },
+        {
+          "id": "D",
+          "text": "Regardless,"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The new design answers the stated problem, so the transition marks a response to it.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The following is adapted from a novel. The narrator has returned to a house she left as a child.\n\nThe banister was exactly where my hand expected it, which was worse than if it had been moved. Everything had been kept. Nothing had been kept for me.",
+      "stem": "Which choice best describes the function of the final two sentences?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "They indicate that the house has new occupants."
+        },
+        {
+          "id": "B",
+          "text": "They draw a distinction between preservation and welcome that unsettles the narrator."
+        },
+        {
+          "id": "C",
+          "text": "They explain why the narrator originally left the house."
+        },
+        {
+          "id": "D",
+          "text": "They describe the physical condition of the house in detail."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "'Everything had been kept. Nothing had been kept for me.' separates the house's preservation from any claim on the narrator.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Quantitative)",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A city compared recycling rates before and after switching to fortnightly collection.\n\n| District | Before | After |\n|---|---|---|\n| Ashgrove | 41% | 52% |\n| Bellhaven | 38% | 47% |\n| Cranwell | 45% | 44% |\n| Dunmore | 36% | 49% |\n\nAn official concluded that the change raised recycling in most districts.",
+      "stem": "Which choice best uses data from the table to support the official's conclusion?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Rates rose in three of the four districts, by between 9 and 13 percentage points."
+        },
+        {
+          "id": "B",
+          "text": "Cranwell's rate fell slightly, from 45% to 44%."
+        },
+        {
+          "id": "C",
+          "text": "Dunmore had the lowest rate before the change, at 36%."
+        },
+        {
+          "id": "D",
+          "text": "Ashgrove had the highest rate after the change, at 52%."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "The conclusion concerns increases across most districts, so the evidence must report their number and size.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Her prose is ______ without being obscure: every sentence rewards a second reading but none requires one.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "dense"
+        },
+        {
+          "id": "B",
+          "text": "careless"
+        },
+        {
+          "id": "C",
+          "text": "ornate"
+        },
+        {
+          "id": "D",
+          "text": "plain"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Rewarding rereading without requiring it describes compression, which 'dense' names, while 'obscure' is ruled out.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Lake Nyos is a crater lake in Cameroon.\n- Carbon dioxide seeps into its depths from magma below.\n- In 1986 the lake released a large cloud of the gas.\n- The cloud suffocated more than 1,700 people.\n- Degassing pipes were installed beginning in 2001.",
+      "stem": "The student wants to emphasize the measure taken to prevent a recurrence. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Carbon dioxide seeps into Lake Nyos from magma below."
+        },
+        {
+          "id": "B",
+          "text": "In 1986 Lake Nyos released a cloud of carbon dioxide."
+        },
+        {
+          "id": "C",
+          "text": "Since 2001, degassing pipes have vented carbon dioxide from Lake Nyos to prevent another release like the one that killed more than 1,700 people in 1986."
+        },
+        {
+          "id": "D",
+          "text": "Lake Nyos is a crater lake in Cameroon fed by volcanic gas."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Only one choice describes the preventive measure rather than the hazard or the disaster.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Desert plants face a dilemma: the pores they open to take in carbon dioxide also release water. Many cacti open theirs only after dark, storing the gas until daylight allows photosynthesis to proceed.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Desert plants therefore keep their pores permanently closed."
+        },
+        {
+          "id": "B",
+          "text": "Opening the pores at night therefore reduces the water a cactus loses."
+        },
+        {
+          "id": "C",
+          "text": "Cacti therefore photosynthesize more efficiently at night."
+        },
+        {
+          "id": "D",
+          "text": "Cacti therefore do not require carbon dioxide."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Water loss through open pores is the stated cost, and darkness is cooler, so night opening limits that loss.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "What appears to be ______ in the composer's late scores is in fact meticulously notated.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "improvisation"
+        },
+        {
+          "id": "B",
+          "text": "dissonance"
+        },
+        {
+          "id": "C",
+          "text": "repetition"
+        },
+        {
+          "id": "D",
+          "text": "silence"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "'What appears to be X is in fact meticulously notated' requires X to be the opposite of precise notation.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Inferences",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Radiocarbon dating assumes a known atmospheric ratio of carbon isotopes. Fossil fuel burning releases carbon so old that it contains no radiocarbon at all, diluting the atmospheric proportion measurably since the nineteenth century.",
+      "stem": "Which choice most logically completes the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Organic material formed recently may therefore appear older than it is when dated by this method without correction."
+        },
+        {
+          "id": "B",
+          "text": "Radiocarbon dating is therefore unusable for any modern sample."
+        },
+        {
+          "id": "C",
+          "text": "Fossil fuels therefore contain more radiocarbon than living tissue."
+        },
+        {
+          "id": "D",
+          "text": "The atmospheric ratio has therefore remained constant since the nineteenth century."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Dilution lowers the radiocarbon proportion, and a lower proportion reads as greater age unless corrected.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Command of Evidence (Textual)",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "A student claims that street trees measurably reduce summer temperatures in city neighbourhoods.",
+      "stem": "Which finding, if true, would most directly support the student's claim?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Street trees in the city are most commonly planted in spring."
+        },
+        {
+          "id": "B",
+          "text": "Residents report that tree-lined streets are more attractive."
+        },
+        {
+          "id": "C",
+          "text": "Street trees require regular pruning to remain healthy."
+        },
+        {
+          "id": "D",
+          "text": "Sensors recorded afternoon temperatures three degrees lower on tree-lined streets than on comparable treeless streets nearby."
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "The claim is about measured temperature reduction, and only the sensor comparison measures it.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "information_ideas",
+      "skill": "Central Ideas and Details",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Historians once treated the Library of Alexandria's destruction as a single catastrophic fire. Surviving records suggest something slower: shrinking budgets, the expulsion of scholars, and centuries of neglect, with fire only one episode among many. The library did not burn down so much as wind down.",
+      "stem": "Which choice best states the main idea of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The library's scholars were responsible for its decline."
+        },
+        {
+          "id": "B",
+          "text": "The library's loss was a gradual decline rather than one destructive event."
+        },
+        {
+          "id": "C",
+          "text": "The library was never actually destroyed by fire."
+        },
+        {
+          "id": "D",
+          "text": "Records of the library's history are largely unreliable."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The text contrasts the single-fire account with budgets, expulsions, and neglect, concluding it 'wound down'.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Mount Tambora erupted in 1815.\n- It ejected roughly 100 cubic kilometres of material.\n- Global temperatures fell by about 0.5°C the following year.\n- 1816 became known as the year without a summer.",
+      "stem": "The student wants to emphasize the eruption's global climatic effect. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The year 1816 was unusually cold in many places."
+        },
+        {
+          "id": "B",
+          "text": "Tambora's 1815 eruption lowered global temperatures by about 0.5°C, producing the year without a summer in 1816."
+        },
+        {
+          "id": "C",
+          "text": "Mount Tambora is a volcano that erupted in 1815."
+        },
+        {
+          "id": "D",
+          "text": "Mount Tambora erupted in 1815, ejecting about 100 cubic kilometres of material."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Only one choice ties the eruption to the measured global temperature effect.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Nauru was once among the richest countries per capita.\n- Its wealth came from phosphate deposits.\n- The deposits were largely exhausted by the 1990s.\n- Mining left about 80 percent of the island uninhabitable.\n- The country now imports nearly all its food.",
+      "stem": "The student wants to emphasize the lasting cost of the island's phosphate economy. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Nauru's phosphate deposits were exhausted by the 1990s."
+        },
+        {
+          "id": "B",
+          "text": "Nauru's wealth came from its phosphate deposits."
+        },
+        {
+          "id": "C",
+          "text": "Phosphate mining left roughly 80 percent of Nauru uninhabitable and the country dependent on imported food once the deposits ran out."
+        },
+        {
+          "id": "D",
+          "text": "Nauru was once among the richest countries per capita."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The lasting cost is the ruined land and import dependence, not the former wealth or the timeline.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The company projected that the new plant would open in March. ______ construction was still unfinished the following December.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "For instance,"
+        },
+        {
+          "id": "B",
+          "text": "In fact,"
+        },
+        {
+          "id": "C",
+          "text": "Likewise,"
+        },
+        {
+          "id": "D",
+          "text": "Therefore,"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The outcome contradicts the projection, which 'In fact' introduces.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The device's appeal is its ______: it performs one task, and requires no instructions to operate.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "durability"
+        },
+        {
+          "id": "B",
+          "text": "novelty"
+        },
+        {
+          "id": "C",
+          "text": "simplicity"
+        },
+        {
+          "id": "D",
+          "text": "versatility"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "One task and no instructions describes simplicity; 'versatility' would mean many tasks.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Most spiders build a fresh web each day. The bolas spider does not build one at all. It dangles a single silk line tipped with a sticky globule and swings it at passing moths, which it attracts by mimicking their scent.",
+      "stem": "Which choice best states the main purpose of the text?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "To argue that bolas spiders are more efficient hunters than other spiders"
+        },
+        {
+          "id": "B",
+          "text": "To explain how spiders produce silk"
+        },
+        {
+          "id": "C",
+          "text": "To describe a hunting method that departs from typical spider behaviour"
+        },
+        {
+          "id": "D",
+          "text": "To compare the diets of different spider species"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The text sets up the usual pattern, marks the bolas spider as an exception, and details that exception.",
+      "source": "self_authored"
+    }
+  ]
+}

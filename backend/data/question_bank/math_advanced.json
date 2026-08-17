@@ -1,0 +1,593 @@
+{
+  "_note": "Original items authored for EduNexus, written to the Digital SAT taxonomy in CLAUDE.md section 5. Not College Board content.",
+  "questions": [
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Equivalent expressions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "Which expression is equivalent to $(x + 4)(x + 3)$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$x^2 + 12$"
+        },
+        {
+          "id": "B",
+          "text": "$x^2 + 7x + 12$"
+        },
+        {
+          "id": "C",
+          "text": "$x^2 + 7x + 7$"
+        },
+        {
+          "id": "D",
+          "text": "$x^2 + 12x + 7$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Expanding gives $x^2 + 3x + 4x + 12 = x^2 + 7x + 12$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear functions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "The function $f$ is defined by $f(x) = x^2 - 5$. What is the value of $f(4)$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "3"
+        },
+        {
+          "id": "B",
+          "text": "8"
+        },
+        {
+          "id": "C",
+          "text": "11"
+        },
+        {
+          "id": "D",
+          "text": "16"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Substitute 4 for $x$: $f(4) = 4^2 - 5 = 16 - 5 = 11$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear equations in one variable",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "What are the solutions to the equation $x^2 - 9 = 0$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$x = 3$ only"
+        },
+        {
+          "id": "B",
+          "text": "$x = -3$ only"
+        },
+        {
+          "id": "C",
+          "text": "$x = 3$ and $x = -3$"
+        },
+        {
+          "id": "D",
+          "text": "$x = 9$ and $x = -9$"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Adding 9 gives $x^2 = 9$, so $x = 3$ or $x = -3$. Both values satisfy the equation.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Equivalent expressions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "Which expression is equivalent to $\\frac{12x^5}{3x^2}$, where $x \\ne 0$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$4x^3$"
+        },
+        {
+          "id": "B",
+          "text": "$4x^{7}$"
+        },
+        {
+          "id": "C",
+          "text": "$9x^3$"
+        },
+        {
+          "id": "D",
+          "text": "$36x^3$"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Divide the coefficients: $12 \\div 3 = 4$. Subtract the exponents: $x^{5-2} = x^3$. The result is $4x^3$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear functions",
+      "difficulty": "easy",
+      "question_type": "grid_in",
+      "stem": "The function $g$ is defined by $g(x) = 2x^2 + 3$. What is the value of $g(3)$?",
+      "correct_answer": "21",
+      "rationale": "Substitute 3 for $x$: $g(3) = 2(3)^2 + 3 = 2(9) + 3 = 18 + 3 = 21$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Equivalent expressions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "Which expression is equivalent to $x^2 - 16$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$(x - 4)(x - 4)$"
+        },
+        {
+          "id": "B",
+          "text": "$(x + 4)(x + 4)$"
+        },
+        {
+          "id": "C",
+          "text": "$(x + 4)(x - 4)$"
+        },
+        {
+          "id": "D",
+          "text": "$(x + 8)(x - 2)$"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "This is a difference of squares: $a^2 - b^2 = (a + b)(a - b)$ with $a = x$ and $b = 4$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear equations in one variable",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "If $\\sqrt{x + 7} = 5$, what is the value of $x$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "12"
+        },
+        {
+          "id": "B",
+          "text": "18"
+        },
+        {
+          "id": "C",
+          "text": "25"
+        },
+        {
+          "id": "D",
+          "text": "32"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Square both sides: $x + 7 = 25$. Subtract 7: $x = 18$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear equations in one variable",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "What is the sum of the solutions to the equation $x^2 - 7x + 12 = 0$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "3"
+        },
+        {
+          "id": "B",
+          "text": "4"
+        },
+        {
+          "id": "C",
+          "text": "7"
+        },
+        {
+          "id": "D",
+          "text": "12"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Factoring gives $(x - 3)(x - 4) = 0$, so the solutions are 3 and 4, which sum to 7. Alternatively, the sum of the roots equals $-\\frac{b}{a} = 7$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear functions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "The graph of the quadratic function $f(x) = (x - 3)^2 - 4$ has its vertex at which point?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$(-3, -4)$"
+        },
+        {
+          "id": "B",
+          "text": "$(3, -4)$"
+        },
+        {
+          "id": "C",
+          "text": "$(3, 4)$"
+        },
+        {
+          "id": "D",
+          "text": "$(-3, 4)$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "In vertex form $f(x) = a(x - h)^2 + k$, the vertex is $(h, k)$. Here $h = 3$ and $k = -4$, so the vertex is $(3, -4)$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Equivalent expressions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "Which expression is equivalent to $(3x - 2)^2$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$9x^2 + 4$"
+        },
+        {
+          "id": "B",
+          "text": "$9x^2 - 4$"
+        },
+        {
+          "id": "C",
+          "text": "$9x^2 - 12x + 4$"
+        },
+        {
+          "id": "D",
+          "text": "$9x^2 - 6x + 4$"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Expanding: $(3x - 2)(3x - 2) = 9x^2 - 6x - 6x + 4 = 9x^2 - 12x + 4$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear functions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A population of bacteria doubles every 4 hours. The initial population is 500.",
+      "stem": "Which function models the population $P$ after $t$ hours?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$P(t) = 500(2)^{4t}$"
+        },
+        {
+          "id": "B",
+          "text": "$P(t) = 500(2)^{t/4}$"
+        },
+        {
+          "id": "C",
+          "text": "$P(t) = 500(4)^{t/2}$"
+        },
+        {
+          "id": "D",
+          "text": "$P(t) = 500 + 2t$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The population multiplies by 2 once per 4-hour period, and the number of such periods in $t$ hours is $\\frac{t}{4}$, giving $P(t) = 500(2)^{t/4}$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear equations in one variable",
+      "difficulty": "medium",
+      "question_type": "grid_in",
+      "stem": "If $x^2 + 6x = 27$ and $x > 0$, what is the value of $x$?",
+      "correct_answer": "3",
+      "rationale": "Rewrite as $x^2 + 6x - 27 = 0$ and factor: $(x + 9)(x - 3) = 0$. The solutions are $x = -9$ and $x = 3$. Since $x > 0$, the value is 3.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Equivalent expressions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "Which expression is equivalent to $\\frac{x^2 + 5x + 6}{x + 2}$, where $x \\ne -2$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$x + 3$"
+        },
+        {
+          "id": "B",
+          "text": "$x + 2$"
+        },
+        {
+          "id": "C",
+          "text": "$x - 3$"
+        },
+        {
+          "id": "D",
+          "text": "$x + 6$"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Factor the numerator: $x^2 + 5x + 6 = (x + 2)(x + 3)$. Cancelling the common factor $(x + 2)$ leaves $x + 3$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear functions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "The function $f$ is defined by $f(x) = x^2 - 6x + 8$. For what values of $x$ does $f(x) = 0$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$x = 2$ and $x = 4$"
+        },
+        {
+          "id": "B",
+          "text": "$x = -2$ and $x = -4$"
+        },
+        {
+          "id": "C",
+          "text": "$x = 1$ and $x = 8$"
+        },
+        {
+          "id": "D",
+          "text": "$x = 3$ and $x = 5$"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Factoring gives $(x - 2)(x - 4) = 0$, so $x = 2$ or $x = 4$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Systems of equations in two variables",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "$$y = x^2 - 2x - 3$$\n$$y = 2x - 3$$\nWhich values of $x$ satisfy the system of equations above?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$x = 0$ and $x = 4$"
+        },
+        {
+          "id": "B",
+          "text": "$x = 0$ and $x = 2$"
+        },
+        {
+          "id": "C",
+          "text": "$x = -1$ and $x = 3$"
+        },
+        {
+          "id": "D",
+          "text": "$x = 1$ and $x = 3$"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "Set the expressions equal: $x^2 - 2x - 3 = 2x - 3$, so $x^2 - 4x = 0$. Factoring gives $x(x - 4) = 0$, so $x = 0$ or $x = 4$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear functions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The quadratic function $f$ has zeros at $x = -2$ and $x = 6$, and its graph passes through the point $(0, -24)$.",
+      "stem": "What is the value of the leading coefficient of $f$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$-2$"
+        },
+        {
+          "id": "B",
+          "text": "$-1$"
+        },
+        {
+          "id": "C",
+          "text": "$1$"
+        },
+        {
+          "id": "D",
+          "text": "$2$"
+        }
+      ],
+      "correct_answer": "D",
+      "rationale": "Write $f(x) = a(x + 2)(x - 6)$. Substituting $(0, -24)$: $-24 = a(2)(-6) = -12a$, so $a = 2$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Equivalent expressions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "Which expression is equivalent to $\\frac{1}{x} + \\frac{1}{x + 2}$, where $x \\ne 0$ and $x \\ne -2$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$\\frac{2}{2x + 2}$"
+        },
+        {
+          "id": "B",
+          "text": "$\\frac{2x + 2}{x(x + 2)}$"
+        },
+        {
+          "id": "C",
+          "text": "$\\frac{1}{x(x+2)}$"
+        },
+        {
+          "id": "D",
+          "text": "$\\frac{2}{x + 2}$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Using the common denominator $x(x + 2)$: $\\frac{(x+2)}{x(x+2)} + \\frac{x}{x(x+2)} = \\frac{2x + 2}{x(x + 2)}$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear equations in one variable",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "In the equation $2x^2 + bx + 8 = 0$, $b$ is a constant. If the equation has exactly one real solution, what is a possible value of $b$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$4$"
+        },
+        {
+          "id": "B",
+          "text": "$6$"
+        },
+        {
+          "id": "C",
+          "text": "$8$"
+        },
+        {
+          "id": "D",
+          "text": "$16$"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Exactly one real solution means the discriminant is zero: $b^2 - 4ac = 0$. Here $b^2 - 4(2)(8) = b^2 - 64 = 0$, so $b = 8$ or $b = -8$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear functions",
+      "difficulty": "hard",
+      "question_type": "grid_in",
+      "stimulus": "The function $f$ is defined by $f(x) = 3x^2 - 12x + 7$.",
+      "stem": "What is the minimum value of $f(x)$?",
+      "correct_answer": "-5",
+      "rationale": "The vertex occurs at $x = -\\frac{b}{2a} = \\frac{12}{6} = 2$. Then $f(2) = 3(4) - 24 + 7 = 12 - 24 + 7 = -5$. Since the parabola opens upward, this is the minimum.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Equivalent expressions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "If $x^{2/3} = 9$ and $x > 0$, what is the value of $x$?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "3"
+        },
+        {
+          "id": "B",
+          "text": "6"
+        },
+        {
+          "id": "C",
+          "text": "27"
+        },
+        {
+          "id": "D",
+          "text": "81"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Raise both sides to the power $\\frac{3}{2}$: $x = 9^{3/2} = (\\sqrt{9})^3 = 3^3 = 27$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Nonlinear functions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The function $g$ is defined by $g(x) = 2^x$.",
+      "stem": "If $g(a + 3) = 8 \\cdot g(a)$ for all values of $a$, which statement explains why?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Adding 3 to the input adds 3 to the output."
+        },
+        {
+          "id": "B",
+          "text": "Adding 3 to the input multiplies the output by $2^3 = 8$."
+        },
+        {
+          "id": "C",
+          "text": "Adding 3 to the input squares the output."
+        },
+        {
+          "id": "D",
+          "text": "Adding 3 to the input multiplies the output by 3."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "$g(a + 3) = 2^{a+3} = 2^a \\cdot 2^3 = 8 \\cdot 2^a = 8 \\cdot g(a)$. Adding a constant to the exponent multiplies the value by that power of the base.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "advanced_math",
+      "skill": "Systems of equations in two variables",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "$$x^2 + y^2 = 25$$\n$$y = x + 1$$\nHow many distinct real solutions does the system of equations above have?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "0"
+        },
+        {
+          "id": "B",
+          "text": "1"
+        },
+        {
+          "id": "C",
+          "text": "2"
+        },
+        {
+          "id": "D",
+          "text": "4"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Substituting gives $x^2 + (x+1)^2 = 25$, so $2x^2 + 2x + 1 = 25$ and $2x^2 + 2x - 24 = 0$, or $x^2 + x - 12 = 0$. Factoring: $(x + 4)(x - 3) = 0$, giving two solutions.",
+      "source": "self_authored"
+    }
+  ]
+}

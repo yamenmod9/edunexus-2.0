@@ -1,0 +1,329 @@
+{
+  "_note": "Original items authored for EduNexus, written to the Digital SAT taxonomy in CLAUDE.md section 5. Not College Board content.",
+  "questions": [
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Cheetahs can reach speeds of over 100 kilometers per hour. ______ they can sustain that pace for only about thirty seconds before overheating forces them to stop.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "However,"},
+        {"id": "B", "text": "Similarly,"},
+        {"id": "C", "text": "For example,"},
+        {"id": "D", "text": "Therefore,"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The first sentence presents an impressive capability and the second presents its limitation, so the relationship is contrast. 'However' signals contrast; the other options signal similarity, illustration, and consequence.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The soil in the region is thin and drains quickly. ______ farmers there have long favored crops with shallow root systems.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "Nevertheless,"},
+        {"id": "B", "text": "Consequently,"},
+        {"id": "C", "text": "In contrast,"},
+        {"id": "D", "text": "Meanwhile,"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The soil conditions cause the farming choice, so the transition must signal result. 'Consequently' does. The others signal contrast, contrast, and simultaneity.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a presentation, a student took the following notes:\n\n- The Voyager 1 probe launched in 1977.\n- It crossed into interstellar space in 2012.\n- It carries a gold-plated record of sounds and images from Earth.\n- The record includes greetings in 55 languages.",
+      "stem": "The student wants to emphasize the contents of the record. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {"id": "A", "text": "Voyager 1, which launched in 1977, crossed into interstellar space in 2012."},
+        {"id": "B", "text": "Voyager 1 carries a gold-plated record of sounds and images from Earth, including greetings in 55 languages."},
+        {"id": "C", "text": "Voyager 1 launched in 1977 and carries a record."},
+        {"id": "D", "text": "It took Voyager 1 thirty-five years to reach interstellar space."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The goal is to emphasize what the record contains. Choice B names both the sounds and images and the 55 languages. A and D concern the mission timeline, and C mentions the record without describing its contents.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Many amphibians absorb water directly through their skin. ______ they are especially vulnerable to pollutants dissolved in their habitat.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "For instance,"},
+        {"id": "B", "text": "As a result,"},
+        {"id": "C", "text": "On the other hand,"},
+        {"id": "D", "text": "Previously,"}
+      ],
+      "correct_answer": "B",
+      "rationale": "Skin absorption is the cause of the vulnerability, so the transition must express result. 'As a result' does; the others signal example, contrast, and time.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Bioluminescent fungi glow in the dark.\n- More than 80 species are known.\n- The glow comes from a compound called luciferin.\n- Some species glow only in their mushroom caps.",
+      "stem": "The student wants to explain the cause of the glow. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {"id": "A", "text": "More than 80 species of bioluminescent fungi are known."},
+        {"id": "B", "text": "Bioluminescent fungi glow in the dark, and some glow only in their caps."},
+        {"id": "C", "text": "The glow of bioluminescent fungi is produced by a compound called luciferin."},
+        {"id": "D", "text": "Bioluminescent fungi are a fascinating subject for study."}
+      ],
+      "correct_answer": "C",
+      "rationale": "The goal is causal explanation, and only C identifies luciferin as what produces the glow. A gives a count, B describes where the glow appears, and D offers an evaluation.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The museum's collection includes works by several well-known painters of the period. ______ it holds more than two hundred drawings by artists who never exhibited during their lifetimes.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "Instead,"},
+        {"id": "B", "text": "In addition,"},
+        {"id": "C", "text": "Regardless,"},
+        {"id": "D", "text": "Until then,"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The second sentence adds another part of the collection to the first, so an additive transition is needed. 'Instead' would replace rather than add, and the others signal dismissal and time.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- The Grand Canal of China was begun in the fifth century BCE.\n- It was substantially extended during the Sui dynasty (581–618 CE).\n- At its full extent it ran roughly 1,800 kilometers.\n- It linked the agricultural south with the political centers of the north.\n- Sections of it remain navigable today.",
+      "stem": "The student wants to emphasize the canal's economic and political function. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {"id": "A", "text": "The Grand Canal, begun in the fifth century BCE, was extended during the Sui dynasty."},
+        {"id": "B", "text": "Running roughly 1,800 kilometers, the Grand Canal connected the agricultural south to the political centers of the north."},
+        {"id": "C", "text": "The Grand Canal was begun in the fifth century BCE, and sections remain navigable today."},
+        {"id": "D", "text": "The Grand Canal ran roughly 1,800 kilometers at its full extent."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The goal names economic and political function, which the south-to-north link between farmland and political centers supplies. Choice B states it. A and C emphasize chronology, and D reports length alone.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Researchers expected the treated plots to show higher nitrogen levels than the control plots after a single season. ______ the difference did not become measurable until the third year of the study.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "In fact,"},
+        {"id": "B", "text": "Likewise,"},
+        {"id": "C", "text": "Accordingly,"},
+        {"id": "D", "text": "For this reason,"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The outcome contradicts the expectation, and 'In fact' introduces the corrective reality. 'Likewise' signals similarity, while 'Accordingly' and 'For this reason' would present the delay as a consequence of the expectation.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Composer Antonio Vivaldi worked at an orphanage for girls in Venice.\n- He taught music there for nearly three decades.\n- Many of his concertos were written for the orphanage's ensemble.\n- The ensemble became famous across Europe.\n- Visitors traveled to Venice specifically to hear it perform.",
+      "stem": "The student wants to emphasize the reputation the ensemble achieved. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {"id": "A", "text": "Vivaldi taught music at a Venetian orphanage for nearly three decades."},
+        {"id": "B", "text": "Many of Vivaldi's concertos were written for the orphanage's ensemble."},
+        {"id": "C", "text": "The orphanage's ensemble became famous across Europe, drawing visitors who traveled to Venice specifically to hear it."},
+        {"id": "D", "text": "Vivaldi worked at an orphanage for girls in Venice, where he wrote concertos."}
+      ],
+      "correct_answer": "C",
+      "rationale": "The goal concerns the ensemble's reputation. Choice C reports both its European fame and the visitors it attracted. The other choices describe Vivaldi's employment or output rather than how the ensemble was regarded.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Coral reefs occupy less than one percent of the ocean floor. ______ they shelter roughly a quarter of all marine species.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "Nonetheless,"},
+        {"id": "B", "text": "Consequently,"},
+        {"id": "C", "text": "Furthermore,"},
+        {"id": "D", "text": "In other words,"}
+      ],
+      "correct_answer": "A",
+      "rationale": "A very small area supporting a very large share of species is a contrast between expectation and fact. 'Nonetheless' marks it. The reef's small size does not cause the diversity, the second sentence does not simply add to the first, and it is not a restatement.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Mathematician Emmy Noether published a theorem in 1918.\n- The theorem links symmetries in physical systems to conservation laws.\n- It shows that conservation of energy follows from symmetry in time.\n- The result underpins much of modern theoretical physics.",
+      "stem": "The student wants to explain what the theorem establishes. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {"id": "A", "text": "Emmy Noether published an important theorem in 1918."},
+        {"id": "B", "text": "Noether's theorem links symmetries in physical systems to conservation laws, showing for instance that conservation of energy follows from symmetry in time."},
+        {"id": "C", "text": "Noether's 1918 result underpins much of modern theoretical physics."},
+        {"id": "D", "text": "Emmy Noether was a mathematician whose work influenced physics."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The goal is to state the theorem's content. Choice B gives both the general link and a concrete instance. A gives date and evaluation, C gives influence, and D gives biography.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The alloy resists corrosion better than steel and weighs substantially less. ______ its cost has kept it out of most consumer applications.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "Thus,"},
+        {"id": "B", "text": "Still,"},
+        {"id": "C", "text": "Indeed,"},
+        {"id": "D", "text": "Similarly,"}
+      ],
+      "correct_answer": "B",
+      "rationale": "Advantages are followed by a limitation that overrides them, so a concessive contrast is needed. 'Still' provides it. 'Thus' would make the cost a consequence of the advantages, and 'Indeed' and 'Similarly' signal reinforcement.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- Botanist Ynés Mexía began collecting plant specimens at age 51.\n- Over 13 years she collected roughly 145,000 specimens.\n- Around 500 of these were species new to science.\n- She traveled through Mexico and South America, often alone.\n- Fifty species and two genera are named after her.",
+      "stem": "The student wants to emphasize the scientific significance of Mexía's collecting. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {"id": "A", "text": "Ynés Mexía began collecting plant specimens at age 51 and traveled through Mexico and South America, often alone."},
+        {"id": "B", "text": "Over 13 years, Mexía collected roughly 145,000 specimens, around 500 of which were species new to science."},
+        {"id": "C", "text": "Mexía traveled widely and collected a large number of specimens."},
+        {"id": "D", "text": "Ynés Mexía began her collecting career unusually late in life."}
+      ],
+      "correct_answer": "B",
+      "rationale": "Scientific significance is best carried by the roughly 500 species new to science, set against the total collected. Choice B supplies both figures. A and D emphasize her late start and travel conditions, and C is vague where the notes are specific.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The model correctly predicted the timing of the eclipse to within four seconds. ______ it failed to account for the small variations in the moon's brightness that observers recorded, a shortcoming its authors attribute to their simplified treatment of the lunar surface.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "Accordingly,"},
+        {"id": "B", "text": "In turn,"},
+        {"id": "C", "text": "That said,"},
+        {"id": "D", "text": "By comparison,"}
+      ],
+      "correct_answer": "C",
+      "rationale": "A success is followed by an acknowledged shortcoming, which calls for a concessive transition. 'That said' performs that qualification. 'Accordingly' and 'In turn' signal consequence or sequence, and 'By comparison' would require two things being compared rather than one thing's strength and weakness.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- The Tswana city of Dithakong was documented by European travelers in 1801.\n- Travelers estimated its population at around 15,000.\n- That made it larger than Cape Town at the time.\n- European accounts nonetheless described the region as sparsely settled.\n- Historians cite the discrepancy as evidence of observer bias in colonial records.",
+      "stem": "The student wants to emphasize the discrepancy historians have identified in the colonial records. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {"id": "A", "text": "Dithakong was documented by European travelers in 1801, who estimated its population at around 15,000."},
+        {"id": "B", "text": "Although travelers estimated Dithakong's population at around 15,000, larger than Cape Town's at the time, European accounts still described the region as sparsely settled."},
+        {"id": "C", "text": "Dithakong had a population larger than that of Cape Town in 1801."},
+        {"id": "D", "text": "Historians have studied European accounts of southern Africa written in 1801."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The discrepancy lies between the recorded size of the city and the characterization of the region as sparsely settled. Only B places both halves in tension with 'Although' and 'still'. A and C give one side, and D describes the field of study.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Conventional accounts hold that the printing press spread literacy rapidly through sixteenth-century Europe. Recent work on regional archives suggests a slower and more uneven process, with some districts showing no measurable change for generations. ______ the press's effects appear to have depended heavily on whether local institutions already supported schooling.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "Specifically,"},
+        {"id": "B", "text": "Conversely,"},
+        {"id": "C", "text": "Nevertheless,"},
+        {"id": "D", "text": "Beforehand,"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The final sentence narrows the preceding claim about unevenness by naming what the variation depended on. 'Specifically' introduces that elaboration. 'Conversely' and 'Nevertheless' would signal opposition to a claim the sentence actually develops, and 'Beforehand' is temporal.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Rhetorical Synthesis",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "While researching a topic, a student took the following notes:\n\n- The Aral Sea was once the fourth-largest lake in the world.\n- Rivers feeding it were diverted for cotton irrigation beginning in the 1960s.\n- By 2007 it had shrunk to about ten percent of its original area.\n- The exposed seabed released salt and pesticide dust into surrounding regions.\n- A dam completed in 2005 has partly restored the northern portion.",
+      "stem": "The student wants to emphasize the consequences of the lake's shrinkage for surrounding areas. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+      "choices": [
+        {"id": "A", "text": "By 2007 the Aral Sea had shrunk to about ten percent of its original area."},
+        {"id": "B", "text": "As the Aral Sea shrank, its exposed seabed released salt and pesticide dust into the surrounding regions."},
+        {"id": "C", "text": "The Aral Sea was once the fourth-largest lake in the world."},
+        {"id": "D", "text": "A dam completed in 2005 has partly restored the northern portion of the Aral Sea."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The goal targets consequences for surrounding areas, which the salt and pesticide dust from the exposed seabed supplies. Choice B states it. A quantifies the shrinkage itself, C gives background, and D describes remediation.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "expression_of_ideas",
+      "skill": "Transitions",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Critics of the excavation argued that the site should have been left undisturbed for future researchers with better methods. The team responded that erosion would have destroyed the deposits within a decade. ______ the choice was not between excavating now and excavating later but between excavating now and losing the evidence entirely.",
+      "stem": "Which choice completes the text with the most logical transition?",
+      "choices": [
+        {"id": "A", "text": "In their view,"},
+        {"id": "B", "text": "By contrast,"},
+        {"id": "C", "text": "Previously,"},
+        {"id": "D", "text": "Admittedly,"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The final sentence continues the team's reasoning, restating their position in sharper terms, so a transition attributing the view to them fits. 'By contrast' would signal opposition to the team, 'Previously' is temporal, and 'Admittedly' would concede a point against them.",
+      "source": "self_authored"
+    }
+  ]
+}

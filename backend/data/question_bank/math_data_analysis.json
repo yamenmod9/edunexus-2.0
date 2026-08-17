@@ -1,0 +1,481 @@
+{
+  "_note": "Original items authored for EduNexus, written to the Digital SAT taxonomy in CLAUDE.md section 5. Not College Board content.",
+  "questions": [
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Percentages",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "What is 15% of 240?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "16"
+        },
+        {
+          "id": "B",
+          "text": "24"
+        },
+        {
+          "id": "C",
+          "text": "36"
+        },
+        {
+          "id": "D",
+          "text": "45"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "15% of 240 is $0.15 \\times 240 = 36$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Ratios, rates, proportional relationships, and units",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "A car travels 180 miles in 3 hours at a constant speed. At this rate, how many miles will it travel in 5 hours?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "240"
+        },
+        {
+          "id": "B",
+          "text": "300"
+        },
+        {
+          "id": "C",
+          "text": "360"
+        },
+        {
+          "id": "D",
+          "text": "540"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The speed is $\\frac{180}{3} = 60$ miles per hour. In 5 hours the car travels $60 \\times 5 = 300$ miles.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "One-variable data: distributions and measures of center and spread",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "What is the median of the data set 4, 7, 9, 12, 15?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "7"
+        },
+        {
+          "id": "B",
+          "text": "9"
+        },
+        {
+          "id": "C",
+          "text": "9.4"
+        },
+        {
+          "id": "D",
+          "text": "12"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The values are already in order and there are 5 of them, so the median is the third value, 9.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Probability and conditional probability",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "A bag contains 5 red marbles and 15 blue marbles. If one marble is selected at random, what is the probability that it is red?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$\\frac{1}{5}$"
+        },
+        {
+          "id": "B",
+          "text": "$\\frac{1}{4}$"
+        },
+        {
+          "id": "C",
+          "text": "$\\frac{1}{3}$"
+        },
+        {
+          "id": "D",
+          "text": "$\\frac{3}{4}$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "There are $5 + 15 = 20$ marbles total, of which 5 are red, so the probability is $\\frac{5}{20} = \\frac{1}{4}$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Ratios, rates, proportional relationships, and units",
+      "difficulty": "easy",
+      "question_type": "grid_in",
+      "stem": "The ratio of cats to dogs at a shelter is 3 to 5. If there are 15 cats, how many dogs are there?",
+      "correct_answer": "25",
+      "rationale": "The ratio $\\frac{3}{5} = \\frac{15}{d}$ gives $3d = 75$, so $d = 25$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Percentages",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stem": "A shirt originally priced at \\$40 is on sale for \\$30. What is the percent decrease in price?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "10%"
+        },
+        {
+          "id": "B",
+          "text": "25%"
+        },
+        {
+          "id": "C",
+          "text": "33%"
+        },
+        {
+          "id": "D",
+          "text": "75%"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The decrease is $40 - 30 = 10$ dollars. As a percent of the original: $\\frac{10}{40} = 0.25$, or 25%.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Two-variable data: models and scatterplots",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A line of best fit for a scatterplot relating study hours $h$ to exam score $s$ is given by $s = 6.5h + 52$.",
+      "stem": "According to the model, what is the predicted increase in exam score for each additional hour studied?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "6.5 points"
+        },
+        {
+          "id": "B",
+          "text": "52 points"
+        },
+        {
+          "id": "C",
+          "text": "58.5 points"
+        },
+        {
+          "id": "D",
+          "text": "It cannot be determined."
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "In a linear model, the slope gives the change in the predicted output per one-unit increase in the input. Here the slope is 6.5.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "One-variable data: distributions and measures of center and spread",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The list below gives the number of books read by each of 6 students in one month.\n\n2, 3, 3, 5, 8, 15",
+      "stem": "Which statement correctly compares the mean and the median of the data?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The mean is less than the median."
+        },
+        {
+          "id": "B",
+          "text": "The mean is equal to the median."
+        },
+        {
+          "id": "C",
+          "text": "The mean is greater than the median."
+        },
+        {
+          "id": "D",
+          "text": "The relationship cannot be determined."
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The mean is $\\frac{2+3+3+5+8+15}{6} = \\frac{36}{6} = 6$. The median is the average of the third and fourth values: $\\frac{3+5}{2} = 4$. Since $6 > 4$, the mean is greater. The value 15 pulls the mean upward.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Percentages",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stem": "The population of a town increased by 20% from 2020 to 2021, then decreased by 10% from 2021 to 2022. If the population in 2020 was 5,000, what was the population in 2022?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "5,400"
+        },
+        {
+          "id": "B",
+          "text": "5,500"
+        },
+        {
+          "id": "C",
+          "text": "5,600"
+        },
+        {
+          "id": "D",
+          "text": "6,000"
+        }
+      ],
+      "correct_answer": "A",
+      "rationale": "After the increase: $5000 \\times 1.20 = 6000$. After the decrease: $6000 \\times 0.90 = 5400$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Probability and conditional probability",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The table shows the results of a survey of 200 people about whether they own a bicycle.\n\n| | Owns bicycle | Does not own | Total |\n|---|---|---|---|\n| Under 30 | 60 | 40 | 100 |\n| 30 or older | 30 | 70 | 100 |\n| Total | 90 | 110 | 200 |",
+      "stem": "If a person who owns a bicycle is selected at random, what is the probability that the person is under 30?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$\\frac{60}{200}$"
+        },
+        {
+          "id": "B",
+          "text": "$\\frac{60}{100}$"
+        },
+        {
+          "id": "C",
+          "text": "$\\frac{60}{90}$"
+        },
+        {
+          "id": "D",
+          "text": "$\\frac{90}{200}$"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "The selection is restricted to bicycle owners, of whom there are 90. Of those, 60 are under 30, so the conditional probability is $\\frac{60}{90}$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Ratios, rates, proportional relationships, and units",
+      "difficulty": "medium",
+      "question_type": "grid_in",
+      "stem": "A machine produces 45 parts every 4 minutes. At this rate, how many parts does it produce in one hour?",
+      "correct_answer": "675",
+      "rationale": "In 60 minutes there are $\\frac{60}{4} = 15$ four-minute intervals. The machine produces $45 \\times 15 = 675$ parts.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Inference from sample statistics and margin of error",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "A random sample of 400 residents of a city found that 62% support a proposed park, with a margin of error of 4 percentage points at the 95% confidence level.",
+      "stem": "Which conclusion is best supported by these results?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Exactly 62% of all city residents support the park."
+        },
+        {
+          "id": "B",
+          "text": "It is plausible that between 58% and 66% of all city residents support the park."
+        },
+        {
+          "id": "C",
+          "text": "All residents of the city support the park."
+        },
+        {
+          "id": "D",
+          "text": "Fewer than half of city residents support the park."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The margin of error creates an interval of $62\\% \\pm 4\\%$, or 58% to 66%. A sample statistic estimates the population value within that interval rather than determining it exactly.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "One-variable data: distributions and measures of center and spread",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Data set A: 10, 12, 14, 16, 18\nData set B: 2, 8, 14, 20, 26",
+      "stem": "Which statement about the two data sets is true?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The sets have the same mean and the same standard deviation."
+        },
+        {
+          "id": "B",
+          "text": "The sets have the same mean, but set B has the larger standard deviation."
+        },
+        {
+          "id": "C",
+          "text": "The sets have the same mean, but set A has the larger standard deviation."
+        },
+        {
+          "id": "D",
+          "text": "Set B has both the larger mean and the larger standard deviation."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "Both sets have mean 14 and median 14. Set B's values are spread much further from the mean than set A's, so set B has the larger standard deviation.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Percentages",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "After a 25% discount, the sale price of an item is \\$96. What was the original price?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "\\$120"
+        },
+        {
+          "id": "B",
+          "text": "\\$124"
+        },
+        {
+          "id": "C",
+          "text": "\\$128"
+        },
+        {
+          "id": "D",
+          "text": "\\$132"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "A 25% discount means the sale price is 75% of the original: $0.75p = 96$, so $p = \\frac{96}{0.75} = 128$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Evaluating statistical claims",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "A researcher surveyed visitors leaving a gym and found that 85% reported exercising at least four times per week. The researcher concluded that 85% of all adults in the city exercise at least four times per week.",
+      "stem": "Which criticism of the conclusion is most valid?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "The sample size was too small to draw any conclusion."
+        },
+        {
+          "id": "B",
+          "text": "The sample was not randomly selected from the population of interest."
+        },
+        {
+          "id": "C",
+          "text": "The survey should have asked about diet as well."
+        },
+        {
+          "id": "D",
+          "text": "Percentages cannot be used to describe populations."
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "People leaving a gym are far more likely to exercise frequently than the general adult population. Because the sample was not drawn randomly from all adults in the city, it cannot support a conclusion about that population.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Ratios, rates, proportional relationships, and units",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stem": "A recipe requires 3 cups of flour for every 4 cups of milk. If a baker uses 18 cups of flour, how many cups of milk are needed?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "13.5"
+        },
+        {
+          "id": "B",
+          "text": "19"
+        },
+        {
+          "id": "C",
+          "text": "24"
+        },
+        {
+          "id": "D",
+          "text": "72"
+        }
+      ],
+      "correct_answer": "C",
+      "rationale": "Set up the proportion $\\frac{3}{4} = \\frac{18}{m}$. Cross-multiplying gives $3m = 72$, so $m = 24$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Probability and conditional probability",
+      "difficulty": "hard",
+      "question_type": "grid_in",
+      "stimulus": "A box contains 4 green, 6 yellow, and 10 white tokens.",
+      "stem": "If one token is drawn at random, what is the probability that it is not white? Give your answer as a decimal.",
+      "correct_answer": "0.5",
+      "rationale": "There are $4 + 6 + 10 = 20$ tokens, of which $4 + 6 = 10$ are not white. The probability is $\\frac{10}{20} = 0.5$.",
+      "source": "self_authored"
+    },
+    {
+      "section": "math",
+      "domain": "problem_solving_data_analysis",
+      "skill": "Two-variable data: models and scatterplots",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "A quantity $y$ decreases exponentially over time $t$, halving every 6 years. At $t = 0$, $y = 800$.",
+      "stem": "Which expression gives the value of $y$ after $t$ years?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "$800(0.5)^{6t}$"
+        },
+        {
+          "id": "B",
+          "text": "$800(0.5)^{t/6}$"
+        },
+        {
+          "id": "C",
+          "text": "$800 - \\frac{t}{6}$"
+        },
+        {
+          "id": "D",
+          "text": "$800(2)^{t/6}$"
+        }
+      ],
+      "correct_answer": "B",
+      "rationale": "The quantity is multiplied by 0.5 once every 6 years, and $\\frac{t}{6}$ counts how many such periods have elapsed, giving $800(0.5)^{t/6}$.",
+      "source": "self_authored"
+    }
+  ]
+}

@@ -30,6 +30,26 @@ async function scan(page) {
     .analyze()
 }
 
+/**
+ * Starts the short "Quick Check" form rather than whichever card happens to be
+ * first. Full-length forms carry 98 questions; clicking through them in the
+ * browser turns a 40-second suite into a 7-minute one, and the behaviour under
+ * test does not depend on module length.
+ */
+async function startQuickCheck(page) {
+  await page.getByRole('link', { name: 'Tests' }).click()
+  // The div must contain both the form's name and its button: filtering on the
+  // text alone matches the innermost wrapper, which holds the heading and not
+  // the button.
+  const card = page
+    .locator('div')
+    .filter({ hasText: 'Quick Check' })
+    .filter({ has: page.getByRole('button', { name: 'Start test' }) })
+    .last()
+  await card.getByRole('button', { name: 'Start test' }).click()
+}
+
+
 test('the sign-in screen has no accessibility violations', async ({ page }) => {
   await page.goto('/login')
   const results = await scan(page)
@@ -52,8 +72,7 @@ test('practice mode has no accessibility violations', async ({ page }) => {
 
 test('the test player has no accessibility violations', async ({ page }) => {
   await register(page, uniqueEmail('a11y-player'))
-  await page.getByRole('link', { name: 'Tests' }).click()
-  await page.getByRole('button', { name: 'Start test' }).first().click()
+  await startQuickCheck(page)
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
   const results = await scan(page)
   expect(results.violations).toEqual([])
@@ -61,8 +80,7 @@ test('the test player has no accessibility violations', async ({ page }) => {
 
 test('the score report has no accessibility violations', async ({ page }) => {
   await register(page, uniqueEmail('a11y-score'))
-  await page.getByRole('link', { name: 'Tests' }).click()
-  await page.getByRole('button', { name: 'Start test' }).first().click()
+  await startQuickCheck(page)
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
 
   // End it immediately; an incomplete report still has to be readable.
@@ -81,8 +99,7 @@ test('the progress page has no accessibility violations, empty or filled', async
   await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()
   expect((await scan(page)).violations).toEqual([])
 
-  await page.getByRole('link', { name: 'Take a test' }).click()
-  await page.getByRole('button', { name: 'Start test' }).first().click()
+  await startQuickCheck(page)
   for (let module = 0; module < 4; module += 1) {
     await expect(page.getByText(/Module \d+ of 4/)).toBeVisible()
     const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
@@ -159,8 +176,7 @@ test('the skip link is reachable and jumps to the main content', async ({ page }
 
 test('a question can be answered and flagged from the keyboard', async ({ page }) => {
   await register(page, uniqueEmail('a11y-answer'))
-  await page.getByRole('link', { name: 'Tests' }).click()
-  await page.getByRole('button', { name: 'Start test' }).first().click()
+  await startQuickCheck(page)
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
 
   const firstChoice = page.getByRole('radio').first()
@@ -177,8 +193,7 @@ test('a question can be answered and flagged from the keyboard', async ({ page }
 test('the layout works on a narrow phone viewport', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 })
   await register(page, uniqueEmail('a11y-mobile'))
-  await page.getByRole('link', { name: 'Tests' }).click()
-  await page.getByRole('button', { name: 'Start test' }).first().click()
+  await startQuickCheck(page)
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
 
   // Nothing may overflow horizontally - a test player you have to pan

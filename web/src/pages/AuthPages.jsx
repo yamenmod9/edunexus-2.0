@@ -2,8 +2,11 @@ import { useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../auth/AuthContext.jsx'
+import SiteFooter from '../components/SiteFooter.jsx'
 import { Alert, Button, Card, Field } from '../components/ui.jsx'
 
+// The sign-in screens sit outside the app shell, so they carry the trademark
+// notice themselves rather than inheriting Layout's.
 function AuthShell({ title, subtitle, children, footer }) {
   return (
     <div className="mx-auto max-w-md px-4 py-12">
@@ -14,6 +17,7 @@ function AuthShell({ title, subtitle, children, footer }) {
         {children}
       </Card>
       <p className="mt-4 text-center text-sm text-ink-faint">{footer}</p>
+      <SiteFooter />
     </div>
   )
 }

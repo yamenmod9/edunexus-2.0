@@ -1,0 +1,455 @@
+{
+  "_note": "Original items authored for EduNexus, written to the Digital SAT taxonomy in CLAUDE.md section 5. Not College Board content.",
+  "questions": [
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The committee's report was deliberately ______: rather than recommending a single course of action, it laid out four options and left the choice to the council.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "decisive"},
+        {"id": "B", "text": "noncommittal"},
+        {"id": "C", "text": "hostile"},
+        {"id": "D", "text": "elaborate"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The colon introduces an explanation: the report declined to recommend and deferred the choice. 'Noncommittal' names that stance. 'Decisive' is its opposite, and 'hostile' and 'elaborate' describe qualities the sentence does not support.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Early photographs of the city are ______ documents: they record streets and buildings that no longer exist anywhere else.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "invaluable"},
+        {"id": "B", "text": "tedious"},
+        {"id": "C", "text": "duplicate"},
+        {"id": "D", "text": "provisional"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The explanation after the colon stresses that the photographs preserve what survives nowhere else, which makes them extremely valuable. 'Tedious' and 'provisional' clash with that, and 'duplicate' contradicts their uniqueness.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Most bird species build a new nest each breeding season. Bald eagles do not. A mated pair typically returns to the same nest year after year, adding material each season until the structure can weigh more than a ton.",
+      "stem": "Which choice best states the main purpose of the text?",
+      "choices": [
+        {"id": "A", "text": "To argue that bald eagles are more intelligent than other birds"},
+        {"id": "B", "text": "To describe a way in which bald eagle nesting differs from that of most birds"},
+        {"id": "C", "text": "To explain how birds choose nesting sites"},
+        {"id": "D", "text": "To warn about the dangers of heavy nests"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The text sets up a general pattern, marks eagles as an exception, and details that exception. It makes no claim about intelligence, does not explain site selection, and issues no warning.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Although the novel was ignored on publication, its reputation grew steadily over the following decades, and it is now ______ as a landmark of the form.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "dismissed"},
+        {"id": "B", "text": "regarded"},
+        {"id": "C", "text": "purchased"},
+        {"id": "D", "text": "revised"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The sentence traces a rise from neglect to landmark status, so the blank needs a word about reputation. 'Regarded' fits. 'Dismissed' reverses the arc, and 'purchased' and 'revised' describe actions rather than standing.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "In 1856, chemist William Perkin was attempting to synthesize quinine when a failed reaction left a dark residue in his flask. Rinsing it with alcohol produced a vivid purple solution. Perkin had accidentally created the first synthetic dye, and within a decade the color he named mauve had transformed European textile manufacturing.",
+      "stem": "Which choice best describes the overall structure of the text?",
+      "choices": [
+        {"id": "A", "text": "It presents a debate and then resolves it."},
+        {"id": "B", "text": "It recounts an accidental discovery and notes its broader consequences."},
+        {"id": "C", "text": "It compares two competing manufacturing methods."},
+        {"id": "D", "text": "It describes a problem that remains unsolved."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The text narrates a failed experiment producing an unintended result, then reports its effect on manufacturing. There is no debate, comparison, or unsolved problem.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The bridge's design is deceptively ______: what appears to be a simple arch in fact conceals a complex network of internal supports.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "ornate"},
+        {"id": "B", "text": "plain"},
+        {"id": "C", "text": "fragile"},
+        {"id": "D", "text": "expensive"}
+      ],
+      "correct_answer": "B",
+      "rationale": "'Deceptively' signals that appearance and reality diverge, and the colon contrasts a 'simple arch' with hidden complexity. 'Plain' matches the appearance being contradicted. 'Ornate' is the wrong side of the contrast, and fragility and cost are not at issue.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "Cast iron cookware conducts heat unevenly and is heavy to handle. It also retains heat far longer than lighter pans, which is why cooks who want a hard sear on meat reach for it despite its drawbacks.",
+      "stem": "Which choice best describes the function of the second sentence in the text as a whole?",
+      "choices": [
+        {"id": "A", "text": "It offers an advantage that outweighs the limitations just described."},
+        {"id": "B", "text": "It provides evidence that cast iron should be avoided."},
+        {"id": "C", "text": "It introduces an unrelated topic."},
+        {"id": "D", "text": "It restates the first sentence in different words."}
+      ],
+      "correct_answer": "A",
+      "rationale": "The first sentence lists drawbacks; the second gives a benefit and explains why cooks accept those drawbacks. It neither argues against cast iron, changes topic, nor restates.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The scientist was known for her ______ record-keeping; colleagues noted that she logged even minor deviations in temperature and humidity.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "meticulous"},
+        {"id": "B", "text": "careless"},
+        {"id": "C", "text": "occasional"},
+        {"id": "D", "text": "reluctant"}
+      ],
+      "correct_answer": "A",
+      "rationale": "Logging even minor deviations indicates extreme care and attention to detail, which 'meticulous' names. The other choices describe the opposite disposition or an inconsistent one.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "stimulus": "The Sahara was not always desert. Sediment cores and rock art indicate that as recently as six thousand years ago, much of it supported grassland, lakes, and the herds that grazed them.",
+      "stem": "Which choice best states the main purpose of the text?",
+      "choices": [
+        {"id": "A", "text": "To explain why deserts form"},
+        {"id": "B", "text": "To correct an assumption about the Sahara's past by citing physical evidence"},
+        {"id": "C", "text": "To describe rock art techniques"},
+        {"id": "D", "text": "To argue that the Sahara will become grassland again"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The opening denies a likely assumption, and the second sentence supplies the evidence supporting that correction. The text does not explain desert formation, describe artistic technique, or make a prediction.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Far from being ______, the author's late essays show a writer still willing to abandon positions he had defended for thirty years.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "prolific"},
+        {"id": "B", "text": "entrenched"},
+        {"id": "C", "text": "articulate"},
+        {"id": "D", "text": "obscure"}
+      ],
+      "correct_answer": "B",
+      "rationale": "'Far from being' sets up a contrast with the willingness to abandon long-held positions. The opposite of that flexibility is being fixed in one's views, which 'entrenched' names. Output, clarity, and obscurity are not what the contrast turns on.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Cross-Text Connections",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Text 1: Urban planner Ines Duarte argues that congestion pricing is the most effective tool available for reducing traffic in dense city centers. Charging drivers directly for peak-hour access, she writes, reduces trips in a way no amount of road expansion has achieved.\n\nText 2: Transportation researcher Kwame Boateng does not dispute that congestion pricing reduces traffic volume. He notes, however, that its burden falls disproportionately on lower-income drivers whose work schedules leave them least able to shift travel times, and argues that any such scheme requires paired investment in transit.",
+      "stem": "Based on the texts, how would Boateng most likely respond to Duarte's argument?",
+      "choices": [
+        {"id": "A", "text": "By denying that congestion pricing reduces traffic"},
+        {"id": "B", "text": "By accepting its effectiveness while raising a concern about who bears its costs"},
+        {"id": "C", "text": "By recommending road expansion instead"},
+        {"id": "D", "text": "By arguing that traffic in city centers is not a problem"}
+      ],
+      "correct_answer": "B",
+      "rationale": "Text 2 explicitly grants the volume reduction and shifts to equity, adding a condition about transit investment. Choice B captures both moves. A contradicts his stated agreement, and C and D attribute positions he never takes.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The following is adapted from a nineteenth-century novel. The narrator has just arrived at a house where she will work as a governess.\n\nThe hall was larger than any room I had entered before, and colder. A single lamp burned at the far end, too distant to reach the corners, so that the walls seemed to recede rather than enclose. I set down my case and waited, listening to a clock I could not see.",
+      "stem": "Which choice best describes the function of the underlying detail about the lamp in the text?",
+      "choices": [
+        {"id": "A", "text": "It establishes that the household is wealthy."},
+        {"id": "B", "text": "It contributes to an impression of vastness and uncertainty surrounding the narrator."},
+        {"id": "C", "text": "It indicates the time of day at which the narrator arrived."},
+        {"id": "D", "text": "It suggests that the narrator has poor eyesight."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The lamp is described as too distant to light the corners, which makes the walls 'recede rather than enclose.' That detail builds a sense of unbounded, uncertain space, reinforced by the unseen clock. It signals neither wealth, nor time, nor a defect in vision.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Reviewers praised the documentary's ______ treatment of its subject: the director interviewed both the company's executives and the workers who had sued them, allowing each to speak at length.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "evenhanded"},
+        {"id": "B", "text": "cursory"},
+        {"id": "C", "text": "nostalgic"},
+        {"id": "D", "text": "abrasive"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The colon explains that both opposed parties were given extended time, which describes balance. 'Evenhanded' names it. 'Cursory' contradicts 'at length,' and the remaining choices describe tones the detail does not support.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Conservationists once assumed that fencing a reserve protected the animals inside it. Long-term monitoring has shown otherwise: fenced populations that cannot exchange individuals with neighboring groups lose genetic diversity within a few generations, and with it much of their resilience to disease.",
+      "stem": "Which choice best states the main purpose of the text?",
+      "choices": [
+        {"id": "A", "text": "To describe how fences are constructed around reserves"},
+        {"id": "B", "text": "To present evidence that complicates a former assumption about conservation practice"},
+        {"id": "C", "text": "To argue that reserves should be abolished"},
+        {"id": "D", "text": "To compare diseases affecting wild populations"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The text names a prior assumption, then reports monitoring results that undercut it. It does not describe construction, call for abolishing reserves, or compare diseases.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Cross-Text Connections",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "Text 1: In assessing the Bronze Age settlement at Yarrow Hill, archaeologist Piotr Nowak emphasizes the uniformity of its houses. Every dwelling excavated is nearly identical in size and construction, which he takes as evidence of a society without marked status distinctions.\n\nText 2: Archaeologist Leila Farouk cautions that Yarrow Hill has been excavated only along its eastern edge. Settlements of this period frequently placed high-status structures at the center, and until the interior is examined, she argues, uniformity at the margins tells us little about the settlement as a whole.",
+      "stem": "Based on the texts, Farouk would most likely characterize Nowak's conclusion as",
+      "choices": [
+        {"id": "A", "text": "well supported by the full range of available evidence."},
+        {"id": "B", "text": "premature, because the excavated area may not represent the settlement."},
+        {"id": "C", "text": "irrelevant to questions about social status."},
+        {"id": "D", "text": "consistent with what is known about other Bronze Age sites."}
+      ],
+      "correct_answer": "B",
+      "rationale": "Farouk's objection is about sampling: only the eastern edge has been dug, and high-status buildings were typically central. Her point is that the conclusion outruns the evidence, making B correct. She does not endorse the conclusion, dismiss the topic, or claim consistency with other sites.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The proposal's supporters described the projected costs as ______, but an independent audit found that the estimate omitted maintenance entirely.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "exorbitant"},
+        {"id": "B", "text": "comprehensive"},
+        {"id": "C", "text": "unpopular"},
+        {"id": "D", "text": "delayed"}
+      ],
+      "correct_answer": "B",
+      "rationale": "'But' signals contrast with the audit's finding that something was omitted. The claim being contradicted must be that the estimate covered everything, which 'comprehensive' expresses. 'Exorbitant' concerns size rather than completeness, and the other options do not contrast with omission.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "stimulus": "The following is adapted from an early twentieth-century short story.\n\nHe had rehearsed the conversation on the walk over, assigning himself the better lines. Now, seated across from her with the tea going cold between them, he found that every phrase he had prepared belonged to a different afternoon, one in which she had said what he expected her to say.",
+      "stem": "Which choice best describes the function of the second sentence in the text?",
+      "choices": [
+        {"id": "A", "text": "It reveals that the character's preparation has proven useless against the actual encounter."},
+        {"id": "B", "text": "It explains why the character arrived late."},
+        {"id": "C", "text": "It describes the setting in which the story takes place."},
+        {"id": "D", "text": "It summarizes the conversation that follows."}
+      ],
+      "correct_answer": "A",
+      "rationale": "The second sentence shows the rehearsed lines fitting only an imagined version of the meeting, so his preparation fails against what is actually happening. Lateness is not mentioned, setting details are incidental, and no subsequent conversation is summarized.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The theory's appeal lay precisely in its ______: by accounting for every observed outcome, it left no result that could have counted against it, and thus offered no way of being tested.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "rigor"},
+        {"id": "B", "text": "novelty"},
+        {"id": "C", "text": "comprehensiveness"},
+        {"id": "D", "text": "obscurity"}
+      ],
+      "correct_answer": "C",
+      "rationale": "The colon explains the quality as accounting for every outcome, which is comprehensiveness, and the sentence turns that apparent strength into a weakness. 'Rigor' would suggest testability, the opposite of what follows, while novelty and obscurity are not what the explanation describes.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Cross-Text Connections",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Text 1: Literary scholar Hana Ishikawa argues that the abrupt ending of the 1897 novel *Marram* reflects the author's declining health, noting that the final chapters were written in the months before her death and that a planned resolution appears in her letters.\n\nText 2: Critic Desmond Ayele accepts Ishikawa's biographical account but resists her conclusion. Whatever prompted the abruptness, he argues, the ending as published produces an effect the planned version could not: the reader is left holding the same uncertainty as the characters. Intention, he writes, does not settle what a finished work achieves.",
+      "stem": "Which choice best describes the relationship between the two texts?",
+      "choices": [
+        {"id": "A", "text": "Text 2 disputes the factual basis of Text 1 and offers contrary evidence."},
+        {"id": "B", "text": "Text 2 grants Text 1's account of the cause but denies that it determines the ending's literary significance."},
+        {"id": "C", "text": "Text 2 extends Text 1's argument with additional biographical detail."},
+        {"id": "D", "text": "Text 2 argues that the novel's ending is a flaw that criticism should acknowledge."}
+      ],
+      "correct_answer": "B",
+      "rationale": "Ayele 'accepts Ishikawa's biographical account' but separates cause from achieved effect, concluding that intention does not settle what the work accomplishes. That is agreement on fact with disagreement on significance. He disputes no facts, adds no biography, and treats the ending as effective rather than flawed.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Economists modeling labor markets have generally treated job search as a process of matching workers to vacancies, with unemployment reflecting the time that matching takes. Sociologist Marisol Vega finds this framing incomplete. Interviewing long-term unemployed workers, she documents how repeated rejection reshapes which jobs applicants consider available to them, so that the pool a worker searches within narrows over time independently of the vacancies that actually exist.",
+      "stem": "Which choice best describes the function of the final sentence in the text as a whole?",
+      "choices": [
+        {"id": "A", "text": "It concedes a limitation in Vega's method."},
+        {"id": "B", "text": "It specifies the mechanism by which Vega's findings complicate the standard framing."},
+        {"id": "C", "text": "It restates the economists' position in more precise terms."},
+        {"id": "D", "text": "It proposes a policy for reducing long-term unemployment."}
+      ],
+      "correct_answer": "B",
+      "rationale": "The final sentence supplies the specific process — rejection narrowing a worker's perceived pool independently of real vacancies — that makes the matching framing incomplete. It concedes nothing, restates no opposing view, and proposes no policy.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Critics of the restoration objected that its brilliant colors were ______ rather than recovered: the cleaning had stripped a varnish the painter himself applied, revealing pigments he never intended a viewer to see unmediated.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "manufactured"},
+        {"id": "B", "text": "faded"},
+        {"id": "C", "text": "documented"},
+        {"id": "D", "text": "purchased"}
+      ],
+      "correct_answer": "A",
+      "rationale": "The blank contrasts with 'recovered,' and the explanation says the cleaning produced an appearance the painter never intended. The colors were created by the restoration rather than restored to an original state, which 'manufactured' conveys. 'Faded' is the wrong direction, and the others do not contrast with recovery.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Cross-Text Connections",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Text 1: Neuroscientist Adaora Eze reports that participants who learned a motor sequence and then slept showed greater improvement the next day than participants who learned it and stayed awake for an equal interval. She concludes that sleep actively consolidates motor memory.\n\nText 2: Neuroscientist Tomas Lindqvist notes that waking participants in such studies continue to encounter new sensory input, which is known to interfere with recently formed memories. The sleeping group's advantage, he suggests, may reflect the absence of interference rather than any active process occurring during sleep.",
+      "stem": "Based on the texts, Lindqvist's response to Eze's conclusion is best described as",
+      "choices": [
+        {"id": "A", "text": "an argument that her data were incorrectly measured."},
+        {"id": "B", "text": "an alternative explanation of the same result that does not require her proposed mechanism."},
+        {"id": "C", "text": "an endorsement supported by additional evidence."},
+        {"id": "D", "text": "a claim that sleep impairs rather than improves motor memory."}
+      ],
+      "correct_answer": "B",
+      "rationale": "Lindqvist accepts the observed advantage but attributes it to reduced interference during sleep rather than active consolidation. That is a rival explanation of the same finding, not a measurement objection, an endorsement, or a claim that sleep harms memory.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The following is adapted from an essay on translation.\n\nEvery translator faces a choice that cannot be evaded by care or skill alone. To preserve a poem's meter is often to abandon its literal sense; to preserve the sense is to surrender the movement that made the lines worth translating. What looks like a technical difficulty is in fact a decision about what the poem most essentially is, and no translation can decline to make it.",
+      "stem": "Which choice best states the main purpose of the text?",
+      "choices": [
+        {"id": "A", "text": "To recommend preserving meter over literal sense in poetic translation"},
+        {"id": "B", "text": "To argue that an apparently technical problem in translation is really a judgment about a poem's essential nature"},
+        {"id": "C", "text": "To describe the training that professional translators receive"},
+        {"id": "D", "text": "To claim that poetry cannot be translated"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The text reframes the meter-versus-sense tradeoff, stating explicitly that what 'looks like a technical difficulty' is a decision about what the poem essentially is. It recommends neither option, discusses no training, and holds that translations must choose rather than that they are impossible.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Words in Context",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "The general's memoir is ______ in its account of the campaign's failures: he names the decisions that went wrong, including several of his own, without recourse to the weather or the terrain.",
+      "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+      "choices": [
+        {"id": "A", "text": "evasive"},
+        {"id": "B", "text": "unsparing"},
+        {"id": "C", "text": "sentimental"},
+        {"id": "D", "text": "tentative"}
+      ],
+      "correct_answer": "B",
+      "rationale": "The colon shows the memoir naming failures, including his own, and refusing external excuses. 'Unsparing' captures that refusal to soften. 'Evasive' and 'tentative' describe the avoidance the sentence rules out, and 'sentimental' does not fit an account assigning blame.",
+      "source": "self_authored"
+    },
+    {
+      "section": "reading_writing",
+      "domain": "craft_structure",
+      "skill": "Text Structure and Purpose",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "stimulus": "Museums have increasingly published their collections online, and the digitized image is often described as widening access. Curator Nadia Halim accepts the benefit but identifies a cost that is easy to overlook. A photograph fixes a single viewing distance, angle, and light, decisions a visitor in a gallery makes continuously and unconsciously. The digitized object is more available and simultaneously less encountered.",
+      "stem": "Which choice best describes the function of the final sentence in the text?",
+      "choices": [
+        {"id": "A", "text": "It summarizes the tension the text has developed between availability and experience."},
+        {"id": "B", "text": "It recommends that museums stop digitizing their collections."},
+        {"id": "C", "text": "It introduces evidence supporting the claim about widened access."},
+        {"id": "D", "text": "It concedes that Halim's concern is unfounded."}
+      ],
+      "correct_answer": "A",
+      "rationale": "The closing sentence pairs 'more available' with 'less encountered,' compressing the text's tension between the access digitization provides and the perceptual choices it removes. It makes no recommendation, adds no evidence for access, and withdraws nothing.",
+      "source": "self_authored"
+    }
+  ]
+}

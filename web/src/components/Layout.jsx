@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../auth/AuthContext.jsx'
+import SiteFooter from './SiteFooter.jsx'
 import { Button } from './ui.jsx'
 
 function navClass({ isActive }) {
@@ -59,6 +60,8 @@ export default function Layout() {
       <main id="main" className="mx-auto max-w-5xl px-4 py-6">
         <Outlet />
       </main>
+
+      <SiteFooter />
     </div>
   )
 }
