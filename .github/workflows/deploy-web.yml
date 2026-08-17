@@ -1,0 +1,67 @@
+name: Deploy web to Cloudflare Pages
+
+# Push-to-deploy for the React frontend.
+#
+# Cloudflare's native Git integration is not used here, for two reasons:
+#
+#   1. The Pages project `edunexus` was created as a Direct Upload project, and
+#      Cloudflare cannot convert one to Git-connected. Switching would mean
+#      deleting the project and losing edunexus-2wb.pages.dev.
+#   2. This is a monorepo. Deploying from CI keeps the build honest — the same
+#      `npm ci && npm run build` anyone runs locally — and lets the path filter
+#      below skip deploys for backend- or mobile-only commits.
+#
+# Requires two repository secrets (Settings -> Secrets and variables -> Actions):
+#   CLOUDFLARE_API_TOKEN   a token with the "Cloudflare Pages: Edit" permission
+#   CLOUDFLARE_ACCOUNT_ID  90ed88b05fa91851f1f9a8eaa5581a3a
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - '.github/workflows/deploy-web.yml'
+  # Lets you redeploy the current main without an empty commit.
+  workflow_dispatch:
+
+concurrency:
+  # A newer push supersedes an in-flight deploy rather than racing it.
+  group: deploy-web
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      # Deploying a build that fails its own tests helps nobody, so the two
+      # steps above gate this one.
+      - name: Build
+        env:
+          VITE_API_URL: https://edunexus-api-production.up.railway.app
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: web
+          command: pages deploy dist --project-name=edunexus --branch=main

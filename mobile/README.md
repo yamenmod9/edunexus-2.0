@@ -112,9 +112,14 @@ hard way:
 invocation does not quote the project path, so a directory like
 `C:\Programming\Flutter\edunexus(2.0)` truncates at the `(` and the build
 fails with `'C:\Programming\Flutter\edunexus' is not recognized as an
-internal or external command`. This is a Flutter/Gradle limitation, not
-anything in this code. Either check the repo out to a path with no parentheses,
-or build `mobile/` from a copy at a clean path.
+internal or external command`. Parentheses are cmd.exe grouping characters;
+hyphens and dots are fine.
+
+The only real fix is to check the repo out somewhere without them, e.g.
+`C:\Programming\Flutter\edunexus-2.0`. A directory junction pointing at the
+parenthesised path does **not** work — tested, and Gradle resolves the junction
+back to the real path and fails identically. Building from a copy works but is
+not a way to live.
 
 **`flutter_secure_storage` is pinned to 9.2.4, deliberately.** The 11.x line
 does not build here on either mobile platform we can verify:
