@@ -17,5 +17,10 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.js'],
     globals: true,
+    // Scope vitest to src/. Without this it also globs e2e/*.spec.js, which
+    // are Playwright tests, and vitest fails with "Playwright Test did not
+    // expect test() to be called here". Running `vitest` with an explicit path
+    // hides this; bare `npm test` (what CI runs) does not.
+    include: ['src/**/*.{test,spec}.{js,jsx}'],
   },
 })

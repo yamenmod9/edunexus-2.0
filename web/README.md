@@ -98,7 +98,28 @@ Worth code-splitting if it ever matters; it is one cacheable download today.
 
 ## Deployment
 
-Cloudflare Pages, per `CLAUDE.md` §8:
+Pushes to `main` that touch `web/` deploy automatically via
+`.github/workflows/deploy-web.yml`, which installs, runs `npm test`, builds,
+and then deploys with `wrangler pages deploy`. It needs two repository secrets,
+`CLOUDFLARE_API_TOKEN` (Cloudflare Pages: Edit) and `CLOUDFLARE_ACCOUNT_ID`.
+
+Note that `npm test` there is bare `vitest run`, so `vite.config.js` scopes
+vitest to `src/`. Without that it also picks up `e2e/*.spec.js` — Playwright
+files — and fails with "Playwright Test did not expect test() to be called
+here". Running vitest with an explicit path hides the problem; CI does not.
+
+To deploy by hand:
+
+```bash
+VITE_API_URL=https://edunexus-api-production.up.railway.app npm run build
+npx wrangler pages deploy dist --project-name edunexus --branch main
+```
+
+The Pages project is Direct Upload, not Git-connected, and Cloudflare cannot
+convert one to the other — which is why deployment goes through Actions rather
+than Cloudflare's own Git integration.
+
+Original settings, per `CLAUDE.md` §8:
 
 | Setting | Value |
 |---|---|
