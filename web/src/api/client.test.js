@@ -1,6 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { ApiError, attempts, auth, onSessionEnded, questions, request } from './client.js'
+import {
+  ApiError,
+  analytics,
+  attempts,
+  auth,
+  onSessionEnded,
+  questions,
+  request,
+} from './client.js'
 import { clearTokens, getAccessToken, getRefreshToken, setTokens } from './tokens.js'
 
 function jsonResponse(status, body) {
@@ -232,5 +240,25 @@ describe('endpoint wrappers', () => {
     await auth.logout('refresh-1')
 
     expect(authHeader(fetch.mock.calls[0])).toBeUndefined()
+  })
+
+  it('fetches the analytics dashboard with no query string by default', async () => {
+    setTokens({ access_token: 'a', refresh_token: 'r' })
+    fetch.mockResolvedValueOnce(jsonResponse(200, { attempts_analyzed: 0 }))
+
+    await analytics.dashboard()
+
+    expect(fetch.mock.calls[0][0]).toBe('/api/analytics/dashboard')
+  })
+
+  it('appends analytics params and drops empty ones', async () => {
+    setTokens({ access_token: 'a', refresh_token: 'r' })
+    fetch.mockResolvedValueOnce(jsonResponse(200, { attempts_analyzed: 0 }))
+
+    await analytics.dashboard({ min_sample: 3, weak_limit: '' })
+
+    const [url] = fetch.mock.calls[0]
+    expect(url).toContain('min_sample=3')
+    expect(url).not.toContain('weak_limit')
   })
 })

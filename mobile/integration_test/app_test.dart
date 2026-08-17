@@ -141,8 +141,14 @@ void main() {
     }
 
     // --- the score report --------------------------------------------
-    await pumpUntil(tester, find.text('Score report'),
-        timeout: const Duration(seconds: 45));
+    // The app-bar title 'Score report' renders immediately on navigation,
+    // before the review payload has loaded (see result_screen.dart) — wait
+    // on 'TOTAL' instead, which only appears once _review is populated. This
+    // is the last request of the run and hits the live deployed API by
+    // default (see the file header), so it gets the longest budget here to
+    // absorb a cold start rather than reading a slow response as a hang.
+    await pumpUntil(tester, find.text('TOTAL'),
+        timeout: const Duration(seconds: 60));
 
     // A score is never shown without the caveat the API attaches to it.
     expect(find.text('These scores are an approximation'), findsOneWidget);
@@ -163,5 +169,28 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.textContaining('Routed to the'), findsWidgets);
+
+    // --- progress dashboard --------------------------------------------
+    // Back to the home screen, then the analytics view built on top of the
+    // attempt just finished (Phase 7).
+    await tester.tap(find.widgetWithText(OutlinedButton, 'Back to the dashboard'));
+    await pumpUntil(tester, find.byTooltip('Your progress'));
+    await tester.tap(find.byTooltip('Your progress'));
+    await pumpUntil(tester, find.textContaining('Based on 1 finished attempt'),
+        timeout: const Duration(seconds: 30));
+    expect(find.text('TOTAL SCORE BY ATTEMPT'), findsNothing); // only 1 attempt so far
+    expect(find.text('LATEST TOTAL SCORE'), findsOneWidget);
+
+    // The rest of the dashboard is below the fold in a lazily-built
+    // ListView, same as the score report's module cards above.
+    await tester.scrollUntilVisible(
+      find.text('Test history'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+      maxScrolls: 60,
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('By domain'), findsOneWidget);
+    expect(find.text('Test history'), findsOneWidget);
   });
 }

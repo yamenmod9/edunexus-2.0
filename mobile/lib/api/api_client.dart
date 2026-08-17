@@ -276,6 +276,9 @@ class ApiClient {
   Future<Map<String, dynamic>> review(String attemptId) =>
       requireJson('GET', '/api/attempts/$attemptId/review');
 
+  Future<Map<String, dynamic>> analyticsDashboard() =>
+      requireJson('GET', '/api/analytics/dashboard');
+
   Future<Map<String, dynamic>> score(String attemptId) =>
       requireJson('GET', '/api/attempts/$attemptId/score');
 }

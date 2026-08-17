@@ -5,6 +5,7 @@ import '../api/api_client.dart';
 import '../state/app_state.dart';
 import '../widgets/common.dart';
 import 'practice_screen.dart';
+import 'progress_screen.dart';
 import 'result_screen.dart';
 import 'test_player_screen.dart';
 
@@ -112,6 +113,13 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.school_outlined),
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const PracticeScreen()),
+            ),
+          ),
+          IconButton(
+            tooltip: 'Your progress',
+            icon: const Icon(Icons.insights_outlined),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const ProgressScreen()),
             ),
           ),
           IconButton(

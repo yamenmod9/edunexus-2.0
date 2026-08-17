@@ -5,6 +5,7 @@ import Layout from './components/Layout.jsx'
 import { LoginPage, RegisterPage } from './pages/AuthPages.jsx'
 import HomePage from './pages/HomePage.jsx'
 import PracticePage from './pages/PracticePage.jsx'
+import ProgressPage from './pages/ProgressPage.jsx'
 import ResultPage from './pages/ResultPage.jsx'
 import TestPlayerPage from './pages/TestPlayerPage.jsx'
 import TestsPage from './pages/TestsPage.jsx'
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/tests" element={<TestsPage />} />
         <Route path="/tests/:attemptId" element={<TestPlayerPage />} />
         <Route path="/tests/:attemptId/result" element={<ResultPage />} />
+        <Route path="/progress" element={<ProgressPage />} />
         <Route
           path="/admin"
           element={

@@ -74,12 +74,47 @@ test('the score report has no accessibility violations', async ({ page }) => {
   expect(results.violations).toEqual([])
 })
 
+test('the progress page has no accessibility violations, empty or filled', async ({ page }) => {
+  test.setTimeout(120_000)
+  await register(page, uniqueEmail('a11y-progress'))
+  await page.getByRole('link', { name: 'Progress' }).click()
+  await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()
+  expect((await scan(page)).violations).toEqual([])
+
+  await page.getByRole('link', { name: 'Take a test' }).click()
+  await page.getByRole('button', { name: 'Start test' }).first().click()
+  for (let module = 0; module < 4; module += 1) {
+    await expect(page.getByText(/Module \d+ of 4/)).toBeVisible()
+    const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
+    for (let q = 0; q < count; q += 1) {
+      await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
+      const radios = page.getByRole('radio')
+      if (await radios.count()) await radios.nth(1).check()
+    }
+    await page.getByRole('button', { name: 'Review and continue' }).click()
+    await page
+      .getByRole('button', { name: /Submit module and continue|Finish test/ })
+      .click()
+  }
+  await expect(page).toHaveURL(/\/result$/)
+
+  await page.getByRole('link', { name: 'Progress' }).click()
+  await expect(page.getByText('Based on 1 finished attempt')).toBeVisible()
+  expect((await scan(page)).violations).toEqual([])
+})
+
 test('a keyboard alone can sign in', async ({ page }) => {
   const email = uniqueEmail('a11y-keyboard')
   await register(page, email)
+  // Sign-out is async - it revokes the refresh token server-side before
+  // clearing local storage and navigating (see AuthContext.logout). A click()
+  // resolves as soon as the event dispatches, without waiting for that; a
+  // hard page.goto() straight after would race it and can abort the pending
+  // revoke/clear entirely, leaving a stale session that lands back in the
+  // authenticated shell instead of on the sign-in screen. Wait for the
+  // client-side navigation sign-out itself performs instead of forcing one.
   await page.getByRole('button', { name: 'Sign out' }).click()
-
-  await page.goto('/login')
+  await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible()
 
   // The sign-in screen is not inside the app shell, so there is no skip link
   // to pass first - the first tab stop is the email field. Asserted rather

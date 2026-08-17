@@ -37,6 +37,9 @@ export default function Layout() {
             <NavLink to="/tests" className={navClass}>
               Tests
             </NavLink>
+            <NavLink to="/progress" className={navClass}>
+              Progress
+            </NavLink>
             {isAdmin && (
               <NavLink to="/admin" className={navClass}>
                 Admin

@@ -127,6 +127,42 @@ test('the full adaptive test runs through to a score report', async ({ page }) =
   await expect(page.getByText('Correct').first()).toBeVisible()
 })
 
+test('the progress page shows an empty state, then fills in after a finished test', async ({
+  page,
+}) => {
+  test.setTimeout(120_000)
+  await register(page, uniqueEmail('progress'))
+
+  await page.getByRole('link', { name: 'Progress' }).click()
+  await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()
+  await expect(page.getByText('Finish a full adaptive test')).toBeVisible()
+
+  await page.getByRole('link', { name: 'Take a test' }).click()
+  await page.getByRole('button', { name: 'Start test' }).first().click()
+
+  for (let module = 0; module < 4; module += 1) {
+    await expect(page.getByText(/Module \d+ of 4/)).toBeVisible()
+    const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
+    for (let q = 0; q < count; q += 1) {
+      await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
+      const radios = page.getByRole('radio')
+      if (await radios.count()) await radios.nth(1).check()
+    }
+    await page.getByRole('button', { name: 'Review and continue' }).click()
+    await page
+      .getByRole('button', { name: /Submit module and continue|Finish test/ })
+      .click()
+  }
+  await expect(page).toHaveURL(/\/result$/)
+
+  await page.getByRole('link', { name: 'Progress' }).click()
+  await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()
+  await expect(page.getByText('Based on 1 finished attempt')).toBeVisible()
+  await expect(page.getByText('Latest total score')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'By domain' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'View report' }).first()).toBeVisible()
+})
+
 test('an in-progress test can be resumed after a reload', async ({ page }) => {
   await register(page, uniqueEmail('resume'))
   await page.getByRole('link', { name: 'Tests' }).click()

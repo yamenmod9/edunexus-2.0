@@ -1,3 +1,4 @@
+from app.routes.analytics import bp as analytics_bp
 from app.routes.attempts import bp as attempts_bp
 from app.routes.auth import bp as auth_bp
 from app.routes.forms import bp as forms_bp
@@ -13,3 +14,4 @@ def register_routes(app):
     app.register_blueprint(taxonomy_bp)
     app.register_blueprint(forms_bp)
     app.register_blueprint(attempts_bp)
+    app.register_blueprint(analytics_bp)

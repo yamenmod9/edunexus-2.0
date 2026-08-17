@@ -14,6 +14,7 @@ from sqlalchemy import event
 from app.extensions import db as _db
 from app.models import TestAttempt
 from tests.conftest import SHORT_BLUEPRINT, build_form, seed_bank
+from tests.test_analytics import run_full_attempt
 
 
 class QueryCounter:
@@ -81,3 +82,27 @@ def test_scoring_does_not_query_per_question(student_client, big_form, db):
     # 32 questions across 4 modules; the per-domain breakdown touches them all.
     assert sum(s["raw_possible"] for s in report["sections"]) == 32
     assert len(counter.against("questions")) <= 6
+
+
+def test_score_history_does_not_query_per_attempt(student_client, form):
+    """analytics_service.score_history() calls score_attempt() once per
+    finished attempt, which walks module_attempts and their responses.
+    Neither relationship is selectin by default (see the comment in
+    analytics_service._finished_attempts for why not), so without an
+    attempt-scoped eager-load this is two extra queries per attempt. Five
+    attempts must not mean ten-plus extra round trips."""
+    for _ in range(5):
+        run_full_attempt(student_client, form, correct_count=1)
+
+    with QueryCounter() as counter:
+        body = student_client.get("/api/analytics/dashboard").get_json()
+
+    assert len(body["score_history"]) == 5
+    # The three GROUP BY breakdown queries also select FROM answer_responses,
+    # so isolate the *eager-loaded* fetch (no GROUP BY) from those - it must
+    # be one batched IN (...) query, not one per attempt.
+    response_loads = [
+        s for s in counter.against("answer_responses") if "GROUP BY" not in s
+    ]
+    assert len(counter.against("module_attempts")) <= 2
+    assert len(response_loads) <= 2

@@ -208,15 +208,31 @@ test, the analyzer, or a successful build would have caught:
 
 ---
 
-## Phase 7 — Analytics / progress dashboards
+## Phase 7 — Analytics / progress dashboards  ✅ COMPLETE (2026-08-17)
 
-| # | Task |
-|---|---|
-| 7.1 | Aggregates: accuracy by domain/skill/difficulty over time |
-| 7.2 | Score history across attempts |
-| 7.3 | Weakness identification driven by the §5 taxonomy |
-| 7.4 | Dashboards in web, then Flutter |
-| 7.5 | Query performance pass; Redis caching if measurements justify it |
+| # | Task | Status |
+|---|---|---|
+| 7.1 | Aggregates: accuracy by domain/skill/difficulty over time | ✅ |
+| 7.2 | Score history across attempts | ✅ |
+| 7.3 | Weakness identification driven by the §5 taxonomy | ✅ |
+| 7.4 | Dashboards in web, then Flutter | ✅ |
+| 7.5 | Query performance pass; Redis caching if measurements justify it | ✅ |
+
+Backend: `GET /api/analytics/dashboard` (`app/services/analytics_service.py`), scoped to *finished* (submitted/abandoned) attempts only — matching the gate the review/score routes already use. Web: `/progress` (`ProgressPage.jsx`, linked from the nav). Flutter: `ProgressScreen` behind the app-bar "Your progress" icon on the home screen.
+
+**Exit criteria — all met:** 248/248 backend tests (9 new); 18/18 web unit tests (2 new); web e2e 8/8 journey + 11/11 accessibility including a new progress-page test in each, 19/19 green on repeated full-suite runs; `flutter analyze` clean; the Windows integration test extended to register → full adaptive test → progress dashboard and driven against a live local backend, passing (11s). Aggregation is SQL-level `GROUP BY`, not Python loops over loaded rows.
+
+**Decisions taken:**
+- **Scoped to finished attempts only**, same as review/score. Practice-mode `check` calls are never persisted, so they cannot be and are not part of this.
+- **`min_sample_size` (default 5) gates "weak" areas.** A domain answered once at 0% is one data point, not a weakness — same reasoning as Phase 4's incomplete-section handling: don't manufacture a signal that isn't there yet.
+- **One bundled `GET /dashboard` payload**, not several endpoints, following `serialize_review`'s existing precedent of inlining the score report so a client doesn't need a second round trip.
+- **Redis caching is not justified yet.** The three taxonomy breakdowns are single indexed `GROUP BY` queries; `score_history` was the one N+1 risk (below) and is now two batched queries regardless of attempt count. Revisit only if a live measurement shows the dashboard route is slow at real attempt volumes — nothing here indicates that today.
+
+**Bug found while auditing:** `score_history()` calls `score_attempt()` once per finished attempt, which walks `module_attempts` and each one's `responses` — neither relationship is `lazy="selectin"` (unlike `AnswerResponse.question`, Phase 4's fix), so N finished attempts cost 2N extra queries. Deliberately *not* fixed by making those relationships selectin model-wide — that would eagerly pull every response across all four modules on the per-second timer poll of a live attempt, the hottest read path in the app. Fixed with a `selectinload`/`joinedload` scoped to the analytics query only (`analytics_service._finished_attempts`); `tests/test_query_efficiency.py::test_score_history_does_not_query_per_attempt` guards it (5 attempts, ≤2 queries against each of `module_attempts` and `answer_responses`, isolated from the three unrelated `GROUP BY` aggregation queries that also read `FROM answer_responses`).
+
+**Also fixed while auditing (from the prior session's carried-over task):** the Windows integration test's wait for the score report matched the app-bar title, which renders before the review payload loads — occasionally caught the client mid-transition and timed out. Fixed to wait on the `TOTAL` score instead, with the timeout raised to 60s to absorb the live deployed API's cold-start latency (confirmed by a clean rerun at 53s after the fix).
+
+**Second bug found while auditing:** `web/e2e/accessibility.spec.js`'s "a keyboard alone can sign in" was flaky independent of anything in this phase. `Layout.jsx`'s sign-out is async — it awaits a server-side token revoke before clearing local storage and navigating (`AuthContext.logout`) — but the test clicked "Sign out" and immediately forced a hard `page.goto('/login')`. Playwright's `click()` resolves on event dispatch, not on the handler's completion, so the hard navigation sometimes raced ahead of the pending revoke/clear and aborted it mid-flight, leaving stale tokens in `localStorage`; the freshly loaded `/login` page then saw a valid session and bounced back into the authenticated shell. Fixed by waiting for the app's own client-side navigation to the sign-in screen (matching the pattern `journey.spec.js`'s round-trip test already used) instead of forcing a redundant hard reload. 5/5 clean on isolated reruns after the fix, 0/5 before it.
 
 ---
 

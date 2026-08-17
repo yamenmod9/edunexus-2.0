@@ -222,6 +222,16 @@ export const forms = {
   create: (payload) => api.post('/api/forms', payload),
 }
 
+export const analytics = {
+  dashboard: (params = {}) => {
+    const query = new URLSearchParams(
+      Object.entries(params).filter(([, v]) => v !== '' && v != null),
+    )
+    const suffix = query.toString()
+    return api.get(`/api/analytics/dashboard${suffix ? `?${suffix}` : ''}`)
+  },
+}
+
 export const attempts = {
   start: (form_id) => api.post('/api/attempts', { form_id }),
   list: () => api.get('/api/attempts'),
