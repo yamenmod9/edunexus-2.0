@@ -164,15 +164,47 @@ First frontend. `web/`, React + Vite + Tailwind.
 
 ---
 
-## Phase 6 — Flutter apps (Android / iOS / Windows)
+## Phase 6 — Flutter apps (Android / iOS / Windows)  ⚠️ COMPLETE except iOS
 
-| # | Task |
-|---|---|
-| 6.1 | Scaffold `mobile/`, shared API client, secure token storage |
-| 6.2 | Auth + practice mode |
-| 6.3 | Test player with `flutter_math_fork` rendering |
-| 6.4 | Offline tolerance: resume an attempt after connection loss |
-| 6.5 | Per-platform build verification |
+| # | Task | Status |
+|---|---|---|
+| 6.1 | Scaffold `mobile/`, shared API client, secure token storage | ✅ |
+| 6.2 | Auth + practice mode | ✅ |
+| 6.3 | Test player with `flutter_math_fork` rendering | ✅ |
+| 6.4 | Offline tolerance: resume an attempt after connection loss | ✅ |
+| 6.5 | Per-platform build verification | ⚠️ Android + Windows verified; iOS cannot be |
+| 6.6 | `integration_test/` driving the real binary end to end | ✅ |
+
+**Decisions taken:**
+- **Tokens live in the platform keystore**, not `localStorage` as on the web — Keychain / Android Keystore / DPAPI. The web client uses `localStorage` because a browser offers nothing better; a native client does.
+- Storage sits behind a three-method `SecureKeyValueStore` interface rather than using `FlutterSecureStorage` directly. That package changed its option types between majors (v11 merged the iOS and macOS options into `AppleOptions`), and a test fake mirroring its full signature breaks on every upgrade for nothing.
+- **Refresh is single-flight**, same rotation hazard as the web client, and *more* likely to bite on mobile: returning from a tunnel or a locked screen fires several stale-token requests at once. Verified by removing the guard — the test then reports 3 refreshes instead of 1.
+- **The countdown never ends a module**; at zero it asks the server.
+- **Offline answers are persisted, not just buffered in memory.** On a phone, losing the connection and having the OS reclaim the app happen together often enough that an in-memory queue would lose real answers. Replay is safe because `PUT /responses/<id>` is idempotent, and only the newest answer per question is kept.
+- **A rejection with a status is never retried and never silently dropped.** If the module moved on while the student was offline, those answers are reported to them rather than leaving them believing an answer counted.
+
+**Exit criteria — met on the two platforms this machine can build:** the real
+Windows binary was driven through register → practice → server-side grading →
+all four adaptive modules → score report against a live API
+(`flutter test integration_test/app_test.dart -d windows`). Android builds
+(`app-debug.apk`). 35/35 Dart tests, `flutter analyze` clean.
+
+**Three bugs that only driving the app could find**, none of which any unit
+test, the analyzer, or a successful build would have caught:
+1. **Answer choices were unselectable.** `MathText` rendered
+   `SelectableText.rich`, whose tap recogniser swallows taps before the
+   enclosing `InkWell` sees them — so tapping the answer text, which is where
+   people tap, did nothing. `MathText` is now non-selectable by default and
+   opts in only outside tap targets.
+2. **Ink splashes and the selection highlight never painted.** The background
+   colour was on a `Container` wrapping the `ListTile`; `ListTile` paints on
+   the nearest `Material` ancestor. Now on a `Material`, with the border moved
+   to the tile's `shape`.
+3. **`flutter_secure_storage` 11.x broke both buildable platforms** (ATL on
+   Windows, `compileSdk 37` on Android). Pinned to 9.2.4, with
+   `encryptedSharedPreferences` opted into explicitly since 9.x defaults it off.
+
+**iOS is not verified and cannot be from this machine.** It needs macOS and Xcode. The target is configured and the code is platform-neutral — no `dart:io` platform branches, no Windows-only plugins — but nothing has compiled or run it. Treat iOS as unproven until someone runs `flutter build ios` on a Mac.
 
 ---
 
