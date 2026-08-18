@@ -20,6 +20,33 @@ DOMAINS_BY_SECTION = {
     ),
 }
 
+# The display name for every taxonomy value whose title-cased form is wrong.
+#
+# CLAUDE.md section 5 fixes these names exactly - "Problem-Solving & Data
+# Analysis", not "Problem Solving Data Analysis" - because they are what a
+# student reads on the score report and what the analytics group by. Deriving
+# them by title-casing the enum silently drops every ampersand and hyphen, so
+# the exceptions live here, once, and the clients mirror this map.
+DISPLAY_NAMES = {
+    "reading_writing": "Reading & Writing",
+    "advanced_math": "Advanced Math",
+    "problem_solving_data_analysis": "Problem-Solving & Data Analysis",
+    "geometry_trigonometry": "Geometry & Trigonometry",
+    "information_ideas": "Information & Ideas",
+    "craft_structure": "Craft & Structure",
+    "expression_of_ideas": "Expression of Ideas",
+    "standard_english_conventions": "Standard English Conventions",
+    "official_qb": "Official QB",
+}
+
+
+def display_name(value):
+    """The human-facing name for a taxonomy value."""
+    if not value:
+        return ""
+    return DISPLAY_NAMES.get(value) or value.replace("_", " ").title()
+
+
 DIFFICULTIES = ("easy", "medium", "hard")
 QUESTION_TYPES = ("multiple_choice", "grid_in")
 SOURCES = ("official_qb", "self_authored", "other")

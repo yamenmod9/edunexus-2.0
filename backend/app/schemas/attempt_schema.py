@@ -57,6 +57,8 @@ def _serialize_response_progress(response):
         "answer": response.answer,
         "answered": response.is_answered,
         "flagged": response.flagged,
+        "seconds_spent": response.seconds_spent or 0,
+        "annotations": response.annotations or [],
     }
 
 
@@ -143,6 +145,7 @@ def serialize_review(attempt):
                         "answer": response.answer,
                         "is_correct": bool(response.is_correct),
                         "flagged": response.flagged,
+                        "seconds_spent": response.seconds_spent or 0,
                     }
                     for response in module_attempt.responses
                 ],
@@ -179,15 +182,31 @@ class ResponseSchema(Schema):
     # An empty-string answer is meaningful: it clears a previous answer.
     answer = fields.Str(required=False, allow_none=True)
     flagged = fields.Bool(required=False)
+    # A delta in seconds since the last report, not a running total: totals
+    # from a client can only ever go backwards when a tab is reopened.
+    seconds_spent = fields.Int(
+        required=False, validate=validate.Range(min=0, max=3600)
+    )
+    # Free-form on purpose; the server does not interpret annotations.
+    annotations = fields.List(fields.Dict(), required=False)
 
     @validates_schema
     def require_something(self, data, **kwargs):
-        if "answer" not in data and "flagged" not in data:
-            raise ValidationError("provide `answer`, `flagged`, or both")
+        known = {"answer", "flagged", "seconds_spent", "annotations"}
+        if not known & set(data):
+            raise ValidationError(
+                "provide at least one of `answer`, `flagged`, `seconds_spent`, "
+                "`annotations`"
+            )
 
 
 class CheckAnswerSchema(Schema):
     answer = fields.Str(required=True)
+    # How long the student had the question open. Optional: an older client
+    # that does not send it still grades, it just records no duration.
+    seconds_spent = fields.Int(
+        required=False, validate=validate.Range(min=0, max=3600)
+    )
 
 
 start_attempt_schema = StartAttemptSchema()

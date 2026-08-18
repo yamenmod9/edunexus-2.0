@@ -128,6 +128,8 @@ def record_response_route(attempt_id, question_id):
             question_id,
             answer=data.get("answer"),
             flagged=data.get("flagged"),
+            seconds_spent=data.get("seconds_spent"),
+            annotations=data.get("annotations"),
         )
     except AttemptError as exc:
         return jsonify({"error": str(exc)}), exc.status
@@ -140,6 +142,8 @@ def record_response_route(attempt_id, question_id):
             "answer": response.answer,
             "answered": response.is_answered,
             "flagged": response.flagged,
+            "seconds_spent": response.seconds_spent or 0,
+            "annotations": response.annotations or [],
             "seconds_remaining": attempt.current_module_attempt.seconds_remaining()
             if attempt.current_module_attempt
             else 0,

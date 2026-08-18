@@ -169,6 +169,19 @@ class AnswerResponse(db.Model):
     flagged = db.Column(db.Boolean, nullable=False, default=False)
     answered_at = db.Column(db.DateTime, nullable=True)
 
+    # Accumulated, not last-seen: a student who comes back to a question is
+    # still spending time on it, so the client sends deltas and the server
+    # adds them. Never used for scoring - see the scoring service - so a
+    # wrong value here is bad data, not a way to buy time.
+    seconds_spent = db.Column(
+        db.Integer, nullable=False, default=0, server_default="0"
+    )
+    # Bluebook-style highlights and margin notes. Opaque to the server: it
+    # stores what the client sends and hands it back, and never reasons about
+    # the shape. Kept server-side rather than in the browser so a reload
+    # mid-module does not throw away a student's annotations.
+    annotations = db.Column(db.JSON, nullable=True)
+
     module_attempt = db.relationship("ModuleAttempt", back_populates="responses")
     # See FormQuestion.question - same batching, for delivery, grading and the
     # score report's per-domain breakdown.

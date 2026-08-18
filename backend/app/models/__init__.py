@@ -1,10 +1,12 @@
 from app.models.question import (
     Question,
     SECTIONS,
+    DISPLAY_NAMES,
     DOMAINS_BY_SECTION,
     DIFFICULTIES,
     QUESTION_TYPES,
     SOURCES,
+    display_name,
 )
 from app.models.user import ROLES, RefreshToken, User
 from app.models.test_form import (
@@ -18,6 +20,7 @@ from app.models.test_form import (
     Module,
     TestForm,
 )
+from app.models.practice import PracticeResponse
 from app.models.attempt import (
     ATTEMPT_STATUSES,
     MODULE_ATTEMPT_STATUSES,
@@ -29,6 +32,8 @@ from app.models.attempt import (
 __all__ = [
     "Question",
     "SECTIONS",
+    "DISPLAY_NAMES",
+    "display_name",
     "DOMAINS_BY_SECTION",
     "DIFFICULTIES",
     "QUESTION_TYPES",
@@ -48,6 +53,7 @@ __all__ = [
     "TestAttempt",
     "ModuleAttempt",
     "AnswerResponse",
+    "PracticeResponse",
     "ATTEMPT_STATUSES",
     "MODULE_ATTEMPT_STATUSES",
 ]

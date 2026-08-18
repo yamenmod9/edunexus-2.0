@@ -9,13 +9,16 @@ from app.models import (
     SECTION_ORDER,
     SOURCES,
     Question,
+    display_name,
 )
 
 bp = Blueprint("taxonomy", __name__, url_prefix="/api/taxonomy")
 
 
-def _label(value):
-    return value.replace("_", " ").title()
+# Names come from the taxonomy's own table (CLAUDE.md section 5), not from
+# title-casing the enum - that drops every ampersand and hyphen, turning
+# "Craft & Structure" into "Craft Structure".
+_label = display_name
 
 
 @bp.get("")
@@ -48,9 +51,7 @@ def get_taxonomy():
             "sections": [
                 {
                     "value": section,
-                    "label": "Reading & Writing"
-                    if section == "reading_writing"
-                    else _label(section),
+                    "label": _label(section),
                     "domains": [
                         {
                             "value": domain,

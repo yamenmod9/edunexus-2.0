@@ -256,7 +256,14 @@ def submit_attempt(attempt):
 # --- answering ---------------------------------------------------------
 
 
-def record_response(attempt, question_id, answer=None, flagged=None):
+def record_response(
+    attempt,
+    question_id,
+    answer=None,
+    flagged=None,
+    seconds_spent=None,
+    annotations=None,
+):
     """Records (or changes) an answer to a question in the *current* module.
 
     Grading happens here, server-side, and the result is stored but never
@@ -286,6 +293,19 @@ def record_response(attempt, question_id, answer=None, flagged=None):
 
     if flagged is not None:
         response.flagged = bool(flagged)
+
+    if seconds_spent:
+        # Capped at the module's own limit. The clock that matters is the
+        # server's (see sync_timers); this is a study statistic, and letting a
+        # client claim four hours on one question would only poison the
+        # analytics it feeds.
+        limit = current.module.time_limit_seconds
+        response.seconds_spent = min((response.seconds_spent or 0) + seconds_spent, limit)
+
+    if annotations is not None:
+        # Replaced wholesale: the client owns the full set for a question and
+        # merging two versions of a highlight range has no sensible answer.
+        response.annotations = annotations
 
     if answer is not None:
         cleared = answer == ""

@@ -19,6 +19,7 @@ from app.services.question_import import (
     parse_json_text,
 )
 from app.services.grading_service import grade
+from app.services.practice_service import record_practice_response
 from app.services.question_service import (
     create_question,
     delete_question,
@@ -167,6 +168,13 @@ def check_answer_route(question_id):
         )
 
     is_correct = grade(question, data["answer"])
+    entry = record_practice_response(
+        g.current_user,
+        question,
+        answer=data["answer"],
+        is_correct=is_correct,
+        seconds_spent=data.get("seconds_spent"),
+    )
     return jsonify(
         {
             "question_id": question.id,
@@ -174,6 +182,7 @@ def check_answer_route(question_id):
             "is_correct": is_correct,
             "correct_answer": question.correct_answer,
             "rationale": question.rationale,
+            "seconds_spent": entry.seconds_spent,
         }
     )
 

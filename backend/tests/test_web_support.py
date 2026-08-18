@@ -98,6 +98,32 @@ def test_taxonomy_labels_reading_and_writing_readably(student_client):
     assert labels["math"] == "Math"
 
 
+def test_taxonomy_labels_domains_by_their_real_names(student_client):
+    """CLAUDE.md section 5 fixes these names exactly.
+
+    Deriving them by title-casing the enum drops every ampersand and hyphen -
+    "Craft & Structure" becomes "Craft Structure" - and these strings are what
+    a student reads on the score report and what analytics groups by, so the
+    drift is visible rather than cosmetic.
+    """
+    body = student_client.get("/api/taxonomy").get_json()
+    labels = {
+        d["value"]: d["label"]
+        for section in body["sections"]
+        for d in section["domains"]
+    }
+    assert labels == {
+        "algebra": "Algebra",
+        "advanced_math": "Advanced Math",
+        "problem_solving_data_analysis": "Problem-Solving & Data Analysis",
+        "geometry_trigonometry": "Geometry & Trigonometry",
+        "information_ideas": "Information & Ideas",
+        "craft_structure": "Craft & Structure",
+        "expression_of_ideas": "Expression of Ideas",
+        "standard_english_conventions": "Standard English Conventions",
+    }
+
+
 def test_taxonomy_reports_skills_actually_present_in_the_bank(student_client, db):
     seed_bank(db)
     body = student_client.get("/api/taxonomy").get_json()
