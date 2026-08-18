@@ -74,8 +74,18 @@ test('the test player has no accessibility violations', async ({ page }) => {
   await register(page, uniqueEmail('a11y-player'))
   await startQuickCheck(page)
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
-  const results = await scan(page)
-  expect(results.violations).toEqual([])
+  expect((await scan(page)).violations).toEqual([])
+
+  // The Bluebook chrome is mostly hidden until a tool is opened, so a scan of
+  // the default view would miss every control this screen actually added.
+  await page.getByRole('button', { name: 'Cross out' }).click()
+  await page.getByRole('button', { name: /^Question \d+ of \d+$/ }).click()
+  expect((await scan(page)).violations).toEqual([])
+
+  await page.getByRole('button', { name: 'Close' }).click()
+  await page.getByRole('button', { name: 'Directions' }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  expect((await scan(page)).violations).toEqual([])
 })
 
 test('the score report has no accessibility violations', async ({ page }) => {
@@ -84,9 +94,11 @@ test('the score report has no accessibility violations', async ({ page }) => {
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
 
   // End it immediately; an incomplete report still has to be readable.
-  // Abandoning now lives behind Review: during a live question the player
-  // deliberately shows nothing that competes with the question.
-  await page.getByRole('button', { name: 'Review and continue' }).click()
+  // Abandoning lives behind the review page, which is reached from the
+  // navigator popup: during a live question the player deliberately shows
+  // nothing that competes with the question.
+  await page.getByRole('button', { name: /^Question \d+ of \d+$/ }).click()
+  await page.getByRole('button', { name: 'Go to review page' }).click()
   await page.getByText('Abandon this test').click()
   await page.getByRole('button', { name: 'End test now' }).click()
   await expect(page).toHaveURL(/\/result$/)
@@ -105,13 +117,17 @@ test('the progress page has no accessibility violations, empty or filled', async
   await startQuickCheck(page)
   for (let module = 0; module < 4; module += 1) {
     await expect(page.getByText(/Module \d+ of 4/)).toBeVisible()
-    const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
+    const nav = page.getByRole('button', { name: /^Question \d+ of \d+$/ })
+    await expect(nav).toBeVisible()
+    const count = Number(/of (\d+)/.exec(await nav.textContent())[1])
     for (let q = 0; q < count; q += 1) {
-      await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
       const choices = page.locator('fieldset label')
       if (await choices.count()) await choices.nth(1).click()
+      if (q < count - 1) {
+        await page.getByRole('button', { name: 'Next', exact: true }).click()
+      }
     }
-    await page.getByRole('button', { name: 'Review and continue' }).click()
+    await page.getByRole('button', { name: 'Review', exact: true }).click()
     await page
       .getByRole('button', { name: /Submit module and continue|Finish test/ })
       .click()
@@ -187,17 +203,19 @@ test('a question can be answered and flagged from the keyboard', async ({ page }
   await page.keyboard.press('Space')
   await expect(firstChoice).toBeChecked()
 
-  const flag = page.getByRole('button', { name: /Flag for review/ })
-  await flag.focus()
+  const mark = page.getByRole('button', { name: 'Mark for Review' })
+  await mark.focus()
   await page.keyboard.press('Enter')
-  await expect(page.getByRole('button', { name: /Flagged for review/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Marked for review' })).toBeVisible()
 })
 
 test('the layout works on a narrow phone viewport', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 })
   await register(page, uniqueEmail('a11y-mobile'))
   await startQuickCheck(page)
-  await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
+  // The module indicator is one of the things the header drops at this width,
+  // so anchor on the timer, which never goes away.
+  await expect(page.getByRole('timer')).toBeVisible()
 
   // Nothing may overflow horizontally - a test player you have to pan
   // sideways to read is unusable on a phone.

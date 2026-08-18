@@ -201,7 +201,10 @@ export const questions = {
     return api.get(`/api/questions?${query}`)
   },
   get: (id) => api.get(`/api/questions/${id}`),
-  check: (id, answer) => api.post(`/api/questions/${id}/check`, { answer }),
+  // `extra` carries seconds_spent, which the backend records as a practice
+  // response. Optional so callers that only want the grade stay one argument.
+  check: (id, answer, extra = {}) =>
+    api.post(`/api/questions/${id}/check`, { answer, ...extra }),
   create: (payload) => api.post('/api/questions', payload),
   update: (id, payload) => api.patch(`/api/questions/${id}`, payload),
   remove: (id) => api.delete(`/api/questions/${id}`),

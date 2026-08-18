@@ -87,7 +87,6 @@ test('practice mode grades an answer and shows the explanation', async ({ page }
   await page.getByRole('link', { name: 'Practice' }).click()
 
   await expect(page.getByRole('heading', { name: 'Practice' })).toBeVisible()
-  const firstQuestion = page.locator('form, div').filter({ hasText: 'Check answer' }).first()
   await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
 
   // The bank must not hand a student the key before they answer.
@@ -106,6 +105,34 @@ test('a student cannot see the admin area', async ({ page }) => {
   await page.goto('/admin')
   await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeVisible()
 })
+
+/**
+ * Answers every question in the current module and submits it.
+ *
+ * Navigation is by the Next button rather than the seat grid: the Bluebook
+ * chrome keeps the grid behind the "Question N of M" popup, which is exactly
+ * the point of it, so a test that reached in for the seats would be testing a
+ * layout the student never sees.
+ */
+async function answerModule(page) {
+  const nav = page.getByRole('button', { name: /^Question \d+ of \d+$/ })
+  await expect(nav).toBeVisible()
+  const count = Number(/of (\d+)/.exec(await nav.textContent())[1])
+
+  for (let q = 0; q < count; q += 1) {
+    const choices = page.locator('fieldset label')
+    // "B" is the correct choice in the seeded demo bank.
+    if (await choices.count()) await choices.nth(1).click()
+    if (q < count - 1) {
+      await page.getByRole('button', { name: 'Next', exact: true }).click()
+    }
+  }
+
+  await page.getByRole('button', { name: 'Review', exact: true }).click()
+  await page
+    .getByRole('button', { name: /Submit module and continue|Finish test/ })
+    .click()
+}
 
 test('the full adaptive test runs through to a score report', async ({ page }) => {
   test.setTimeout(120_000)
@@ -126,20 +153,7 @@ test('the full adaptive test runs through to a score report', async ({ page }) =
     expect(html).not.toContain('correct_answer')
     expect(html).not.toContain('is_correct')
 
-    const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
-    for (let q = 0; q < count; q += 1) {
-      await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
-      const choices = page.locator('fieldset label')
-      if (await choices.count()) {
-        // "B" is the correct choice in the seeded demo bank.
-        await choices.nth(1).click()
-      }
-    }
-
-    await page.getByRole('button', { name: 'Review and continue' }).click()
-    await page
-      .getByRole('button', { name: /Submit module and continue|Finish test/ })
-      .click()
+    await answerModule(page)
   }
 
   await expect(page).toHaveURL(/\/result$/)
@@ -171,16 +185,7 @@ test('the progress page shows an empty state, then fills in after a finished tes
 
   for (let module = 0; module < 4; module += 1) {
     await expect(page.getByText(/Module \d+ of 4/)).toBeVisible()
-    const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
-    for (let q = 0; q < count; q += 1) {
-      await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
-      const choices = page.locator('fieldset label')
-      if (await choices.count()) await choices.nth(1).click()
-    }
-    await page.getByRole('button', { name: 'Review and continue' }).click()
-    await page
-      .getByRole('button', { name: /Submit module and continue|Finish test/ })
-      .click()
+    await answerModule(page)
   }
   await expect(page).toHaveURL(/\/result$/)
 
@@ -197,7 +202,7 @@ test('an in-progress test can be resumed after a reload', async ({ page }) => {
   await startQuickCheck(page)
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
 
-  await page.getByRole('button', { name: /^Question 1,/ }).click()
+  await expect(page.getByRole('button', { name: 'Question 1 of 2' })).toBeVisible()
   await page.locator('fieldset label').first().click()
 
   await page.reload()

@@ -11,7 +11,9 @@ import {
   Badge,
   Button,
   Card,
+  Eyebrow,
   Field,
+  SectionLabel,
   Spinner,
   humanize,
 } from '../../components/ui.jsx'
@@ -102,7 +104,7 @@ function QuestionForm({ taxonomy, onSaved }) {
 
   return (
     <Card>
-      <h2 className="mb-4 text-lg font-semibold">Author a question</h2>
+      <SectionLabel>Author a question</SectionLabel>
       {error && <Alert>{error}</Alert>}
       {saved && <Alert tone="success">Saved. Question id {saved.id}.</Alert>}
 
@@ -246,7 +248,7 @@ function QuestionForm({ taxonomy, onSaved }) {
 
         {draft.stem && (
           <div className="mb-4 rounded-md bg-sunken p-3">
-            <p className="mb-1 text-xs font-semibold uppercase text-ink-faint">Preview</p>
+            <Eyebrow className="mb-1.5">Preview</Eyebrow>
             <MathText>{draft.stem}</MathText>
           </div>
         )}
@@ -288,7 +290,7 @@ function ImportPanel({ onImported }) {
 
   return (
     <Card>
-      <h2 className="mb-2 text-lg font-semibold">Bulk import</h2>
+      <SectionLabel>Bulk import</SectionLabel>
       <p className="mb-4 text-sm text-ink-soft">
         A <code>.csv</code> or <code>.json</code> file. Rows are validated one by one:
         good rows import even if others fail, and failures come back with their row
@@ -371,7 +373,7 @@ function FormBuilder({ onBuilt }) {
 
   return (
     <Card>
-      <h2 className="mb-2 text-lg font-semibold">Assemble a test form</h2>
+      <SectionLabel>Assemble a test form</SectionLabel>
       <p className="mb-4 text-sm text-ink-soft">
         Builds six modules from the bank — module 1 plus both module 2 variants, per
         section. Needs {perModule * 3} questions in each section.
@@ -448,7 +450,7 @@ export default function AdminPage() {
         <QuestionForm taxonomy={taxonomy} onSaved={refresh} />
 
         <Card>
-          <h2 className="mb-3 text-lg font-semibold">Recently added</h2>
+          <SectionLabel>Recently added</SectionLabel>
           {recent.length === 0 ? (
             <p className="text-sm text-ink-faint">The bank is empty.</p>
           ) : (

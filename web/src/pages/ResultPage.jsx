@@ -4,69 +4,55 @@ import { Link, useParams } from 'react-router-dom'
 import { attempts as attemptsApi } from '../api/client.js'
 import MathText from '../components/MathText.jsx'
 import {
+  AccuracyRow,
   Alert,
   Badge,
   Button,
+  buttonClass,
   Card,
+  ChoicePip,
+  ChoiceRow,
+  Eyebrow,
+  Meter,
+  SectionLabel,
   Spinner,
   humanize,
 } from '../components/ui.jsx'
 
 /**
- * One breakdown row.
- *
- * Accuracy is correct/answered, not correct/delivered - the server excludes
- * skipped questions on purpose, so running out of time does not read as being
- * inaccurate on questions you never saw. That means the fraction shown next to
- * it has to use the same denominator, or the row looks self-contradictory
- * ("2/4" beside "100%"). Skips are reported separately instead.
+ * A section score. The total gets its own, larger treatment in the hero, so
+ * this is only ever the 200-800 pair.
  */
-function BreakdownRow({ label, row }) {
-  const skipped = row.delivered - row.answered
-  return (
-    <tr className="border-b border-line">
-      <th scope="row" className="py-2 text-left font-normal">
-        {label}
-        {skipped > 0 && (
-          <span className="ml-1 text-xs text-ink-faint">({skipped} skipped)</span>
-        )}
-      </th>
-      <td className="py-2 text-right tabular-nums">
-        {row.correct}/{row.answered}
-      </td>
-      <td className="py-2 text-right tabular-nums">
-        {row.accuracy == null ? '—' : `${Math.round(row.accuracy * 100)}%`}
-      </td>
-    </tr>
-  )
-}
-
-function ScoreDial({ label, value, min, max, note }) {
-  const pct = value == null ? 0 : ((value - min) / (max - min)) * 100
+function SectionScore({ section }) {
+  const pct = section.scaled_score == null ? 0 : (section.scaled_score - 200) / 600
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-wide text-ink-faint">
-        {label}
+      <Eyebrow className="mb-1.5">{humanize(section.section)}</Eyebrow>
+      <p className="mb-2 font-serif text-4xl font-bold leading-none tracking-tight tabular-nums">
+        {section.scaled_score ?? '—'}
       </p>
-      <p className="text-3xl font-bold tabular-nums">
-        {value ?? '—'}
-        {value != null && (
-          <span className="ml-1 text-sm font-normal text-ink-faint">/ {max}</span>
-        )}
+      <Meter value={pct} className="mb-2 w-32" />
+      <p className="text-xs text-ink-soft">
+        {section.complete
+          ? `${section.raw_correct} of ${section.raw_possible} correct`
+          : section.incomplete_reason}
       </p>
-      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-line">
-        <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
-      </div>
-      {note && <p className="mt-1 text-xs text-ink-faint">{note}</p>}
     </div>
   )
 }
 
 function ReviewQuestion({ entry, position }) {
   const { question } = entry
+
+  function toneFor(choiceId) {
+    if (choiceId === question.correct_answer) return 'good'
+    if (choiceId === entry.answer) return 'bad'
+    return 'idle'
+  }
+
   return (
     <Card className="mb-3">
-      <div className="mb-2 flex flex-wrap items-center gap-2">
+      <div className="mb-3 flex flex-wrap items-center gap-2">
         <span className="text-sm font-semibold">Question {position}</span>
         <Badge tone={entry.is_correct ? 'good' : 'bad'}>
           {entry.is_correct ? 'Correct' : entry.answer ? 'Incorrect' : 'Skipped'}
@@ -77,31 +63,30 @@ function ReviewQuestion({ entry, position }) {
       </div>
 
       {question.stimulus && (
-        <MathText className="mb-3 border-l-2 border-line pl-3 text-sm text-ink-soft">
+        <MathText className="mb-4 border-l-2 border-line pl-4 font-serif text-[15px] leading-relaxed text-ink-soft">
           {question.stimulus}
         </MathText>
       )}
-      <MathText className="mb-3 font-medium">{question.stem}</MathText>
+      <MathText className="mb-4 font-serif text-[17px] leading-relaxed">
+        {question.stem}
+      </MathText>
 
-      <div className="mb-3 space-y-1.5">
+      <div className="mb-4 flex flex-col gap-2">
         {(question.choices ?? []).map((choice) => {
-          const isKey = choice.id === question.correct_answer
-          const isPick = choice.id === entry.answer
+          const tone = toneFor(choice.id)
           return (
-            <div
-              key={choice.id}
-              className={`flex items-start gap-2 rounded-md border p-2 text-sm
-                ${isKey ? 'border-good bg-good-soft' : ''}
-                ${isPick && !isKey ? 'border-bad bg-bad-soft' : ''}
-                ${!isKey && !isPick ? 'border-line' : ''}`}
-            >
-              <span className="font-semibold">{choice.id}.</span>
-              <MathText>{choice.text}</MathText>
-              {isKey && <span className="ml-auto text-xs text-good">Correct</span>}
-              {isPick && !isKey && (
-                <span className="ml-auto text-xs text-bad">Your answer</span>
+            <ChoiceRow key={choice.id} tone={tone}>
+              <ChoicePip letter={choice.id} tone={tone} />
+              <MathText className="flex-grow">{choice.text}</MathText>
+              {tone === 'good' && (
+                <span className="whitespace-nowrap text-xs font-semibold text-good">Correct</span>
               )}
-            </div>
+              {tone === 'bad' && (
+                <span className="whitespace-nowrap text-xs font-semibold text-bad">
+                  Your answer
+                </span>
+              )}
+            </ChoiceRow>
           )
         })}
         {!question.choices && (
@@ -113,9 +98,13 @@ function ReviewQuestion({ entry, position }) {
       </div>
 
       {question.rationale && (
-        <div className="rounded-md bg-sunken p-3 text-sm">
-          <p className="mb-1 font-semibold">Explanation</p>
-          <MathText>{question.rationale}</MathText>
+        <div className="border-l-2 border-good pl-4">
+          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-good">
+            Why
+          </p>
+          <MathText className="text-sm leading-relaxed text-ink-soft">
+            {question.rationale}
+          </MathText>
         </div>
       )}
     </Card>
@@ -149,151 +138,142 @@ export default function ResultPage() {
 
   const score = review.score
   const total = score.total
+  const openedModule = review.modules.find((m) => m.order_index === openModule)
+  const submitted = review.submitted_at
+    ? new Date(review.submitted_at + 'Z').toLocaleDateString(undefined, {
+        day: 'numeric',
+        month: 'long',
+      })
+    : null
 
   return (
     <div>
-      <div className="mb-1 flex flex-wrap items-center gap-3">
-        <h1 className="font-serif text-3xl font-bold tracking-tight">{review.form_name}</h1>
-        <Badge tone={review.status === 'submitted' ? 'good' : 'neutral'}>
-          {review.status}
-        </Badge>
+      <Eyebrow className="mb-1.5">Score report · {review.form_name}</Eyebrow>
+      <div className="mb-8 flex flex-wrap items-center gap-3">
+        <h1 className="font-serif text-3xl font-bold tracking-tight">
+          {submitted ? `Submitted ${submitted}` : 'Not submitted'}
+        </h1>
+        {review.status !== 'submitted' && <Badge>{review.status}</Badge>}
       </div>
-      <p className="mb-5 text-sm text-ink-faint">
-        {review.submitted_at &&
-          new Date(review.submitted_at + 'Z').toLocaleString()}
-      </p>
 
-      {/* The API flags every score payload as approximate; showing the number
-          without that caveat is exactly what CLAUDE.md section 7 forbids. */}
-      <Alert tone="warn" title="These scores are an approximation">
-        {score.approximation_note}
-      </Alert>
+      {/* The number, then immediately the caveat — never one without the
+          other. CLAUDE.md section 7 forbids presenting these as exact. */}
+      <Card className="mb-3">
+        <div className="flex flex-wrap items-end gap-x-12 gap-y-8">
+          <div>
+            <Eyebrow className="mb-1.5 !tracking-[0.12em]">Total</Eyebrow>
+            <p className="font-serif text-7xl font-bold leading-none tracking-tighter tabular-nums">
+              {total.scaled_score ?? '—'}
+            </p>
+            <p className="mt-2.5 text-xs text-ink-faint">
+              {total.complete ? `out of ${total.max}` : 'Incomplete — no total score'}
+            </p>
+          </div>
 
-      <Card className="mb-6">
-        <div className="grid gap-6 sm:grid-cols-3">
-          <ScoreDial
-            label="Total"
-            value={total.scaled_score}
-            min={total.min}
-            max={total.max}
-            note={total.complete ? null : 'Incomplete — no total score'}
-          />
-          {score.sections.map((section) => (
-            <ScoreDial
-              key={section.section}
-              label={humanize(section.section)}
-              value={section.scaled_score}
-              min={200}
-              max={800}
-              note={
-                section.complete
-                  ? `${section.raw_correct} of ${section.raw_possible} correct`
-                  : section.incomplete_reason
-              }
-            />
-          ))}
+          <div className="flex flex-wrap gap-x-10 gap-y-6 pb-1.5">
+            {score.sections.map((section) => (
+              <SectionScore key={section.section} section={section} />
+            ))}
+          </div>
         </div>
       </Card>
 
-      <div className="mb-6 grid gap-4 md:grid-cols-2">
-        <Card>
-          <h2 className="mb-3 text-lg font-semibold">By domain</h2>
-          <table className="w-full text-sm">
-            <caption className="sr-only">Accuracy by question domain</caption>
-            <thead>
-              <tr className="border-b border-line text-left text-xs uppercase text-ink-faint">
-                <th scope="col" className="pb-2">Domain</th>
-                <th scope="col" className="pb-2 text-right">Of answered</th>
-                <th scope="col" className="pb-2 text-right">Accuracy</th>
-              </tr>
-            </thead>
-            <tbody>
-              {score.domains.map((row) => (
-                <BreakdownRow
-                  key={`${row.section}-${row.domain}`}
-                  label={humanize(row.domain)}
-                  row={row}
-                />
-              ))}
-            </tbody>
-          </table>
-        </Card>
-
-        <Card>
-          <h2 className="mb-3 text-lg font-semibold">By difficulty</h2>
-          <table className="w-full text-sm">
-            <caption className="sr-only">Accuracy by question difficulty</caption>
-            <thead>
-              <tr className="border-b border-line text-left text-xs uppercase text-ink-faint">
-                <th scope="col" className="pb-2">Difficulty</th>
-                <th scope="col" className="pb-2 text-right">Of answered</th>
-                <th scope="col" className="pb-2 text-right">Accuracy</th>
-              </tr>
-            </thead>
-            <tbody>
-              {score.difficulty.map((row) => (
-                <BreakdownRow
-                  key={row.difficulty}
-                  label={humanize(row.difficulty)}
-                  row={row}
-                />
-              ))}
-            </tbody>
-          </table>
-        </Card>
+      <div className="mb-9 flex items-start gap-2.5 rounded-md bg-flag-soft p-4">
+        <svg
+          aria-hidden="true"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          className="mt-0.5 flex-shrink-0 text-flag"
+        >
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 8v5" />
+          <path d="M12 16.5v.5" />
+        </svg>
+        <p className="text-xs leading-relaxed text-ink-soft">
+          <strong className="font-semibold text-ink">
+            These scores are an approximation.
+          </strong>{' '}
+          {score.approximation_note}
+        </p>
       </div>
 
-      <h2 className="mb-3 text-lg font-semibold">Modules</h2>
-      <div className="mb-6 space-y-2">
-        {review.modules.map((module) => (
-          <Card key={module.order_index}>
-            <div className="flex flex-wrap items-center gap-3">
-              <div>
-                <p className="font-medium">
-                  {humanize(module.section)} — Module {module.sequence}
-                </p>
-                <p className="text-xs text-ink-faint">
-                  {module.raw_correct} of {module.question_count} correct · {module.status}
-                </p>
+      <div className="grid gap-x-10 gap-y-9 md:grid-cols-2">
+        <div>
+          <SectionLabel>By domain</SectionLabel>
+          {score.domains.map((row) => (
+            <AccuracyRow
+              key={`${row.section}-${row.domain}`}
+              label={humanize(row.domain)}
+              row={row}
+            />
+          ))}
+
+          <SectionLabel className="mt-9">By difficulty</SectionLabel>
+          {score.difficulty.map((row) => (
+            <AccuracyRow key={row.difficulty} label={humanize(row.difficulty)} row={row} />
+          ))}
+        </div>
+
+        <div>
+          <SectionLabel>Modules</SectionLabel>
+          {review.modules.map((module) => (
+            <div key={module.order_index} className="border-b border-line py-3">
+              <div className="mb-1 flex items-center gap-3">
+                <span className="text-sm font-medium">
+                  {humanize(module.section)} · Module {module.sequence}
+                </span>
+                <span className="ml-auto font-mono text-xs tabular-nums text-ink-soft">
+                  {module.raw_correct}/{module.question_count}
+                </span>
               </div>
-              {module.routing && (
-                <Badge tone="info">
-                  Routed to the {module.variant} module (
-                  {module.routing.raw_correct}/{module.routing.total} on module 1)
-                </Badge>
-              )}
+              <p className="text-xs text-ink-faint">
+                {module.routing
+                  ? `Routed to the ${module.variant} module (${module.routing.raw_correct}/${module.routing.total} on module 1)`
+                  : 'Standard module, taken by everyone'}
+              </p>
               <Button
-                variant="secondary"
-                className="ml-auto"
+                variant="ghost"
+                className="-ml-4 mt-1.5 px-4 py-1 text-xs"
                 aria-expanded={openModule === module.order_index}
                 onClick={() =>
-                  setOpenModule(
-                    openModule === module.order_index ? null : module.order_index,
-                  )
+                  setOpenModule(openModule === module.order_index ? null : module.order_index)
                 }
               >
                 {openModule === module.order_index ? 'Hide questions' : 'Review questions'}
               </Button>
             </div>
+          ))}
 
-            {openModule === module.order_index && (
-              <div className="mt-4">
-                {module.questions.map((entry) => (
-                  <ReviewQuestion
-                    key={entry.question.id}
-                    entry={entry}
-                    position={entry.position}
-                  />
-                ))}
-              </div>
-            )}
-          </Card>
-        ))}
+          {/* Navigation, so these are links wearing the button styling rather
+              than buttons — a <button> inside an <a> is invalid and axe
+              rightly objects to nested interactive controls. */}
+          <div className="mt-6 flex flex-wrap gap-2">
+            <Link to="/tests" className={buttonClass()}>
+              Take another test
+            </Link>
+            <Link to="/progress" className={buttonClass('secondary')}>
+              See your progress
+            </Link>
+          </div>
+        </div>
       </div>
 
-      <Link className="text-sm text-accent underline" to="/tests">
-        Back to tests
-      </Link>
+      {/* Full width: a question with its passage does not fit a half column. */}
+      {openedModule && (
+        <div className="mt-9">
+          <SectionLabel>
+            {humanize(openedModule.section)} · Module {openedModule.sequence} questions
+          </SectionLabel>
+          {openedModule.questions.map((entry) => (
+            <ReviewQuestion key={entry.question.id} entry={entry} position={entry.position} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
