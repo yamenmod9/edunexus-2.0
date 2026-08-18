@@ -241,9 +241,17 @@ class ApiClient {
   Future<Map<String, dynamic>> questions(Map<String, dynamic> filters) =>
       requireJson('GET', '/api/questions', query: filters);
 
-  Future<Map<String, dynamic>> checkAnswer(String questionId, String answer) =>
-      requireJson('POST', '/api/questions/$questionId/check',
-          body: {'answer': answer});
+  /// Grades one practice answer. [secondsSpent] is recorded as a practice
+  /// response server-side; omit it and only the grade comes back.
+  Future<Map<String, dynamic>> checkAnswer(
+    String questionId,
+    String answer, {
+    int? secondsSpent,
+  }) =>
+      requireJson('POST', '/api/questions/$questionId/check', body: {
+        'answer': answer,
+        'seconds_spent': ?secondsSpent,
+      });
 
   Future<Map<String, dynamic>> forms() => requireJson('GET', '/api/forms');
 

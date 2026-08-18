@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../state/app_state.dart';
+import '../theme.dart';
 import '../widgets/common.dart';
 import 'result_screen.dart';
 
@@ -63,29 +64,36 @@ class _ProgressScreenState extends State<ProgressScreen> {
   }
 
   Widget _body() {
+    final c = context.exam;
     final dashboard = _dashboard!;
     final attemptsAnalyzed = dashboard['attempts_analyzed'] as int;
 
     if (attemptsAnalyzed == 0) {
-      return Padding(
-        padding: const EdgeInsets.all(16),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Finish a full adaptive test to start seeing your score '
-                  'history and accuracy breakdown here.',
-                ),
-                const SizedBox(height: 12),
-                OutlinedButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Take a test'),
-                ),
-              ],
-            ),
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Nothing to show yet',
+                textAlign: TextAlign.center,
+                style: serif(size: 22, weight: FontWeight.w700, color: c.ink),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Finish a full adaptive test to start seeing your score history '
+                'and accuracy breakdown here. Practice questions are not '
+                'counted — only full tests are.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13, height: 1.6, color: c.inkSoft),
+              ),
+              const SizedBox(height: 22),
+              FilledButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Take a test'),
+              ),
+            ],
           ),
         ),
       );
@@ -97,135 +105,157 @@ class _ProgressScreenState extends State<ProgressScreen> {
     return RefreshIndicator(
       onRefresh: _load,
       child: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 18, 16, 32),
         children: [
           Text(
             'Based on $attemptsAnalyzed finished '
             '${attemptsAnalyzed == 1 ? 'attempt' : 'attempts'}. Practice-mode '
             "questions aren't tracked here — only full tests are.",
-            style: Theme.of(context).textTheme.bodySmall,
+            style: TextStyle(fontSize: 12.5, height: 1.5, color: c.inkFaint),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
 
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: _ScoreTrend(history: history),
-            ),
+          _ScoreTrend(history: history),
+          const SizedBox(height: 28),
+
+          _barSection(
+            'Weakest domains',
+            dashboard['weak_domains'] as List<dynamic>,
+            (row) => '${humanize(row['section'] as String?)} · '
+                '${humanize(row['domain'] as String?)}',
+            'Not enough answered questions yet in any one domain '
+            '(need $minSample+).',
+            minSample,
+          ),
+          _barSection(
+            'Weakest skills',
+            dashboard['weak_skills'] as List<dynamic>,
+            (row) => row['skill'] as String,
+            'Not enough answered questions yet in any one skill '
+            '(need $minSample+).',
+            minSample,
           ),
 
-          _barCard('Weakest domains', dashboard['weak_domains'] as List<dynamic>,
-              (row) => '${humanize(row['section'] as String?)} · '
-                  '${humanize(row['domain'] as String?)}',
-              'Not enough answered questions yet in any one domain '
-              '(need $minSample+).'),
-          _barCard('Weakest skills', dashboard['weak_skills'] as List<dynamic>,
-              (row) => row['skill'] as String,
-              'Not enough answered questions yet in any one skill '
-              '(need $minSample+).'),
-
-          _tableCard('By domain', dashboard['domains'] as List<dynamic>,
+          _accuracySection('By domain', dashboard['domains'] as List<dynamic>,
               (row) => '${humanize(row['section'] as String?)} · '
                   '${humanize(row['domain'] as String?)}'),
-          _tableCard('By difficulty', dashboard['difficulty'] as List<dynamic>,
+          _accuracySection(
+              'By difficulty',
+              dashboard['difficulty'] as List<dynamic>,
               (row) => humanize(row['difficulty'] as String?)),
-          _tableCard('By skill', dashboard['skills'] as List<dynamic>,
+          _accuracySection('By skill', dashboard['skills'] as List<dynamic>,
               (row) => row['skill'] as String),
 
-          Text('Test history', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
+          const SectionLabel('Test history'),
           for (final entry in history.reversed)
-            _historyTile(entry as Map<String, dynamic>),
+            _historyRow(entry as Map<String, dynamic>),
         ],
       ),
     );
   }
 
-  Widget _barCard(
+  Widget _barSection(
     String title,
     List<dynamic> rows,
     String Function(Map<String, dynamic>) labelFor,
     String emptyNote,
+    int minSample,
   ) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
-            if (rows.isEmpty)
-              Text(emptyNote, style: Theme.of(context).textTheme.bodySmall)
-            else
-              for (final entry in rows)
-                _barRow(labelFor(entry as Map<String, dynamic>), entry),
+    final c = context.exam;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 28),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionLabel(title),
+          // The ranking note only makes sense above an actual ranking -
+          // printed over the empty state it contradicts the sentence below it.
+          if (rows.isEmpty)
+            Text(emptyNote, style: TextStyle(fontSize: 13, color: c.inkFaint))
+          else ...[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text(
+                'Ranked by accuracy, minimum $minSample answered.',
+                style: TextStyle(fontSize: 11.5, color: c.inkFaint),
+              ),
+            ),
+            for (final entry in rows)
+              _barRow(labelFor(entry as Map<String, dynamic>), entry),
           ],
-        ),
+        ],
       ),
     );
   }
 
   Widget _barRow(String label, Map<String, dynamic> row) {
+    final c = context.exam;
     final accuracy = (row['accuracy'] as num?)?.toDouble();
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.only(bottom: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
             children: [
               Expanded(child: Text(label, style: const TextStyle(fontSize: 13))),
               Text(
-                accuracy == null
-                    ? '—'
-                    : '${(accuracy * 100).round()}% (${row['correct']}/${row['answered']})',
-                style: Theme.of(context).textTheme.bodySmall,
+                accuracy == null ? '—' : '${(accuracy * 100).round()}%',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: c.inkSoft,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                '${row['correct']}/${row['answered']}',
+                style: TextStyle(fontSize: 11.5, color: c.inkFaint),
               ),
             ],
           ),
-          const SizedBox(height: 4),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: (accuracy ?? 0).clamp(0.02, 1.0),
-              minHeight: 6,
-              backgroundColor: const Color(0xFFE2E8F0),
-            ),
-          ),
+          const SizedBox(height: 6),
+          Meter(value: accuracy),
         ],
       ),
     );
   }
 
-  Widget _tableCard(
+  Widget _accuracySection(
     String title,
     List<dynamic> rows,
     String Function(Map<String, dynamic>) labelFor,
   ) {
     if (rows.isEmpty) return const SizedBox.shrink();
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
-            for (final entry in rows) _tableRow(labelFor(entry as Map<String, dynamic>), entry),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 28),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionLabel(title),
+          for (final entry in rows)
+            _accuracyRow(labelFor(entry as Map<String, dynamic>), entry),
+        ],
       ),
     );
   }
 
-  Widget _tableRow(String label, Map<String, dynamic> row) {
+  /// Accuracy is correct/answered, never correct/delivered — the server drops
+  /// skipped questions on purpose, so running out of time must not read as
+  /// being inaccurate on questions never seen. Skips are reported separately.
+  Widget _accuracyRow(String label, Map<String, dynamic> row) {
+    final c = context.exam;
     final delivered = row['delivered'] as int;
     final answered = row['answered'] as int;
     final skipped = delivered - answered;
-    final accuracy = row['accuracy'] as num?;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+    final accuracy = (row['accuracy'] as num?)?.toDouble();
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: c.line)),
+      ),
       child: Row(
         children: [
           Expanded(
@@ -237,20 +267,25 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   if (skipped > 0)
                     TextSpan(
                       text: '  ($skipped skipped)',
-                      style: const TextStyle(fontSize: 11, color: Color(0xFF64748B)),
+                      style: TextStyle(fontSize: 11, color: c.inkFaint),
                     ),
                 ],
               ),
             ),
           ),
-          Text('${row['correct']}/$answered', style: const TextStyle(fontSize: 13)),
+          const SizedBox(width: 12),
+          Meter(value: accuracy, graded: true, width: 62),
           const SizedBox(width: 12),
           SizedBox(
-            width: 40,
+            width: 44,
             child: Text(
-              accuracy == null ? '—' : '${(accuracy * 100).round()}%',
+              '${row['correct']}/$answered',
               textAlign: TextAlign.right,
-              style: const TextStyle(fontSize: 13),
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                color: c.inkSoft,
+              ),
             ),
           ),
         ],
@@ -258,23 +293,44 @@ class _ProgressScreenState extends State<ProgressScreen> {
     );
   }
 
-  Widget _historyTile(Map<String, dynamic> entry) {
+  Widget _historyRow(Map<String, dynamic> entry) {
+    final c = context.exam;
     final submitted = DateTime.tryParse('${entry['submitted_at']}Z')?.toLocal();
-    return Card(
-      child: ListTile(
-        title: Text(entry['form_name'] as String),
-        subtitle: Text(
-          '${submitted == null ? '' : '${submitted.day}/${submitted.month}/${submitted.year}'}'
-          ' · ${entry['status']}',
+    return InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => ResultScreen(attemptId: entry['attempt_id'] as String),
         ),
-        trailing: Text(
-          '${entry['total_scaled_score'] ?? '—'}',
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: c.line)),
         ),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => ResultScreen(attemptId: entry['attempt_id'] as String),
-          ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(entry['form_name'] as String,
+                      style: const TextStyle(fontSize: 14)),
+                  const SizedBox(height: 2),
+                  Text(
+                    '${submitted == null ? '' : '${submitted.day}/${submitted.month}/${submitted.year}'}'
+                    ' · ${entry['status']}',
+                    style: TextStyle(fontSize: 11.5, color: c.inkFaint),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              '${entry['total_scaled_score'] ?? '—'}',
+              style: serif(size: 19, weight: FontWeight.w700, color: c.ink),
+            ),
+            const SizedBox(width: 6),
+            Icon(Icons.chevron_right, size: 18, color: c.inkFaint),
+          ],
         ),
       ),
     );
@@ -291,6 +347,7 @@ class _ScoreTrend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = context.exam;
     final points = <(String, int)>[];
     for (final entry in history) {
       final map = entry as Map<String, dynamic>;
@@ -299,55 +356,80 @@ class _ScoreTrend extends StatelessWidget {
     }
 
     if (points.isEmpty) {
-      return const Text('No completed attempts yet.');
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SectionLabel('Total score'),
+          Text('No completed attempts yet.',
+              style: TextStyle(fontSize: 13, color: c.inkFaint)),
+        ],
+      );
     }
 
+    // One point is not a trend, so it renders as the figure itself.
     if (points.length == 1) {
       final (formName, score) = points.single;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SectionLabel('Latest total score'),
           Text(
-            'LATEST TOTAL SCORE',
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.6,
-              color: const Color(0xFF64748B),
+            '$score',
+            style: serif(
+              size: 44,
+              weight: FontWeight.w700,
+              letterSpacing: -1,
+              color: c.ink,
             ),
           ),
-          Text('$score', style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
           Text(
             '$formName · one more finished test will start a trend line',
-            style: Theme.of(context).textTheme.bodySmall,
+            style: TextStyle(fontSize: 12.5, color: c.inkFaint),
           ),
         ],
       );
     }
 
+    final delta = points.last.$2 - points.first.$2;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'TOTAL SCORE BY ATTEMPT',
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 0.6,
-            color: Color(0xFF64748B),
-          ),
+        Row(
+          children: [
+            const Expanded(child: SectionLabel('Total score')),
+            if (delta != 0)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12, left: 12),
+                child: Text(
+                  '${delta > 0 ? '+' : ''}$delta since your first test',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: delta > 0 ? c.good : c.bad,
+                  ),
+                ),
+              ),
+          ],
         ),
-        const SizedBox(height: 8),
         SizedBox(
           height: 160,
           width: double.infinity,
-          child: CustomPaint(painter: _ScoreTrendPainter(points)),
+          child: CustomPaint(
+            painter: _ScoreTrendPainter(
+              points: points,
+              grid: c.line,
+              label: c.inkFaint,
+              line: c.accent,
+              dotRing: c.page,
+              ink: c.ink,
+            ),
+          ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 6),
         Text(
           'Full values for every attempt are in the test history list below.',
-          style: Theme.of(context).textTheme.bodySmall,
+          style: TextStyle(fontSize: 12, color: c.inkFaint),
         ),
       ],
     );
@@ -355,9 +437,24 @@ class _ScoreTrend extends StatelessWidget {
 }
 
 class _ScoreTrendPainter extends CustomPainter {
-  _ScoreTrendPainter(this.points);
+  _ScoreTrendPainter({
+    required this.points,
+    required this.grid,
+    required this.label,
+    required this.line,
+    required this.dotRing,
+    required this.ink,
+  });
 
   final List<(String, int)> points;
+  // A painter sits outside the widget tree, so it cannot read the theme
+  // itself — the palette has to be handed in, or the chart silently stays
+  // light when everything around it goes dark.
+  final Color grid;
+  final Color label;
+  final Color line;
+  final Color dotRing;
+  final Color ink;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -373,9 +470,9 @@ class _ScoreTrendPainter extends CustomPainter {
         (points.length <= 1 ? plotWidth / 2 : (i / (points.length - 1)) * plotWidth);
 
     final gridPaint = Paint()
-      ..color = const Color(0xFFE2E8F0)
+      ..color = grid
       ..strokeWidth = 1;
-    final labelStyle = TextStyle(fontSize: 9, color: const Color(0xFF64748B));
+    final labelStyle = TextStyle(fontSize: 9, color: label);
     for (final tick in [400, 700, 1000, 1300, 1600]) {
       final y = yFor(tick);
       canvas.drawLine(Offset(leftPad, y), Offset(size.width, y), gridPaint);
@@ -387,7 +484,7 @@ class _ScoreTrendPainter extends CustomPainter {
     }
 
     final linePaint = Paint()
-      ..color = const Color(0xFF1D4ED8)
+      ..color = line
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
@@ -403,9 +500,9 @@ class _ScoreTrendPainter extends CustomPainter {
     }
     canvas.drawPath(path, linePaint);
 
-    final dotFill = Paint()..color = const Color(0xFF1D4ED8);
+    final dotFill = Paint()..color = line;
     final dotStroke = Paint()
-      ..color = Colors.white
+      ..color = dotRing
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
     for (var i = 0; i < points.length; i += 1) {
@@ -414,15 +511,12 @@ class _ScoreTrendPainter extends CustomPainter {
       canvas.drawCircle(offset, i == points.length - 1 ? 4.5 : 3.5, dotStroke);
     }
 
+    // The most recent point is labelled directly; the rest are in the list.
     final last = points.last;
     final lastPainter = TextPainter(
       text: TextSpan(
         text: '${last.$2}',
-        style: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: Color(0xFF0F172A),
-        ),
+        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: ink),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -434,5 +528,5 @@ class _ScoreTrendPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _ScoreTrendPainter oldDelegate) =>
-      oldDelegate.points != points;
+      oldDelegate.points != points || oldDelegate.line != line;
 }

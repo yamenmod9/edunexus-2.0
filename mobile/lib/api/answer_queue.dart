@@ -35,9 +35,10 @@ class PendingAnswer {
 ///
 /// Replay is safe because `PUT /responses/<id>` is idempotent - it sets the
 /// answer rather than appending one - so sending the same answer twice is
-/// indistinguishable from sending it once. Only the newest answer per question
-/// is kept, since a student who changes their mind offline means the earlier
-/// answer was never true.
+/// indistinguishable from sending it once. One entry is kept per question,
+/// with later payloads folded into it field by field (see [_merge]) - a
+/// student who changes their mind offline means the earlier answer was never
+/// true, but marking a question for review does not unsay the answer.
 ///
 /// The queue survives the app being killed: on a phone, "lost connection" and
 /// "the OS reclaimed the app" happen together often enough that keeping this
@@ -93,10 +94,27 @@ class AnswerQueue {
     }
   }
 
-  void _replace(PendingAnswer answer) {
-    _pending.removeWhere((e) =>
+  /// Folds a new payload into whatever is already queued for that question.
+  ///
+  /// Merged, not replaced. One question carries several independent fields —
+  /// the answer, the review mark, the highlights and cross-outs — and each
+  /// arrives as its own one-key payload. Replacing would mean a student who
+  /// answers and then marks the question offline loses the answer: the mark's
+  /// payload has no `answer` key, so the server never hears about it. Merging
+  /// is safe because `PUT /responses/<id>` sets fields rather than appending,
+  /// and a later value for the same field is the one the student meant.
+  void _merge(PendingAnswer answer) {
+    final index = _pending.indexWhere((e) =>
         e.attemptId == answer.attemptId && e.questionId == answer.questionId);
-    _pending.add(answer);
+    if (index < 0) {
+      _pending.add(answer);
+      return;
+    }
+    _pending[index] = PendingAnswer(
+      attemptId: answer.attemptId,
+      questionId: answer.questionId,
+      payload: {..._pending[index].payload, ...answer.payload},
+    );
   }
 
   /// Sends an answer, queueing it if the network is unreachable.
@@ -124,7 +142,7 @@ class AnswerQueue {
       return true;
     } on ApiException catch (error) {
       if (!error.isOffline) rethrow;
-      _replace(answer);
+      _merge(answer);
       await _persist();
       _notify();
       return false;

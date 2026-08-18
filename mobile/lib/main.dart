@@ -8,16 +8,26 @@ import 'config.dart';
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
 import 'state/app_state.dart';
+import 'theme.dart';
 import 'widgets/common.dart';
 
 void main() {
+  // SharedPreferences (the theme preference) reaches a platform channel, so
+  // the binding has to exist before ThemeController.load() runs.
+  WidgetsFlutterBinding.ensureInitialized();
+
   final tokens = TokenStore();
   final client = ApiClient(baseUrl: AppConfig.apiBaseUrl, tokens: tokens);
   final queue = AnswerQueue(client);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => AppState(client: client, tokens: tokens, queue: queue)..boot(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AppState(client: client, tokens: tokens, queue: queue)..boot(),
+        ),
+        ChangeNotifierProvider(create: (_) => ThemeController()..load()),
+      ],
       child: const EduNexusApp(),
     ),
   );
@@ -31,22 +41,9 @@ class EduNexusApp extends StatelessWidget {
     return MaterialApp(
       title: 'EduNexus',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1D4ED8)),
-        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
-        cardTheme: const CardThemeData(
-          elevation: 0,
-          margin: EdgeInsets.only(bottom: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            side: BorderSide(color: Color(0xFFE2E8F0)),
-          ),
-          color: Colors.white,
-        ),
-        inputDecorationTheme: const InputDecorationTheme(
-          border: OutlineInputBorder(),
-        ),
-      ),
+      theme: buildTheme(Brightness.light),
+      darkTheme: buildTheme(Brightness.dark),
+      themeMode: context.watch<ThemeController>().mode,
       home: const _Root(),
     );
   }

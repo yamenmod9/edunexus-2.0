@@ -97,6 +97,30 @@ void main() {
     expect(queue.pendingFor('att-1')['q-1'], {'answer': 'C'});
   });
 
+  test('marking a question offline does not unsay the answer', () async {
+    // Each tool sends its own one-key payload. Replacing rather than merging
+    // would drop the answer the moment the student marked the question for
+    // review, and they would never know until the score came back.
+    final (queue, _) = await build((_) async => throw const Offline());
+
+    await queue.submit('att-1', 'q-1', {'answer': 'B'});
+    await queue.submit('att-1', 'q-1', {'flagged': true});
+    await queue.submit('att-1', 'q-1', {
+      'annotations': [
+        {'kind': 'eliminated', 'choice': 'D'},
+      ],
+    });
+
+    expect(queue.length, 1);
+    expect(queue.pendingFor('att-1')['q-1'], {
+      'answer': 'B',
+      'flagged': true,
+      'annotations': [
+        {'kind': 'eliminated', 'choice': 'D'},
+      ],
+    });
+  });
+
   test('the queue survives a restart', () async {
     // Losing connection and having the app killed tend to happen together on
     // a phone; an in-memory queue would lose real answers.

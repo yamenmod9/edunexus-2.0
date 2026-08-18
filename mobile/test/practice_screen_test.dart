@@ -167,8 +167,11 @@ void main() {
 
     // Grading happens server-side; the bank never hands the client the key.
     expect(stub.paths.any((p) => p.endsWith('/check')), isTrue);
-    expect(find.text('Correct.'), findsOneWidget);
-    expect(find.text('Explanation'), findsOneWidget);
+    // The verdict is an Eyebrow, which uppercases its text, and the rationale
+    // sits in the same block rather than a separate box - a student should not
+    // be able to read the mark and skip the part that teaches.
+    expect(find.text('CORRECT'), findsOneWidget);
+    expect(find.textContaining('Because B.'), findsOneWidget);
   });
 
   testWidgets('choices lock once the answer has been checked', (tester) async {

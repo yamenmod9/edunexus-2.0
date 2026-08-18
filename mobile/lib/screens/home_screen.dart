@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../state/app_state.dart';
+import '../theme.dart';
 import '../widgets/common.dart';
 import 'practice_screen.dart';
 import 'progress_screen.dart';
@@ -103,6 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<AppState>();
+    final c = context.exam;
 
     return Scaffold(
       appBar: AppBar(
@@ -122,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
               MaterialPageRoute(builder: (_) => const ProgressScreen()),
             ),
           ),
+          const ThemeToggleButton(),
           IconButton(
             tooltip: 'Sign out',
             icon: const Icon(Icons.logout),
@@ -138,20 +141,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 : RefreshIndicator(
                     onRefresh: _load,
                     child: ListView(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
                       children: [
-                        Text(
-                          state.user?['email'] as String? ?? '',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        const SizedBox(height: 12),
                         if (_error != null) Notice(message: _error!),
 
-                        if (_openAttempt != null) _resumeCard(),
+                        // One lead action, not three cards of equal weight:
+                        // either there is a test running, in which case
+                        // resuming it is the only thing that matters, or there
+                        // is not, and starting one is.
+                        if (_openAttempt != null)
+                          _resumeCard()
+                        else
+                          _leadIn(state),
 
-                        Text('Practice tests',
-                            style: Theme.of(context).textTheme.titleMedium),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 28),
+                        const SectionLabel('Practice tests'),
                         if (_forms.isEmpty)
                           const Notice(
                             tone: NoticeTone.info,
@@ -160,33 +164,62 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'needs to assemble one from the question bank.',
                           ),
                         for (final form in _forms)
-                          _formCard(form as Map<String, dynamic>),
+                          _formRow(form as Map<String, dynamic>),
 
                         if (_history.isNotEmpty) ...[
-                          const SizedBox(height: 16),
-                          Text('Past attempts',
-                              style: Theme.of(context).textTheme.titleMedium),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 28),
+                          const SectionLabel('Past attempts'),
                           for (final attempt in _history)
-                            _historyTile(attempt as Map<String, dynamic>),
+                            _historyRow(attempt as Map<String, dynamic>),
                         ],
 
-                        const SizedBox(height: 16),
-                        Card(
-                          child: ListTile(
-                            leading: const Icon(Icons.school_outlined),
-                            title: const Text('Practice questions'),
-                            subtitle: const Text(
-                              'Single questions with the explanation after you '
-                              'answer.',
+                        const SizedBox(height: 28),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (_) => const PracticeScreen()),
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: c.line),
                             ),
-                            trailing: const Icon(Icons.chevron_right),
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (_) => const PracticeScreen()),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Practice questions',
+                                        style: serif(
+                                          size: 16,
+                                          weight: FontWeight.w700,
+                                          color: c.ink,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 3),
+                                      Text(
+                                        'Single questions, untimed, with the '
+                                        'explanation after you answer.',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          height: 1.45,
+                                          color: c.inkSoft,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Icon(Icons.chevron_right, color: c.inkFaint),
+                              ],
                             ),
                           ),
                         ),
+                        const SizedBox(height: 24),
+                        const TrademarkNotice(),
                       ],
                     ),
                   ),
@@ -196,25 +229,60 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// The signed-out-of-a-test state: who you are, and what to do next.
+  Widget _leadIn(AppState state) {
+    final c = context.exam;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Welcome back',
+          style: serif(
+            size: 27,
+            weight: FontWeight.w700,
+            letterSpacing: -0.5,
+            color: c.ink,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          state.user?['email'] as String? ?? '',
+          style: TextStyle(fontSize: 13, color: c.inkFaint),
+        ),
+      ],
+    );
+  }
+
   Widget _resumeCard() {
+    final c = context.exam;
     final attempt = _openAttempt!;
     final module = attempt['current_module'] as Map<String, dynamic>?;
-    return Card(
-      color: const Color(0xFFEFF6FF),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('You have a test in progress',
-                style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 4),
-            Text(
-              '${attempt['form_name']} — ${humanize(module?['section'] as String?)} '
-              'module ${module?['sequence']}. The clock is still running.',
-            ),
-            const SizedBox(height: 12),
-            FilledButton(
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: c.accentSoft,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: c.accent, width: 1.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Eyebrow('Test in progress', color: c.accent),
+          const SizedBox(height: 8),
+          Text(
+            attempt['form_name'] as String,
+            style: serif(size: 20, weight: FontWeight.w700, color: c.ink),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '${humanize(module?['section'] as String?)} module '
+            '${module?['sequence']}. The clock is still running.',
+            style: TextStyle(fontSize: 13, height: 1.45, color: c.inkSoft),
+          ),
+          const SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: FilledButton(
               onPressed: () async {
                 await Navigator.of(context).push(
                   MaterialPageRoute(
@@ -226,66 +294,100 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: const Text('Resume test'),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _formCard(Map<String, dynamic> form) {
+  Widget _formRow(Map<String, dynamic> form) {
+    final c = context.exam;
     final blocked = _openAttempt != null;
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(form['name'] as String,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            if (form['description'] != null) ...[
-              const SizedBox(height: 4),
-              Text(form['description'] as String),
-            ],
-            const SizedBox(height: 6),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: c.line)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            form['name'] as String,
+            style: serif(size: 17, weight: FontWeight.w700, color: c.ink),
+          ),
+          if (form['description'] != null) ...[
+            const SizedBox(height: 3),
             Text(
-              '${_questionCount(form)} questions · about ${_minutes(form)} minutes',
-              style: Theme.of(context).textTheme.bodySmall,
+              form['description'] as String,
+              style: TextStyle(fontSize: 13, height: 1.45, color: c.inkSoft),
             ),
-            const SizedBox(height: 12),
-            FilledButton(
+          ],
+          const SizedBox(height: 8),
+          Text(
+            '${_questionCount(form)} questions · about ${_minutes(form)} minutes',
+            style: TextStyle(fontSize: 12, color: c.inkFaint),
+          ),
+          const SizedBox(height: 14),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: FilledButton(
               onPressed: blocked || _starting == form['id']
                   ? null
                   : () => _start(form['id'] as String),
               child: Text(_starting == form['id'] ? 'Starting…' : 'Start test'),
             ),
-            if (blocked)
-              Padding(
-                padding: const EdgeInsets.only(top: 6),
-                child: Text(
-                  'Finish or end your test in progress first.',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+          ),
+          if (blocked)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                'Finish or end your test in progress first.',
+                style: TextStyle(fontSize: 12, color: c.inkFaint),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
 
-  Widget _historyTile(Map<String, dynamic> attempt) {
+  Widget _historyRow(Map<String, dynamic> attempt) {
+    final c = context.exam;
     final started = DateTime.tryParse('${attempt['started_at']}Z')?.toLocal();
-    return Card(
-      child: ListTile(
-        title: Text(attempt['form_name'] as String),
-        subtitle: Text(
-          '${started == null ? '' : '${started.day}/${started.month}/${started.year}'}'
-          ' · ${attempt['status']}',
+    return InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => ResultScreen(attemptId: attempt['id'] as String),
         ),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => ResultScreen(attemptId: attempt['id'] as String),
-          ),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 14),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: c.line)),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                attempt['form_name'] as String,
+                style: const TextStyle(fontSize: 14),
+              ),
+            ),
+            Text(
+              started == null
+                  ? ''
+                  : '${started.day}/${started.month}/${started.year}',
+              style: TextStyle(fontSize: 12, color: c.inkFaint),
+            ),
+            const SizedBox(width: 12),
+            SizedBox(
+              width: 74,
+              child: Text(
+                attempt['status'] as String,
+                style: TextStyle(fontSize: 12, color: c.inkSoft),
+              ),
+            ),
+            Icon(Icons.chevron_right, size: 18, color: c.inkFaint),
+          ],
         ),
       ),
     );

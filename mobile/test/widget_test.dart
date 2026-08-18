@@ -51,9 +51,16 @@ void main() {
   group('helpers', () {
     test('humanize makes taxonomy values readable', () {
       expect(humanize('reading_writing'), 'Reading & Writing');
+      // CLAUDE.md section 5 fixes the domain names exactly. Title-casing the
+      // enum drops the hyphen and the ampersand, which is what this used to
+      // do - and what the redesign's metadata line made visible.
       expect(humanize('problem_solving_data_analysis'),
-          'Problem Solving Data Analysis');
+          'Problem-Solving & Data Analysis');
+      expect(humanize('craft_structure'), 'Craft & Structure');
+      expect(humanize('geometry_trigonometry'), 'Geometry & Trigonometry');
+      // Anything not in the table still title-cases.
       expect(humanize('math'), 'Math');
+      expect(humanize('linear_equations'), 'Linear Equations');
       expect(humanize(null), '');
     });
 
