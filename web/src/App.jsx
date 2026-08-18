@@ -28,6 +28,18 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
+      {/* The player sits OUTSIDE Layout on purpose: for the duration of a
+          module the app nav disappears, so nothing competes with the question.
+          It still requires auth, and it renders its own full-height shell. */}
+      <Route
+        path="/tests/:attemptId"
+        element={
+          <RequireAuth>
+            <TestPlayerPage />
+          </RequireAuth>
+        }
+      />
+
       <Route
         element={
           <RequireAuth>
@@ -38,7 +50,6 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/practice" element={<PracticePage />} />
         <Route path="/tests" element={<TestsPage />} />
-        <Route path="/tests/:attemptId" element={<TestPlayerPage />} />
         <Route path="/tests/:attemptId/result" element={<ResultPage />} />
         <Route path="/progress" element={<ProgressPage />} />
         <Route

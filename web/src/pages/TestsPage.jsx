@@ -60,7 +60,7 @@ export default function TestsPage() {
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold">Practice tests</h1>
+      <h1 className="mb-1 font-serif text-3xl font-bold tracking-tight">Practice tests</h1>
       <p className="mb-5 text-sm text-ink-faint">
         Full adaptive tests. Your performance on module 1 of each section decides
         which module 2 you get.

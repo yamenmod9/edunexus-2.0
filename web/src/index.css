@@ -5,22 +5,73 @@
 @tailwind utilities;
 
 @layer base {
+  /* The two palettes. Tailwind's colour names resolve to these variables
+     (see tailwind.config.js), so a theme switch is a class on <html> rather
+     than a `dark:` variant on every colour usage.
+
+     Dark is not an inverted light theme: the navy accent fails contrast on a
+     dark ground, so dark lifts it to a paler blue and keeps the rest of the
+     restrained character. */
+  :root {
+    --c-page: #fcfcfd;
+    --c-surface: #ffffff;
+    --c-sunken: #f6f7f9;
+    --c-ink: #16181d;
+    --c-ink-soft: #4a5260;
+    --c-ink-faint: #696f7d;
+    --c-line: #e4e6ea;
+    --c-line-strong: #d7dade;
+    --c-accent: #1f3a5f;
+    --c-accent-hover: #16293f;
+    --c-accent-soft: #eef2f7;
+    --c-on-accent: #ffffff;
+    --c-good: #1d6b4f;
+    --c-good-soft: #eaf4ef;
+    --c-bad: #a12d2d;
+    --c-bad-soft: #fbeceb;
+    --c-flag: #96661a;
+    --c-flag-soft: #fdf4e3;
+    color-scheme: light;
+  }
+
+  .dark {
+    --c-page: #101216;
+    --c-surface: #171a1f;
+    --c-sunken: #1c2027;
+    --c-ink: #e8eaed;
+    --c-ink-soft: #b3bac5;
+    --c-ink-faint: #848c9b;
+    --c-line: #262b33;
+    --c-line-strong: #333a44;
+    --c-accent: #7aa2d1;
+    --c-accent-hover: #9abce0;
+    --c-accent-soft: #1a2432;
+    --c-on-accent: #0d1420;
+    --c-good: #4ea87f;
+    --c-good-soft: #14261e;
+    --c-bad: #d1706b;
+    --c-bad-soft: #2a1717;
+    --c-flag: #d0a355;
+    --c-flag-soft: #2a2214;
+    color-scheme: dark;
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
   }
   body {
-    @apply bg-slate-50 text-ink antialiased;
+    @apply bg-page text-ink antialiased;
   }
   /* Visible keyboard focus everywhere. The default outline is removed by
      Tailwind's reset, and without this the app is unusable by keyboard. */
   :focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-slate-50;
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-page;
   }
 }
 
 @layer components {
   .skip-link {
     @apply absolute left-2 top-2 z-50 -translate-y-16 rounded bg-accent px-4 py-2
-           text-white transition focus:translate-y-0;
+           text-accent-on transition focus:translate-y-0;
   }
 }

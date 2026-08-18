@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EduNexus — Digital SAT practice</title>
     <meta name="description" content="Adaptive Digital SAT practice tests and a tagged question bank." />
+    <script>
+      // Runs before first paint so the page never flashes the wrong theme.
+      // Deliberately duplicates the logic in src/theme.js: that module loads
+      // with the bundle, which is far too late to prevent the flash. Keep the
+      // storage key and the rules here in step with it.
+      (function () {
+        try {
+          var saved = localStorage.getItem('edunexus-theme')
+          var dark =
+            saved === 'dark' ||
+            (saved !== 'light' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          if (dark) document.documentElement.classList.add('dark')
+        } catch (e) {
+          /* private mode with storage disabled: fall through to light */
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

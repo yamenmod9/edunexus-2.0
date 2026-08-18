@@ -21,8 +21,8 @@ function Select({ id, label, value, onChange, options, disabled }) {
         value={value}
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm
-          disabled:bg-slate-100 disabled:text-slate-400"
+        className="w-full rounded-md border border-line-strong bg-surface px-3 py-2 text-sm
+          disabled:bg-sunken disabled:text-ink-faint"
       >
         <option value="">Any</option>
         {options.map((option) => (
@@ -79,7 +79,7 @@ function PracticeQuestion({ question }) {
       </div>
 
       {question.stimulus && (
-        <MathText className="mb-3 border-l-2 border-slate-200 pl-3 text-sm text-ink-soft">
+        <MathText className="mb-3 border-l-2 border-line pl-3 text-sm text-ink-soft">
           {question.stimulus}
         </MathText>
       )}
@@ -89,7 +89,7 @@ function PracticeQuestion({ question }) {
         <img
           src={question.figure_url}
           alt="Figure accompanying the question"
-          className="mb-4 max-w-full rounded border border-slate-200"
+          className="mb-4 max-w-full rounded border border-line"
         />
       )}
 
@@ -102,7 +102,7 @@ function PracticeQuestion({ question }) {
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
             disabled={Boolean(result)}
-            className="w-40 rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="w-40 rounded-md border border-line-strong px-3 py-2 text-sm"
           />
         </label>
       ) : (
@@ -117,10 +117,10 @@ function PracticeQuestion({ question }) {
                 <label
                   key={choice.id}
                   className={`flex cursor-pointer items-start gap-3 rounded-md border p-3 text-sm
-                    ${isKey ? 'border-emerald-400 bg-emerald-50' : ''}
-                    ${isWrongPick ? 'border-red-400 bg-red-50' : ''}
+                    ${isKey ? 'border-good bg-good-soft' : ''}
+                    ${isWrongPick ? 'border-bad bg-bad-soft' : ''}
                     ${!result && selected ? 'border-accent bg-accent-soft' : ''}
-                    ${!result && !selected ? 'border-slate-200 hover:bg-slate-50' : ''}`}
+                    ${!result && !selected ? 'border-line hover:bg-sunken' : ''}`}
                 >
                   <input
                     type="radio"
@@ -151,7 +151,7 @@ function PracticeQuestion({ question }) {
               : `Not quite — the answer is ${result.correct_answer}.`}
           </Alert>
           {result.rationale && (
-            <div className="rounded-md bg-slate-50 p-3 text-sm">
+            <div className="rounded-md bg-sunken p-3 text-sm">
               <p className="mb-1 font-semibold">Explanation</p>
               <MathText>{result.rationale}</MathText>
             </div>
@@ -218,7 +218,7 @@ export default function PracticePage() {
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold">Practice</h1>
+      <h1 className="mb-1 font-serif text-3xl font-bold tracking-tight">Practice</h1>
       <p className="mb-5 text-sm text-ink-faint">
         Single questions from the bank, with the explanation after you answer.
       </p>

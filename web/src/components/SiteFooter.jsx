@@ -10,9 +10,9 @@
  * Scope note: this covers the *name* only. It is not a content licence and
  * says nothing about question provenance - see CLAUDE.md section 6.
  */
-export default function SiteFooter() {
+export default function SiteFooter({ className = '' }) {
   return (
-    <footer className="mt-12 border-t border-slate-200 px-4 py-6">
+    <footer className={`mt-12 border-t border-line px-4 py-6 ${className}`}>
       <p className="mx-auto max-w-5xl text-center text-xs leading-relaxed text-ink-faint">
         SAT<sup>®</sup> is a trademark registered by the College Board, which is not
         affiliated with, and does not endorse, this site.

@@ -29,7 +29,7 @@ test('capture the student journey', async ({ page }) => {
 
   await page.getByRole('link', { name: 'Practice' }).click()
   await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
-  await page.getByRole('radio').first().check()
+  await page.locator('fieldset label').first().click()
   await page.getByRole('button', { name: 'Check answer' }).first().click()
   await expect(page.getByRole('status').first()).toBeVisible()
   await page.screenshot({ path: `${shots}/03-practice.png`, fullPage: true })
@@ -37,9 +37,14 @@ test('capture the student journey', async ({ page }) => {
   await page.getByRole('link', { name: 'Tests' }).click()
   await page.screenshot({ path: `${shots}/04-tests.png`, fullPage: true })
 
-  await page.getByRole('button', { name: 'Start test' }).first().click()
-  await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
-  await page.getByRole('radio').nth(1).check()
+  const card = page
+    .locator('div')
+    .filter({ hasText: 'Quick Check' })
+    .filter({ has: page.getByRole('button', { name: 'Start test' }) })
+    .last()
+  await card.getByRole('button', { name: 'Start test' }).click()
+  await expect(page.getByRole('timer')).toBeVisible()
+  await page.locator('fieldset label').nth(1).click()
   await page.screenshot({ path: `${shots}/05-test-player.png`, fullPage: true })
 
   await page.getByRole('button', { name: 'Review and continue' }).click()
@@ -48,11 +53,11 @@ test('capture the student journey', async ({ page }) => {
 
   // Play out the rest so the score report has something in it.
   for (let module = 1; module < 4; module += 1) {
-    const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
+    const count = await page.getByRole('button', { name: /^Question \d+,/ }).count()
     for (let q = 0; q < count; q += 1) {
-      await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
-      const radios = page.getByRole('radio')
-      if (await radios.count()) await radios.nth(1).check()
+      await page.getByRole('button', { name: new RegExp(`^Question ${q + 1},`) }).click()
+      const choices = page.locator('fieldset label')
+      if (await choices.count()) await choices.nth(1).click()
     }
     await page.getByRole('button', { name: 'Review and continue' }).click()
     await page

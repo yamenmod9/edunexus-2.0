@@ -113,7 +113,7 @@ function QuestionForm({ taxonomy, onSaved }) {
               id="q-section"
               value={draft.section}
               onChange={(e) => set('section', e.target.value)}
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm"
+              className="w-full rounded-md border border-line-strong bg-surface px-3 py-2 text-sm"
             >
               {sections.map((s) => (
                 <option key={s.value} value={s.value}>{s.label}</option>
@@ -125,7 +125,7 @@ function QuestionForm({ taxonomy, onSaved }) {
               id="q-domain"
               value={draft.domain}
               onChange={(e) => set('domain', e.target.value)}
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm"
+              className="w-full rounded-md border border-line-strong bg-surface px-3 py-2 text-sm"
             >
               {domains.map((d) => (
                 <option key={d.value} value={d.value}>{d.label}</option>
@@ -145,7 +145,7 @@ function QuestionForm({ taxonomy, onSaved }) {
               id="q-difficulty"
               value={draft.difficulty}
               onChange={(e) => set('difficulty', e.target.value)}
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm"
+              className="w-full rounded-md border border-line-strong bg-surface px-3 py-2 text-sm"
             >
               {(taxonomy?.difficulties ?? []).map((d) => (
                 <option key={d.value} value={d.value}>{d.label}</option>
@@ -157,7 +157,7 @@ function QuestionForm({ taxonomy, onSaved }) {
               id="q-type"
               value={draft.question_type}
               onChange={(e) => set('question_type', e.target.value)}
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm"
+              className="w-full rounded-md border border-line-strong bg-surface px-3 py-2 text-sm"
             >
               <option value="multiple_choice">Multiple Choice</option>
               {/* Grid-in is math-only (CLAUDE.md section 5). */}
@@ -172,7 +172,7 @@ function QuestionForm({ taxonomy, onSaved }) {
             rows={3}
             value={draft.stimulus}
             onChange={(e) => set('stimulus', e.target.value)}
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="w-full rounded-md border border-line-strong px-3 py-2 text-sm"
           />
         </Field>
 
@@ -183,7 +183,7 @@ function QuestionForm({ taxonomy, onSaved }) {
             required
             value={draft.stem}
             onChange={(e) => set('stem', e.target.value)}
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="w-full rounded-md border border-line-strong px-3 py-2 text-sm"
           />
         </Field>
         <p className="-mt-2 mb-4 text-xs text-ink-faint">
@@ -224,7 +224,7 @@ function QuestionForm({ taxonomy, onSaved }) {
                       return { ...current, choices }
                     })
                   }
-                  className="flex-1 rounded-md border border-slate-300 px-3 py-2 text-sm"
+                  className="flex-1 rounded-md border border-line-strong px-3 py-2 text-sm"
                 />
               </div>
             ))}
@@ -240,12 +240,12 @@ function QuestionForm({ taxonomy, onSaved }) {
             rows={2}
             value={draft.rationale}
             onChange={(e) => set('rationale', e.target.value)}
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="w-full rounded-md border border-line-strong px-3 py-2 text-sm"
           />
         </Field>
 
         {draft.stem && (
-          <div className="mb-4 rounded-md bg-slate-50 p-3">
+          <div className="mb-4 rounded-md bg-sunken p-3">
             <p className="mb-1 text-xs font-semibold uppercase text-ink-faint">Preview</p>
             <MathText>{draft.stem}</MathText>
           </div>
@@ -437,7 +437,7 @@ export default function AdminPage() {
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold">Admin</h1>
+      <h1 className="mb-1 font-serif text-3xl font-bold tracking-tight">Admin</h1>
       <p className="mb-5 text-sm text-ink-faint">
         Author and import questions, and assemble them into adaptive test forms.
       </p>
@@ -454,7 +454,7 @@ export default function AdminPage() {
           ) : (
             <ul className="space-y-2">
               {recent.map((question) => (
-                <li key={question.id} className="border-b border-slate-100 pb-2 text-sm">
+                <li key={question.id} className="border-b border-line pb-2 text-sm">
                   <div className="mb-1 flex flex-wrap gap-2">
                     <Badge tone="info">{humanize(question.section)}</Badge>
                     <Badge>{humanize(question.domain)}</Badge>

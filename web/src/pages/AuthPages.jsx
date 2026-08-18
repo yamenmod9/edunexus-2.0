@@ -3,21 +3,62 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../auth/AuthContext.jsx'
 import SiteFooter from '../components/SiteFooter.jsx'
-import { Alert, Button, Card, Field } from '../components/ui.jsx'
+import { Alert, Button, Field } from '../components/ui.jsx'
 
 // The sign-in screens sit outside the app shell, so they carry the trademark
 // notice themselves rather than inheriting Layout's.
+//
+// Two panels: the left states what the product actually is — server-side
+// adaptive routing — rather than a generic welcome, and the right carries the
+// form and nothing else. Below `md` the panels stack and the pitch drops away,
+// because on a phone the form is the only thing worth showing.
 function AuthShell({ title, subtitle, children, footer }) {
   return (
-    <div className="mx-auto max-w-md px-4 py-12">
-      <h1 className="mb-1 text-center text-2xl font-bold">EduNexus</h1>
-      <p className="mb-6 text-center text-sm text-ink-faint">{subtitle}</p>
-      <Card>
-        <h2 className="mb-4 text-lg font-semibold">{title}</h2>
-        {children}
-      </Card>
-      <p className="mt-4 text-center text-sm text-ink-faint">{footer}</p>
-      <SiteFooter />
+    <div className="flex min-h-screen flex-col">
+      <div className="mx-auto grid w-full max-w-5xl flex-grow grid-cols-1 md:grid-cols-2">
+        <div className="hidden flex-col justify-between border-line px-10 py-14 md:flex md:border-r">
+          <span className="font-serif text-xl font-bold tracking-tight">EduNexus</span>
+
+          <div>
+            <p className="mb-4 font-serif text-3xl font-bold leading-tight tracking-tight">
+              Practice the digital SAT the way it actually adapts.
+            </p>
+            <p className="mb-8 text-sm leading-relaxed text-ink-soft">
+              Two sections, two modules each. How you do on the first module decides
+              which second module you get — scored server-side, exactly like the real
+              thing.
+            </p>
+            <dl className="flex gap-8">
+              {[
+                ['639', 'tagged questions'],
+                ['4', 'full-length tests'],
+                ['98', 'questions per test'],
+              ].map(([value, label]) => (
+                <div key={label}>
+                  <dt className="sr-only">{label}</dt>
+                  <dd>
+                    <span className="block font-mono text-xl tabular-nums">{value}</span>
+                    <span className="text-xs text-ink-faint">{label}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+        </div>
+
+        <div className="flex flex-col justify-center px-6 py-14 sm:px-10">
+          <p className="mb-1 font-serif text-lg font-bold tracking-tight md:hidden">
+            EduNexus
+          </p>
+          <h1 className="mb-1 text-xl font-semibold">{title}</h1>
+          <p className="mb-6 text-sm text-ink-faint">{subtitle}</p>
+          {children}
+          <p className="mt-5 text-sm text-ink-soft">{footer}</p>
+        </div>
+      </div>
+
+      <SiteFooter className="mt-0" />
     </div>
   )
 }

@@ -84,6 +84,9 @@ test('the score report has no accessibility violations', async ({ page }) => {
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
 
   // End it immediately; an incomplete report still has to be readable.
+  // Abandoning now lives behind Review: during a live question the player
+  // deliberately shows nothing that competes with the question.
+  await page.getByRole('button', { name: 'Review and continue' }).click()
   await page.getByText('Abandon this test').click()
   await page.getByRole('button', { name: 'End test now' }).click()
   await expect(page).toHaveURL(/\/result$/)
@@ -95,7 +98,7 @@ test('the score report has no accessibility violations', async ({ page }) => {
 test('the progress page has no accessibility violations, empty or filled', async ({ page }) => {
   test.setTimeout(120_000)
   await register(page, uniqueEmail('a11y-progress'))
-  await page.getByRole('link', { name: 'Progress' }).click()
+  await page.getByRole('link', { name: 'Progress', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()
   expect((await scan(page)).violations).toEqual([])
 
@@ -105,8 +108,8 @@ test('the progress page has no accessibility violations, empty or filled', async
     const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
     for (let q = 0; q < count; q += 1) {
       await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
-      const radios = page.getByRole('radio')
-      if (await radios.count()) await radios.nth(1).check()
+      const choices = page.locator('fieldset label')
+      if (await choices.count()) await choices.nth(1).click()
     }
     await page.getByRole('button', { name: 'Review and continue' }).click()
     await page
@@ -115,7 +118,7 @@ test('the progress page has no accessibility violations, empty or filled', async
   }
   await expect(page).toHaveURL(/\/result$/)
 
-  await page.getByRole('link', { name: 'Progress' }).click()
+  await page.getByRole('link', { name: 'Progress', exact: true }).click()
   await expect(page.getByText('Based on 1 finished attempt')).toBeVisible()
   expect((await scan(page)).violations).toEqual([])
 })

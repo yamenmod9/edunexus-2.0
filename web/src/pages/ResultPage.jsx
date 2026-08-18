@@ -24,7 +24,7 @@ import {
 function BreakdownRow({ label, row }) {
   const skipped = row.delivered - row.answered
   return (
-    <tr className="border-b border-slate-100">
+    <tr className="border-b border-line">
       <th scope="row" className="py-2 text-left font-normal">
         {label}
         {skipped > 0 && (
@@ -54,7 +54,7 @@ function ScoreDial({ label, value, min, max, note }) {
           <span className="ml-1 text-sm font-normal text-ink-faint">/ {max}</span>
         )}
       </p>
-      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-line">
         <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
       </div>
       {note && <p className="mt-1 text-xs text-ink-faint">{note}</p>}
@@ -77,7 +77,7 @@ function ReviewQuestion({ entry, position }) {
       </div>
 
       {question.stimulus && (
-        <MathText className="mb-3 border-l-2 border-slate-200 pl-3 text-sm text-ink-soft">
+        <MathText className="mb-3 border-l-2 border-line pl-3 text-sm text-ink-soft">
           {question.stimulus}
         </MathText>
       )}
@@ -91,15 +91,15 @@ function ReviewQuestion({ entry, position }) {
             <div
               key={choice.id}
               className={`flex items-start gap-2 rounded-md border p-2 text-sm
-                ${isKey ? 'border-emerald-400 bg-emerald-50' : ''}
-                ${isPick && !isKey ? 'border-red-400 bg-red-50' : ''}
-                ${!isKey && !isPick ? 'border-slate-200' : ''}`}
+                ${isKey ? 'border-good bg-good-soft' : ''}
+                ${isPick && !isKey ? 'border-bad bg-bad-soft' : ''}
+                ${!isKey && !isPick ? 'border-line' : ''}`}
             >
               <span className="font-semibold">{choice.id}.</span>
               <MathText>{choice.text}</MathText>
-              {isKey && <span className="ml-auto text-xs text-emerald-700">Correct</span>}
+              {isKey && <span className="ml-auto text-xs text-good">Correct</span>}
               {isPick && !isKey && (
-                <span className="ml-auto text-xs text-red-700">Your answer</span>
+                <span className="ml-auto text-xs text-bad">Your answer</span>
               )}
             </div>
           )
@@ -113,7 +113,7 @@ function ReviewQuestion({ entry, position }) {
       </div>
 
       {question.rationale && (
-        <div className="rounded-md bg-slate-50 p-3 text-sm">
+        <div className="rounded-md bg-sunken p-3 text-sm">
           <p className="mb-1 font-semibold">Explanation</p>
           <MathText>{question.rationale}</MathText>
         </div>
@@ -153,7 +153,7 @@ export default function ResultPage() {
   return (
     <div>
       <div className="mb-1 flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-bold">{review.form_name}</h1>
+        <h1 className="font-serif text-3xl font-bold tracking-tight">{review.form_name}</h1>
         <Badge tone={review.status === 'submitted' ? 'good' : 'neutral'}>
           {review.status}
         </Badge>
@@ -201,7 +201,7 @@ export default function ResultPage() {
           <table className="w-full text-sm">
             <caption className="sr-only">Accuracy by question domain</caption>
             <thead>
-              <tr className="border-b border-slate-200 text-left text-xs uppercase text-ink-faint">
+              <tr className="border-b border-line text-left text-xs uppercase text-ink-faint">
                 <th scope="col" className="pb-2">Domain</th>
                 <th scope="col" className="pb-2 text-right">Of answered</th>
                 <th scope="col" className="pb-2 text-right">Accuracy</th>
@@ -224,7 +224,7 @@ export default function ResultPage() {
           <table className="w-full text-sm">
             <caption className="sr-only">Accuracy by question difficulty</caption>
             <thead>
-              <tr className="border-b border-slate-200 text-left text-xs uppercase text-ink-faint">
+              <tr className="border-b border-line text-left text-xs uppercase text-ink-faint">
                 <th scope="col" className="pb-2">Difficulty</th>
                 <th scope="col" className="pb-2 text-right">Of answered</th>
                 <th scope="col" className="pb-2 text-right">Accuracy</th>

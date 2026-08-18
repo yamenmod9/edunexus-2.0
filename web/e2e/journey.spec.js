@@ -94,7 +94,7 @@ test('practice mode grades an answer and shows the explanation', async ({ page }
   const body = await page.content()
   expect(body).not.toContain('correct_answer')
 
-  await page.getByRole('radio').first().check()
+  await page.locator('fieldset label').first().click()
   await page.getByRole('button', { name: 'Check answer' }).first().click()
   await expect(page.getByRole('status').first()).toContainText(/Correct|answer is/)
 })
@@ -129,10 +129,10 @@ test('the full adaptive test runs through to a score report', async ({ page }) =
     const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
     for (let q = 0; q < count; q += 1) {
       await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
-      const radios = page.getByRole('radio')
-      if (await radios.count()) {
+      const choices = page.locator('fieldset label')
+      if (await choices.count()) {
         // "B" is the correct choice in the seeded demo bank.
-        await radios.nth(1).check()
+        await choices.nth(1).click()
       }
     }
 
@@ -163,7 +163,7 @@ test('the progress page shows an empty state, then fills in after a finished tes
   test.setTimeout(120_000)
   await register(page, uniqueEmail('progress'))
 
-  await page.getByRole('link', { name: 'Progress' }).click()
+  await page.getByRole('link', { name: 'Progress', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()
   await expect(page.getByText('Finish a full adaptive test')).toBeVisible()
 
@@ -174,8 +174,8 @@ test('the progress page shows an empty state, then fills in after a finished tes
     const count = await page.getByRole('button', { name: /^Question \d+/ }).count()
     for (let q = 0; q < count; q += 1) {
       await page.getByRole('button', { name: new RegExp(`^Question ${q + 1}[,$]`) }).click()
-      const radios = page.getByRole('radio')
-      if (await radios.count()) await radios.nth(1).check()
+      const choices = page.locator('fieldset label')
+      if (await choices.count()) await choices.nth(1).click()
     }
     await page.getByRole('button', { name: 'Review and continue' }).click()
     await page
@@ -184,7 +184,7 @@ test('the progress page shows an empty state, then fills in after a finished tes
   }
   await expect(page).toHaveURL(/\/result$/)
 
-  await page.getByRole('link', { name: 'Progress' }).click()
+  await page.getByRole('link', { name: 'Progress', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()
   await expect(page.getByText('Based on 1 finished attempt')).toBeVisible()
   await expect(page.getByText('Latest total score')).toBeVisible()
@@ -198,7 +198,7 @@ test('an in-progress test can be resumed after a reload', async ({ page }) => {
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
 
   await page.getByRole('button', { name: /^Question 1,/ }).click()
-  await page.getByRole('radio').first().check()
+  await page.locator('fieldset label').first().click()
 
   await page.reload()
   await expect(page.getByText(/Module 1 of 4/)).toBeVisible()
@@ -206,5 +206,5 @@ test('an in-progress test can be resumed after a reload', async ({ page }) => {
 
   // And the dashboard advertises it.
   await page.goto('/')
-  await expect(page.getByText('You have a test in progress')).toBeVisible()
+  await expect(page.getByText('Test in progress')).toBeVisible()
 })

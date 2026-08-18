@@ -115,10 +115,10 @@ function ScoreTrend({ history }) {
               x2={width - padding.right}
               y1={yFor(tick)}
               y2={yFor(tick)}
-              stroke="#e2e8f0"
+              stroke="var(--c-line)"
               strokeWidth="1"
             />
-            <text x={padding.left - 8} y={yFor(tick) + 4} textAnchor="end" fontSize="10" fill="#64748b">
+            <text x={padding.left - 8} y={yFor(tick) + 4} textAnchor="end" fontSize="10" fill="var(--c-ink-faint)">
               {tick}
             </text>
           </g>
@@ -131,12 +131,12 @@ function ScoreTrend({ history }) {
             x2={xFor(hovered)}
             y1={padding.top}
             y2={height - padding.bottom}
-            stroke="#94a3b8"
+            stroke="var(--c-ink-faint)"
             strokeWidth="1"
           />
         )}
 
-        <path d={path} fill="none" stroke="#1d4ed8" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+        <path d={path} fill="none" stroke="var(--c-accent)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
 
         {points.map((p, i) => (
           <circle
@@ -145,8 +145,8 @@ function ScoreTrend({ history }) {
             cx={xFor(i)}
             cy={yFor(p.score)}
             r={i === active ? 6 : 4}
-            fill="#1d4ed8"
-            stroke="#fff"
+            fill="var(--c-accent)"
+            stroke="var(--c-surface)"
             strokeWidth="2"
             onFocus={() => setHovered(i)}
             onMouseEnter={() => setHovered(i)}
@@ -158,7 +158,7 @@ function ScoreTrend({ history }) {
         ))}
 
         {/* Direct label on the most recent point only. */}
-        <text x={xFor(points.length - 1)} y={yFor(last.score) - 12} textAnchor="end" fontSize="12" fontWeight="600" fill="#0f172a">
+        <text x={xFor(points.length - 1)} y={yFor(last.score) - 12} textAnchor="end" fontSize="12" fontWeight="600" fill="var(--c-ink)">
           {last.score}
         </text>
       </svg>
@@ -194,7 +194,7 @@ function WeakAreasBars({ items, labelFor, emptyNote }) {
               {formatPercent(item.accuracy)} ({item.correct}/{item.answered})
             </span>
           </div>
-          <div className="h-3 overflow-hidden rounded-full bg-slate-100">
+          <div className="h-3 overflow-hidden rounded-full bg-sunken">
             <div
               className="h-full rounded-full bg-accent transition-all group-hover:bg-accent-hover"
               style={{ width: `${Math.max(2, (item.accuracy ?? 0) * 100)}%` }}
@@ -210,7 +210,7 @@ function AccuracyTable({ rows, labelFor }) {
   return (
     <table className="w-full text-sm">
       <thead>
-        <tr className="border-b border-slate-200 text-left text-xs uppercase text-ink-faint">
+        <tr className="border-b border-line text-left text-xs uppercase text-ink-faint">
           <th scope="col" className="pb-2">Area</th>
           <th scope="col" className="pb-2 text-right">Of answered</th>
           <th scope="col" className="pb-2 text-right">Accuracy</th>
@@ -220,7 +220,7 @@ function AccuracyTable({ rows, labelFor }) {
         {rows.map((row) => {
           const skipped = row.delivered - row.answered
           return (
-            <tr key={labelFor(row)} className="border-b border-slate-100">
+            <tr key={labelFor(row)} className="border-b border-line">
               <th scope="row" className="py-2 text-left font-normal">
                 {labelFor(row)}
                 {skipped > 0 && (
@@ -256,7 +256,7 @@ export default function ProgressPage() {
   if (dashboard.attempts_analyzed === 0) {
     return (
       <div>
-        <h1 className="mb-4 text-2xl font-bold">Your progress</h1>
+        <h1 className="mb-4 font-serif text-3xl font-bold tracking-tight">Your progress</h1>
         <Card>
           <p className="mb-4 text-sm text-ink-soft">
             Finish a full adaptive test to start seeing your score history and
@@ -272,7 +272,7 @@ export default function ProgressPage() {
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold">Your progress</h1>
+      <h1 className="mb-1 font-serif text-3xl font-bold tracking-tight">Your progress</h1>
       <p className="mb-5 text-sm text-ink-faint">
         Based on {dashboard.attempts_analyzed} finished{' '}
         {dashboard.attempts_analyzed === 1 ? 'attempt' : 'attempts'}. Practice-mode

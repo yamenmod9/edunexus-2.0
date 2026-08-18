@@ -3,14 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { attempts as attemptsApi } from '../api/client.js'
 import MathText from '../components/MathText.jsx'
-import {
-  Alert,
-  Button,
-  Card,
-  Spinner,
-  formatClock,
-  humanize,
-} from '../components/ui.jsx'
+import { Alert, Button, Spinner, formatClock, humanize } from '../components/ui.jsx'
 
 /**
  * The test player.
@@ -55,29 +48,65 @@ function useServerClock(secondsRemaining, onExpired) {
   return seconds
 }
 
+function seatLabel(response, i) {
+  return `Question ${i + 1}${response.answered ? ', answered' : ', not answered'}${
+    response.flagged ? ', flagged for review' : ''
+  }`
+}
+
 function QuestionNav({ responses, index, onSelect }) {
   return (
     <nav aria-label="Questions in this module" className="flex flex-wrap gap-2">
       {responses.map((response, i) => {
         const state = response.flagged
-          ? 'ring-amber-400 bg-amber-50'
+          ? 'ring-flag bg-flag-soft'
           : response.answered
             ? 'ring-accent bg-accent-soft'
-            : 'ring-slate-300 bg-white'
+            : 'ring-line-strong bg-surface'
         return (
           <button
             key={response.question_id}
             type="button"
             onClick={() => onSelect(i)}
             aria-current={i === index ? 'true' : undefined}
-            aria-label={`Question ${i + 1}${response.answered ? ', answered' : ', not answered'}${
-              response.flagged ? ', flagged for review' : ''
-            }`}
+            aria-label={seatLabel(response, i)}
             className={`h-9 w-9 rounded-md text-sm font-medium ring-1 transition
               ${state} ${i === index ? 'ring-2 ring-offset-1 ring-ink' : ''}`}
           >
             {i + 1}
           </button>
+        )
+      })}
+    </nav>
+  )
+}
+
+/**
+ * The footer seat strip: the whole module at a glance without a grid of
+ * buttons competing with the question. Still individually clickable, and
+ * still carries the same labels as the full palette.
+ */
+function SeatStrip({ responses, index, onSelect }) {
+  return (
+    <nav aria-label="Questions in this module" className="flex flex-wrap gap-[3px]">
+      {responses.map((response, i) => {
+        const tone =
+          i === index
+            ? 'bg-accent'
+            : response.flagged
+              ? 'bg-flag'
+              : response.answered
+                ? 'bg-line-strong'
+                : 'bg-line'
+        return (
+          <button
+            key={response.question_id}
+            type="button"
+            onClick={() => onSelect(i)}
+            aria-current={i === index ? 'true' : undefined}
+            aria-label={seatLabel(response, i)}
+            className={`h-2 w-4 rounded-sm transition hover:opacity-70 ${tone}`}
+          />
         )
       })}
     </nav>
@@ -200,40 +229,54 @@ export default function TestPlayerPage() {
   const answeredCount = responses.filter((r) => r.answered).length
   const lowTime = seconds <= 60
 
+  const hasPassage = Boolean(question.stimulus)
+  const isLastModule = module.order_index === attempt.modules_total
+
   return (
-    <div>
-      <div className="mb-4 flex flex-wrap items-center gap-3 rounded-lg bg-white p-4 shadow-sm ring-1 ring-slate-200">
-        <div>
-          <p className="text-sm font-semibold">
-            {humanize(module.section)} — Module {module.sequence}
-          </p>
-          <p className="text-xs text-ink-faint">
-            Module {module.order_index} of {attempt.modules_total} · {answeredCount} of{' '}
-            {responses.length} answered
-          </p>
-        </div>
+    // Full-bleed and no app nav: for the duration of a module nothing on
+    // screen competes with the question. The route sits outside Layout.
+    <div className="flex min-h-screen flex-col bg-page">
+      <header className="flex items-center gap-4 border-b border-line px-6 py-4 sm:px-8">
+        <span className="text-sm font-semibold">{humanize(module.section)}</span>
+        <span className="text-sm text-ink-faint">
+          Module {module.order_index} of {attempt.modules_total}
+        </span>
         <div
-          className={`ml-auto rounded-md px-3 py-1.5 font-mono text-lg font-semibold tabular-nums
-            ${lowTime ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-ink'}`}
+          className={`ml-auto font-mono text-2xl font-medium tabular-nums tracking-tight
+            ${lowTime ? 'text-bad' : 'text-ink'}`}
           role="timer"
           aria-live={lowTime ? 'polite' : 'off'}
           aria-label={`Time remaining: ${formatClock(seconds)}`}
         >
           {formatClock(seconds)}
         </div>
+      </header>
+
+      {/* Progress is a hairline, not a counter chip fighting for attention. */}
+      <div className="h-0.5 bg-line" aria-hidden="true">
+        <div
+          className="h-0.5 bg-accent transition-all"
+          style={{ width: `${((index + 1) / responses.length) * 100}%` }}
+        />
       </div>
 
-      {error && <Alert>{error}</Alert>}
+      {error && (
+        <div className="px-6 pt-4 sm:px-8">
+          <Alert>{error}</Alert>
+        </div>
+      )}
 
       {reviewing ? (
-        <Card>
-          <h2 className="mb-3 text-lg font-semibold">Review this module</h2>
-          <p className="mb-4 text-sm text-ink-soft">
+        <div className="mx-auto w-full max-w-3xl flex-grow px-6 py-10 sm:px-8">
+          <h1 className="mb-2 font-serif text-2xl font-bold tracking-tight">
+            Review this module
+          </h1>
+          <p className="mb-6 text-sm text-ink-soft">
             {answeredCount} of {responses.length} answered.{' '}
             {responses.filter((r) => r.flagged).length} flagged for review. You cannot
             return to this module once you move on.
           </p>
-          <div className="mb-5">
+          <div className="mb-8">
             <QuestionNav
               responses={responses}
               index={-1}
@@ -250,117 +293,13 @@ export default function TestPlayerPage() {
             <Button onClick={completeModule} disabled={busy}>
               {busy
                 ? 'Submitting…'
-                : module.order_index === attempt.modules_total
+                : isLastModule
                   ? 'Finish test'
                   : 'Submit module and continue'}
             </Button>
           </div>
-        </Card>
-      ) : (
-        <>
-          <Card className="mb-4">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink-faint">
-              Question {index + 1} of {responses.length}
-            </p>
 
-            {question.stimulus && (
-              <MathText className="mb-4 border-l-2 border-slate-200 pl-3 text-sm text-ink-soft">
-                {question.stimulus}
-              </MathText>
-            )}
-            <MathText className="mb-4 font-medium">{question.stem}</MathText>
-
-            {question.figure_url && (
-              <img
-                src={question.figure_url}
-                alt="Figure accompanying the question"
-                className="mb-4 max-w-full rounded border border-slate-200"
-              />
-            )}
-
-            {question.question_type === 'grid_in' ? (
-              <label className="block text-sm">
-                <span className="mb-1 block font-medium">Your answer</span>
-                <input
-                  value={response.answer ?? ''}
-                  onChange={(e) => saveResponse(question.id, { answer: e.target.value })}
-                  className="w-40 rounded-md border border-slate-300 px-3 py-2 text-sm"
-                />
-              </label>
-            ) : (
-              <fieldset>
-                <legend className="sr-only">Answer choices</legend>
-                <div className="space-y-2">
-                  {(question.choices ?? []).map((choice) => (
-                    <label
-                      key={choice.id}
-                      className={`flex cursor-pointer items-start gap-3 rounded-md border p-3 text-sm
-                        ${
-                          response.answer === choice.id
-                            ? 'border-accent bg-accent-soft'
-                            : 'border-slate-200 hover:bg-slate-50'
-                        }`}
-                    >
-                      <input
-                        type="radio"
-                        name={`q-${question.id}`}
-                        value={choice.id}
-                        checked={response.answer === choice.id}
-                        onChange={() => saveResponse(question.id, { answer: choice.id })}
-                        className="mt-0.5"
-                      />
-                      <span className="font-semibold">{choice.id}.</span>
-                      <MathText>{choice.text}</MathText>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
-            )}
-
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <Button
-                variant="ghost"
-                aria-pressed={response.flagged}
-                onClick={() => saveResponse(question.id, { flagged: !response.flagged })}
-              >
-                {response.flagged ? '★ Flagged for review' : '☆ Flag for review'}
-              </Button>
-              {response.answered && (
-                <Button
-                  variant="ghost"
-                  onClick={() => saveResponse(question.id, { answer: '' })}
-                >
-                  Clear answer
-                </Button>
-              )}
-            </div>
-          </Card>
-
-          <Card className="mb-4">
-            <QuestionNav responses={responses} index={index} onSelect={setIndex} />
-          </Card>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <Button
-              variant="secondary"
-              disabled={index === 0}
-              onClick={() => setIndex((i) => i - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="secondary"
-              disabled={index >= responses.length - 1}
-              onClick={() => setIndex((i) => i + 1)}
-            >
-              Next
-            </Button>
-            <Button className="ml-auto" onClick={() => setReviewing(true)}>
-              Review and continue
-            </Button>
-          </div>
-
-          <details className="mt-8 text-sm text-ink-faint">
+          <details className="mt-12 text-sm text-ink-faint">
             <summary className="cursor-pointer">Abandon this test</summary>
             <p className="mt-2">
               Your answers so far are kept and scored, but you cannot return to it.
@@ -374,7 +313,161 @@ export default function TestPlayerPage() {
               End test now
             </Button>
           </details>
-        </>
+        </div>
+      ) : (
+        <div
+          className={`flex-grow ${
+            hasPassage ? 'grid grid-cols-1 md:grid-cols-2' : 'mx-auto w-full max-w-2xl'
+          }`}
+        >
+          {/* Passage left, question right — the shape of the real digital SAT.
+              Math questions carry no passage, so they get one centred column
+              rather than an empty half. */}
+          {hasPassage && (
+            <div className="border-line px-6 py-8 md:border-r md:px-8 md:py-10">
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
+                Passage
+              </p>
+              <MathText className="font-serif text-[17px] leading-[1.75]">
+                {question.stimulus}
+              </MathText>
+            </div>
+          )}
+
+          <div className="px-6 py-8 sm:px-8 md:py-10">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="flex h-6 min-w-6 items-center justify-center rounded px-1.5 text-xs font-semibold bg-accent text-accent-on">
+                {index + 1}
+              </span>
+              <span className="text-sm text-ink-faint">of {responses.length}</span>
+              <button
+                type="button"
+                aria-pressed={response.flagged}
+                // The visible label shortens to "Flagged" once set; the
+                // accessible name stays explicit about what was flagged.
+                aria-label={response.flagged ? 'Flagged for review' : 'Flag for review'}
+                onClick={() => saveResponse(question.id, { flagged: !response.flagged })}
+                className={`ml-auto flex items-center gap-1.5 text-xs font-medium transition
+                  ${response.flagged ? 'text-flag' : 'text-ink-faint hover:text-ink-soft'}`}
+              >
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill={response.flagged ? 'currentColor' : 'none'}
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                  <line x1="4" y1="22" x2="4" y2="15" strokeLinecap="round" />
+                </svg>
+                {response.flagged ? 'Flagged' : 'Flag for review'}
+              </button>
+            </div>
+
+            <MathText className="mb-6 text-base font-medium leading-relaxed">
+              {question.stem}
+            </MathText>
+
+            {question.figure_url && (
+              <img
+                src={question.figure_url}
+                alt="Figure accompanying the question"
+                className="mb-6 max-w-full rounded border border-line"
+              />
+            )}
+
+            {question.question_type === 'grid_in' ? (
+              <label className="block text-sm">
+                <span className="mb-1.5 block font-medium text-ink-soft">Your answer</span>
+                <input
+                  value={response.answer ?? ''}
+                  onChange={(e) => saveResponse(question.id, { answer: e.target.value })}
+                  className="w-44 rounded-md border border-line-strong bg-surface px-3 py-2.5 text-sm"
+                />
+              </label>
+            ) : (
+              <fieldset>
+                <legend className="sr-only">Answer choices</legend>
+                <div className="flex flex-col gap-2.5">
+                  {(question.choices ?? []).map((choice) => {
+                    const picked = response.answer === choice.id
+                    return (
+                      <label
+                        key={choice.id}
+                        className={`flex cursor-pointer items-start gap-3 rounded-md p-3.5 text-sm ring-1 transition
+                          ${
+                            picked
+                              ? 'bg-accent-soft ring-accent'
+                              : 'bg-surface ring-line-strong hover:ring-ink-faint'
+                          }`}
+                      >
+                        <input
+                          type="radio"
+                          name={`q-${question.id}`}
+                          value={choice.id}
+                          checked={picked}
+                          onChange={() => saveResponse(question.id, { answer: choice.id })}
+                          className="sr-only"
+                        />
+                        <span
+                          aria-hidden="true"
+                          className={`flex h-[22px] w-[22px] flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold ring-1
+                            ${
+                              picked
+                                ? 'bg-accent text-accent-on ring-accent'
+                                : 'text-ink-faint ring-line-strong'
+                            }`}
+                        >
+                          {choice.id}
+                        </span>
+                        <MathText>{choice.text}</MathText>
+                      </label>
+                    )
+                  })}
+                </div>
+              </fieldset>
+            )}
+
+            {response.answered && (
+              <Button
+                variant="ghost"
+                className="mt-4 px-0"
+                onClick={() => saveResponse(question.id, { answer: '' })}
+              >
+                Clear answer
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {!reviewing && (
+        <footer className="flex flex-wrap items-center gap-4 border-t border-line bg-surface px-6 py-3.5 sm:px-8">
+          <SeatStrip responses={responses} index={index} onSelect={setIndex} />
+          <span className="whitespace-nowrap text-xs text-ink-faint">
+            {answeredCount} answered
+          </span>
+          <div className="ml-auto flex gap-2">
+            <Button
+              variant="secondary"
+              disabled={index === 0}
+              onClick={() => setIndex((i) => i - 1)}
+            >
+              Back
+            </Button>
+            {index < responses.length - 1 && (
+              <Button variant="secondary" onClick={() => setIndex((i) => i + 1)}>
+                Next
+              </Button>
+            )}
+            {/* Always reachable: a student must be able to review and move on
+                without paging to the end of the module first. */}
+            <Button onClick={() => setReviewing(true)}>Review and continue</Button>
+          </div>
+        </footer>
       )}
     </div>
   )
