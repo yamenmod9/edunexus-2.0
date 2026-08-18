@@ -56,6 +56,11 @@ Tests run against in-memory SQLite; no database setup required.
 Always generate migrations with `DATABASE_URL` pointing at **Postgres**, never
 the SQLite fallback — autogenerating from SQLite bakes in wrong column types.
 
+In production, `db upgrade` runs itself: `railway.json` sets it as the service's
+pre-deploy command, so it runs after the build and before the new version takes
+traffic. Note that Railway does **not** run a Heroku-style `release:` process
+from the Procfile — putting the upgrade there would look done and do nothing.
+
 ## Question bank import
 
 ```bash
