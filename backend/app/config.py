@@ -1,5 +1,7 @@
 import os
 
+from sqlalchemy.engine import make_url
+
 
 def _routing_threshold():
     """Validated at import, not at the first attempt: an out-of-range value
@@ -18,6 +20,48 @@ def _normalize_db_url(url):
     the `postgresql://` scheme."""
     if url and url.startswith("postgres://"):
         return url.replace("postgres://", "postgresql://", 1)
+    return url
+
+
+def _describe_db_url(url):
+    """A safe description of a bad DATABASE_URL: its shape, never its contents.
+
+    This exists because the failure it serves is otherwise undiagnosable. A
+    malformed value surfaces from deep inside SQLAlchemy as "Could not parse
+    SQLAlchemy URL from given URL string" - no variable name, no hint at what
+    is wrong with it - and the value itself must not be printed, because it
+    carries the database password and deploy logs are not a secret store.
+
+    So: lengths and yes/no facts only. Enough to tell a pasted-in quote from a
+    trailing newline from an unresolved `${{Service.VAR}}` reference, and not
+    one character of the credential.
+    """
+    notes = []
+    scheme, separator, _ = url.partition("://")
+    if separator:
+        notes.append("scheme %r" % scheme)
+    else:
+        notes.append("no scheme separator")
+    if url != url.strip():
+        notes.append("has leading or trailing whitespace")
+    if any(ord(character) in (10, 13) for character in url):
+        notes.append("contains a line break")
+    if len(url) >= 2 and url[0] == url[-1] and url[0] in (chr(34), chr(39)):
+        notes.append("is wrapped in quotes")
+    if "${{" in url:
+        notes.append("contains an unresolved ${{...}} reference")
+    return "%d characters, %s" % (len(url), ", ".join(notes))
+
+
+def _require_db_url(url):
+    """Fails with something actionable rather than an opaque parse error."""
+    try:
+        make_url(url)
+    except Exception as error:
+        raise RuntimeError(
+            f"DATABASE_URL is not a usable SQLAlchemy URL "
+            f"({_describe_db_url(url)}): {error}"
+        ) from error
     return url
 
 
@@ -93,7 +137,9 @@ class ProductionConfig(Config):
             raise RuntimeError("SECRET_KEY must be set in production")
 
         self.SECRET_KEY = os.environ["SECRET_KEY"]
-        self.SQLALCHEMY_DATABASE_URI = _normalize_db_url(database_url)
+        self.SQLALCHEMY_DATABASE_URI = _require_db_url(
+            _normalize_db_url(database_url)
+        )
         self.CORS_ORIGINS = Config.CORS_ORIGINS
         # Supabase's pooler drops idle connections; recycle before it does.
         self.SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True, "pool_recycle": 280}
