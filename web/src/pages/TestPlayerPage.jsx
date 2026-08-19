@@ -4,8 +4,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { attempts as attemptsApi } from '../api/client.js'
 import Annotatable from '../components/Annotatable.jsx'
 import DesmosCalculator from '../components/DesmosCalculator.jsx'
+import FloatingPanel from '../components/FloatingPanel.jsx'
+import GridInDirections from '../components/GridInDirections.jsx'
 import MathText from '../components/MathText.jsx'
 import ReferenceSheet from '../components/ReferenceSheet.jsx'
+import SplitPane from '../components/SplitPane.jsx'
 import { Alert, Button, Modal, Spinner, formatClock, humanize } from '../components/ui.jsx'
 import { useQuestionTimer } from '../hooks/useQuestionTimer.js'
 
@@ -177,6 +180,9 @@ export default function TestPlayerPage() {
   const [directionsOpen, setDirectionsOpen] = useState(false)
   const [referenceOpen, setReferenceOpen] = useState(false)
   const [calculatorOpen, setCalculatorOpen] = useState(false)
+  const [calculatorKind, setCalculatorKind] = useState(
+    () => localStorage.getItem('edunexus.calculator') || 'graphing',
+  )
   const [crossOut, setCrossOut] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
 
@@ -328,8 +334,17 @@ export default function TestPlayerPage() {
   const isMath = module.section === 'math'
   const { highlights, eliminated } = splitAnnotations(response.annotations)
   const hasPassage = Boolean(question.stimulus)
-  const showLeftPane = hasPassage || (isMath && calculatorOpen)
+  const isGridIn = question.question_type === 'grid_in'
+  // The calculator floats over the page now, so it no longer decides the
+  // layout. The left pane is for whatever the student has to read alongside
+  // the question: the passage, or the answer-entry rules on a grid-in.
+  const showLeftPane = hasPassage || isGridIn
   const isLastModule = module.order_index === attempt.modules_total
+
+  function chooseCalculator(kind) {
+    setCalculatorKind(kind)
+    localStorage.setItem('edunexus.calculator', kind)
+  }
 
   function setAnnotations(next) {
     saveResponse(question.id, { annotations: next })
@@ -536,39 +551,36 @@ export default function TestPlayerPage() {
           </details>
         </div>
       ) : (
-        <div
-          className={`flex-grow ${
-            showLeftPane ? 'grid grid-cols-1 md:grid-cols-2' : 'mx-auto w-full max-w-2xl'
-          }`}
-        >
-          {/* Passage left, question right — the shape of the real digital SAT.
-              Math questions carry no passage, so the left half is either the
-              calculator or nothing at all rather than an empty column. */}
-          {showLeftPane && (
-            <div className="border-line px-6 py-8 md:border-r md:px-8 md:py-10">
-              {hasPassage ? (
-                <>
-                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
-                    Passage
-                  </p>
-                  <Annotatable
-                    text={question.stimulus}
-                    annotations={highlights}
-                    onChange={(next) => setAnnotations([...next, ...eliminated.map((c) => ({ kind: 'eliminated', choice: c }))])}
-                    className="font-serif text-[17px] leading-[1.75]"
-                  />
-                  {calculatorOpen && isMath && (
-                    <div className="mt-6">
-                      <DesmosCalculator className="h-[360px]" />
-                    </div>
-                  )}
-                </>
-              ) : (
-                <DesmosCalculator className="h-[calc(100vh-13rem)] min-h-[380px]" />
-              )}
-            </div>
-          )}
-
+        <SplitPane
+          storageKey="edunexus.split"
+          leftLabel={hasPassage ? 'passage pane' : 'directions pane'}
+          left={
+            showLeftPane ? (
+              <div className="border-line px-6 py-8 md:border-r md:px-8 md:py-10">
+                {hasPassage ? (
+                  <>
+                    <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
+                      Passage
+                    </p>
+                    <Annotatable
+                      text={question.stimulus}
+                      annotations={highlights}
+                      onChange={(next) =>
+                        setAnnotations([
+                          ...next,
+                          ...eliminated.map((c) => ({ kind: 'eliminated', choice: c })),
+                        ])
+                      }
+                      className="font-serif text-[17px] leading-[1.75]"
+                    />
+                  </>
+                ) : (
+                  <GridInDirections />
+                )}
+              </div>
+            ) : null
+          }
+          right={
           <div className="px-6 py-8 sm:px-8 md:py-10">
             <div className="mb-5 flex items-center gap-3 border-b border-line pb-3">
               <span className="flex h-6 min-w-6 items-center justify-center rounded bg-ink px-1.5 text-xs font-semibold text-page">
@@ -693,7 +705,54 @@ export default function TestPlayerPage() {
               </Button>
             )}
           </div>
-        </div>
+          }
+        />
+      )}
+
+      {/* Non-modal on purpose: the point of the calculator is to use it while
+          reading the question, so it floats over the page and gets dragged out
+          of the way rather than covering it and trapping focus. */}
+      {calculatorOpen && isMath && (
+        <FloatingPanel
+          title="Calculator"
+          storageKey="edunexus.calculator.position"
+          // Wide enough that Desmos lays the expression list beside the graph
+          // instead of collapsing to its stacked narrow layout.
+          width={660}
+          height={480}
+          initial={{ x: 24, y: 110 }}
+          onClose={() => setCalculatorOpen(false)}
+          toolbar={
+            <div
+              role="radiogroup"
+              aria-label="Calculator type"
+              className="flex gap-0.5 rounded bg-line p-0.5"
+            >
+              {[
+                ['graphing', 'Graphing'],
+                ['scientific', 'Scientific'],
+              ].map(([kind, label]) => (
+                <button
+                  key={kind}
+                  type="button"
+                  role="radio"
+                  aria-checked={calculatorKind === kind}
+                  onClick={() => chooseCalculator(kind)}
+                  className={`rounded px-2.5 py-1 text-[11px] font-medium transition
+                    ${
+                      calculatorKind === kind
+                        ? 'bg-surface text-ink shadow-sm'
+                        : 'text-ink-soft hover:text-ink'
+                    }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          }
+        >
+          <DesmosCalculator variant={calculatorKind} className="h-full !rounded-none !ring-0" />
+        </FloatingPanel>
       )}
 
       {!reviewing && (

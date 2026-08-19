@@ -13,6 +13,7 @@
 
 const ACCESS_KEY = 'edunexus.access_token'
 const REFRESH_KEY = 'edunexus.refresh_token'
+const USER_KEY = 'edunexus.user'
 
 // Storage throws in private-browsing modes and when disabled entirely. The app
 // should degrade to "you have to log in again" rather than crash on boot.
@@ -60,8 +61,29 @@ export function setTokens(pair) {
 export function clearTokens() {
   write(ACCESS_KEY, null)
   write(REFRESH_KEY, null)
+  write(USER_KEY, null)
 }
 
 export function hasSession() {
   return Boolean(getRefreshToken())
+}
+
+/**
+ * The last known identity, so a returning student sees their dashboard on the
+ * first paint instead of a spinner while /auth/me makes a round trip.
+ *
+ * Explicitly NOT a security boundary - it only decides which pixels to draw.
+ * Every request is still authorised server-side against the token, and the
+ * cached copy is replaced by whatever /auth/me actually says a moment later.
+ */
+export function getCachedUser() {
+  try {
+    return JSON.parse(read(USER_KEY) ?? 'null')
+  } catch {
+    return null
+  }
+}
+
+export function setCachedUser(user) {
+  write(USER_KEY, user ? JSON.stringify(user) : null)
 }

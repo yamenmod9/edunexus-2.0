@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useResource } from '../api/cache.js'
 import { analytics as analyticsApi } from '../api/client.js'
 import {
   AccuracyRow,
@@ -237,15 +238,9 @@ function WeakAreasBars({ items, labelFor, emptyNote, minSample }) {
 }
 
 export default function ProgressPage() {
-  const [dashboard, setDashboard] = useState(null)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    analyticsApi
-      .dashboard()
-      .then(setDashboard)
-      .catch((err) => setError(err.message))
-  }, [])
+  const { data: dashboard, error } = useResource('dashboard', () =>
+    analyticsApi.dashboard(),
+  )
 
   if (error) return <Alert>{error}</Alert>
   if (!dashboard) return <Spinner label="Loading your progress" />

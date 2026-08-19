@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { useResource } from '../api/cache.js'
 import { questions as questionsApi, taxonomy as taxonomyApi } from '../api/client.js'
 import MathText from '../components/MathText.jsx'
 import {
@@ -239,16 +240,14 @@ function PracticeQuestion({ question }) {
 }
 
 export default function PracticePage() {
-  const [taxonomy, setTaxonomy] = useState(null)
+  // The taxonomy is fixed by CLAUDE.md section 5 and never changes at runtime,
+  // so refetching it on every visit to this page bought nothing but a wait.
+  const { data: taxonomy } = useResource('taxonomy', () => taxonomyApi.get())
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [page, setPage] = useState(1)
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-
-  useEffect(() => {
-    taxonomyApi.get().then(setTaxonomy).catch(() => setTaxonomy(null))
-  }, [])
 
   useEffect(() => {
     let cancelled = false

@@ -1,30 +1,52 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import { auth as authApi, onSessionEnded } from '../api/client.js'
-import { clearTokens, getRefreshToken, hasSession, setTokens } from '../api/tokens.js'
+import {
+  clearTokens,
+  getCachedUser,
+  getRefreshToken,
+  hasSession,
+  setCachedUser,
+  setTokens,
+} from '../api/tokens.js'
 
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  // "Do we already know who this is?" - distinct from "is there no user", so
-  // the app can show a spinner on boot instead of flashing the login screen at
-  // someone who is in fact signed in.
-  const [loading, setLoading] = useState(hasSession())
+  // Start from the cached identity rather than from nothing. A returning
+  // student then gets their dashboard on the first paint, instead of staring
+  // at "Checking your session" for a round trip to an API that may be a
+  // continent away. /auth/me still runs below and still has the last word -
+  // this only decides what is on screen while it is in flight.
+  const [user, setUser] = useState(() => (hasSession() ? getCachedUser() : null))
+  // Only true when we have a session but no idea who it belongs to, which now
+  // means a first sign-in on this device rather than every single load.
+  const [loading, setLoading] = useState(() => hasSession() && !getCachedUser())
 
   useEffect(() => {
     let cancelled = false
     if (!hasSession()) {
+      setUser(null)
+      setCachedUser(null)
       setLoading(false)
       return undefined
     }
     authApi
       .me()
       .then((me) => {
-        if (!cancelled) setUser(me)
+        if (cancelled) return
+        setUser(me)
+        setCachedUser(me)
       })
-      .catch(() => {
-        if (!cancelled) setUser(null)
+      .catch((error) => {
+        // A network failure is not a signed-out user. Dropping the cached
+        // identity on a flaky connection would bounce someone mid-test to the
+        // login screen for no reason; a genuinely dead session arrives as a
+        // 401, which the client turns into onSessionEnded below.
+        if (!cancelled && error?.status === 401) {
+          setUser(null)
+          setCachedUser(null)
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false)
@@ -36,21 +58,32 @@ export function AuthProvider({ children }) {
 
   // The client tells us when a refresh failed for good; drop the user so the
   // route guards redirect instead of leaving a dead session on screen.
-  useEffect(() => onSessionEnded(() => setUser(null)), [])
+  useEffect(
+    () =>
+      onSessionEnded(() => {
+        setUser(null)
+        setCachedUser(null)
+      }),
+    [],
+  )
 
-  const login = useCallback(async (email, password) => {
-    const pair = await authApi.login(email, password)
+  const adopt = useCallback(async (pair) => {
     setTokens(pair)
-    setUser(pair.user ?? (await authApi.me()))
+    const me = pair.user ?? (await authApi.me())
+    setUser(me)
+    setCachedUser(me)
     return pair
   }, [])
 
-  const register = useCallback(async (email, password) => {
-    const pair = await authApi.register(email, password)
-    setTokens(pair)
-    setUser(pair.user ?? (await authApi.me()))
-    return pair
-  }, [])
+  const login = useCallback(
+    async (email, password) => adopt(await authApi.login(email, password)),
+    [adopt],
+  )
+
+  const register = useCallback(
+    async (email, password) => adopt(await authApi.register(email, password)),
+    [adopt],
+  )
 
   const logout = useCallback(async () => {
     const refresh = getRefreshToken()

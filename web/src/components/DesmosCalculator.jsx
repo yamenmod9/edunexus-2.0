@@ -41,7 +41,17 @@ function loadDesmos(apiKey) {
   return scriptPromise
 }
 
-export default function DesmosCalculator({ className = 'h-[480px]' }) {
+/**
+ * `graphing` and `scientific`, the two the real exam offers.
+ *
+ * They are different Desmos constructors with different option sets rather
+ * than one calculator in two modes, so switching tears the instance down and
+ * builds the other. Consequence worth knowing: the expressions a student
+ * typed do not survive the switch. That matches the real thing, and the
+ * alternative - keeping both alive and hiding one - doubles the memory of an
+ * already multi-megabyte widget for the whole module.
+ */
+export default function DesmosCalculator({ className = 'h-[480px]', variant = 'graphing' }) {
   const host = useRef(null)
   const calculator = useRef(null)
   const [error, setError] = useState(null)
@@ -50,21 +60,31 @@ export default function DesmosCalculator({ className = 'h-[480px]' }) {
   useEffect(() => {
     let cancelled = false
     const apiKey = import.meta.env.VITE_DESMOS_API_KEY || DEMO_KEY
+    setReady(false)
 
     loadDesmos(apiKey)
       .then((Desmos) => {
         if (cancelled || !host.current) return
-        calculator.current = Desmos.GraphingCalculator(host.current, {
-          // Close to Bluebook's build: the expression list and keypad are
-          // there, but nothing that leaves the page — no saving, no sharing,
-          // no settings menu to change units mid-test.
-          expressions: true,
-          keypad: true,
-          settingsMenu: false,
-          zoomButtons: true,
-          expressionsTopbar: false,
-          border: false,
-        })
+        calculator.current =
+          variant === 'scientific'
+            ? Desmos.ScientificCalculator(host.current, {
+                // No settings menu, matching the exam's build. Degrees and
+                // radians are still switchable - Desmos puts RAD/DEG on the
+                // keypad itself, where the student can see which one is on.
+                settingsMenu: false,
+                border: false,
+              })
+            : Desmos.GraphingCalculator(host.current, {
+                // Close to Bluebook's build: the expression list and keypad
+                // are there, but nothing that leaves the page - no saving, no
+                // sharing, no settings menu to change units mid-test.
+                expressions: true,
+                keypad: true,
+                settingsMenu: false,
+                zoomButtons: true,
+                expressionsTopbar: false,
+                border: false,
+              })
         setReady(true)
       })
       .catch((err) => {
@@ -76,7 +96,7 @@ export default function DesmosCalculator({ className = 'h-[480px]' }) {
       calculator.current?.destroy()
       calculator.current = null
     }
-  }, [])
+  }, [variant])
 
   if (error) {
     return (
@@ -92,7 +112,7 @@ export default function DesmosCalculator({ className = 'h-[480px]' }) {
   // renders nothing at all in a zero-height one.
   return (
     <section
-      aria-label="Graphing calculator"
+      aria-label={variant === 'scientific' ? 'Scientific calculator' : 'Graphing calculator'}
       className={`relative overflow-hidden rounded-md ring-1 ring-line ${className}`}
     >
       {/* The bundle is several megabytes, so the first open is a visible wait.

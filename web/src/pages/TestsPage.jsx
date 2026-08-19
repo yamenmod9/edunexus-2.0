@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { invalidate, useResource } from '../api/cache.js'
 import { attempts as attemptsApi, forms as formsApi } from '../api/client.js'
 import {
   Alert,
@@ -28,38 +29,33 @@ function totalQuestions(form) {
 }
 
 export default function TestsPage() {
-  const [forms, setForms] = useState(null)
-  const [openAttempt, setOpenAttempt] = useState(null)
-  const [history, setHistory] = useState([])
-  const [error, setError] = useState(null)
+  const [startError, setStartError] = useState(null)
   const [starting, setStarting] = useState(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    let cancelled = false
-    Promise.all([formsApi.list(), attemptsApi.current(), attemptsApi.list()])
-      .then(([formList, current, attemptList]) => {
-        if (cancelled) return
-        setForms(formList.items)
-        setOpenAttempt(current.attempt)
-        setHistory(attemptList.items.filter((a) => a.status !== 'in_progress'))
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message)
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
+  // Cached between visits, so coming back to this page paints immediately and
+  // corrects itself a moment later rather than blanking to a spinner.
+  const { data, error: loadError } = useResource('tests-page', () =>
+    Promise.all([formsApi.list(), attemptsApi.current(), attemptsApi.list()]),
+  )
+
+  const forms = data ? data[0].items : null
+  const openAttempt = data ? data[1].attempt : null
+  const history = data ? data[2].items.filter((a) => a.status !== 'in_progress') : []
+  const error = startError ?? loadError
 
   async function start(formId) {
     setStarting(formId)
-    setError(null)
+    setStartError(null)
     try {
       const attempt = await attemptsApi.start(formId)
+      // There is now an attempt in progress, which changes what every one of
+      // these three answers says.
+      invalidate('tests-page')
+      invalidate('home-page')
       navigate(`/tests/${attempt.id}`)
     } catch (err) {
-      setError(err.message)
+      setStartError(err.message)
       setStarting(null)
     }
   }

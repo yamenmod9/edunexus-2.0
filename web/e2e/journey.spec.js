@@ -7,6 +7,11 @@ import { expect, test } from '@playwright/test'
  * Runs against the Vite dev server on :5173 proxying the Flask API on :5055,
  * with the local SQLite database. It expects a form to already exist; the
  * admin test below builds one if the bank allows.
+ *
+ * The resize test additionally expects the first Reading & Writing question of
+ * the Quick Check form to carry a passage - CLAUDE.md section 5 says every R&W
+ * question has one - because a question with nothing beside it deliberately
+ * renders as a single centred column with no divider to drag.
  */
 
 const password = 'journey pass 1'
@@ -195,6 +200,28 @@ test('the progress page shows an empty state, then fills in after a finished tes
   await expect(page.getByText('Latest total score')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'By domain' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'View report' }).first()).toBeVisible()
+})
+
+test('the passage and question panes can be resized, and the split sticks', async ({
+  page,
+}) => {
+  await register(page, uniqueEmail('split'))
+  await startQuickCheck(page)
+
+  const divider = page.getByRole('separator')
+  await expect(divider).toBeVisible()
+  await expect(divider).toHaveAttribute('aria-valuenow', '50')
+
+  // Keyboard, because that is the route a drag cannot cover.
+  await divider.focus()
+  await page.keyboard.press('ArrowRight')
+  await page.keyboard.press('ArrowRight')
+  await expect(divider).toHaveAttribute('aria-valuenow', '54')
+
+  // The split is a statement about how this student reads, so it outlives
+  // the question they happened to be on.
+  await page.reload()
+  await expect(page.getByRole('separator')).toHaveAttribute('aria-valuenow', '54')
 })
 
 test('an in-progress test can be resumed after a reload', async ({ page }) => {

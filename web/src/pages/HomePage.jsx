@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useResource } from '../api/cache.js'
 import { attempts as attemptsApi } from '../api/client.js'
 import { useAuth } from '../auth/AuthContext.jsx'
 import { Button, Card, SectionLabel, humanize } from '../components/ui.jsx'
@@ -29,19 +29,11 @@ function formatDay(iso) {
 
 export default function HomePage() {
   const { isAdmin } = useAuth()
-  const [openAttempt, setOpenAttempt] = useState(null)
-  const [finished, setFinished] = useState([])
-
-  useEffect(() => {
-    attemptsApi
-      .current()
-      .then((data) => setOpenAttempt(data.attempt))
-      .catch(() => {})
-    attemptsApi
-      .list()
-      .then((data) => setFinished(data.items.filter((a) => a.status !== 'in_progress')))
-      .catch(() => {})
-  }, [])
+  const { data } = useResource('home-page', () =>
+    Promise.all([attemptsApi.current(), attemptsApi.list()]),
+  )
+  const openAttempt = data ? data[0].attempt : null
+  const finished = data ? data[1].items.filter((a) => a.status !== 'in_progress') : []
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
