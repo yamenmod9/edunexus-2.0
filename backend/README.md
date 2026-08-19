@@ -61,6 +61,26 @@ pre-deploy command, so it runs after the build and before the new version takes
 traffic. Note that Railway does **not** run a Heroku-style `release:` process
 from the Procfile — putting the upgrade there would look done and do nothing.
 
+## Deployment region
+
+**Keep the Railway service in the same region as the Supabase database**
+(currently `europe-west4`, matching Supabase in eu-west). This is not a
+micro-optimisation. The service ran in `sfo` against a eu-west database for a
+while, and every single query paid a transatlantic round trip:
+
+| | `sfo` | `europe-west4` |
+|---|---|---|
+| `/health`, touching no database | ~200ms | ~90ms |
+| a login, one query plus bcrypt | ~880ms | ~145ms |
+
+(Server-side time, measured as TTFB minus the TLS handshake so the client's own
+distance is excluded.) That is roughly 680ms of pure network per query, on a
+screen where the student is waiting.
+
+Supabase's **direct** connection host also resolves IPv6-only, and this service
+has IPv6 egress disabled — so `DATABASE_URL` must use the **pooler** host, not
+`db.<ref>.supabase.co`.
+
 ## Question bank import
 
 ```bash
