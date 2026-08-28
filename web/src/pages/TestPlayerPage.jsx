@@ -11,6 +11,7 @@ import ReferenceSheet from '../components/ReferenceSheet.jsx'
 import SplitPane from '../components/SplitPane.jsx'
 import { Alert, Button, Modal, Spinner, formatClock, humanize } from '../components/ui.jsx'
 import { useQuestionTimer } from '../hooks/useQuestionTimer.js'
+import { readLocal, writeLocal } from '../storage.js'
 
 /**
  * The test player, laid out as a Bluebook simulation.
@@ -181,7 +182,7 @@ export default function TestPlayerPage() {
   const [referenceOpen, setReferenceOpen] = useState(false)
   const [calculatorOpen, setCalculatorOpen] = useState(false)
   const [calculatorKind, setCalculatorKind] = useState(
-    () => localStorage.getItem('edunexus.calculator') || 'graphing',
+    () => readLocal('edunexus.calculator') || 'graphing',
   )
   const [crossOut, setCrossOut] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
@@ -343,7 +344,7 @@ export default function TestPlayerPage() {
 
   function chooseCalculator(kind) {
     setCalculatorKind(kind)
-    localStorage.setItem('edunexus.calculator', kind)
+    writeLocal('edunexus.calculator', kind)
   }
 
   function setAnnotations(next) {

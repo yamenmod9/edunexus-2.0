@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { readLocal, writeLocal } from '../storage.js'
+
 /**
  * Two panes with a divider the student can drag, as Bluebook does.
  *
@@ -42,13 +44,13 @@ export default function SplitPane({ storageKey, left, right, leftLabel = 'left p
   const host = useRef(null)
   const wide = useIsWide()
   const [ratio, setRatio] = useState(() => {
-    const stored = Number(localStorage.getItem(storageKey))
+    const stored = Number(readLocal(storageKey))
     return Number.isFinite(stored) && stored > 0 ? clamp(stored) : 0.5
   })
   const [dragging, setDragging] = useState(false)
 
   useEffect(() => {
-    localStorage.setItem(storageKey, String(ratio))
+    writeLocal(storageKey, String(ratio))
   }, [storageKey, ratio])
 
   const moveTo = useCallback((clientX) => {

@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { readLocalJson, writeLocal } from '../storage.js'
+
 /**
  * A window the student can drag around the screen, the way Bluebook's
  * calculator behaves.
@@ -34,12 +36,8 @@ export default function FloatingPanel({
   children,
 }) {
   const [position, setPosition] = useState(() => {
-    try {
-      const stored = JSON.parse(localStorage.getItem(storageKey) ?? 'null')
-      if (stored && Number.isFinite(stored.x) && Number.isFinite(stored.y)) return stored
-    } catch {
-      // A corrupt entry is not worth failing a test module over.
-    }
+    const stored = readLocalJson(storageKey)
+    if (stored && Number.isFinite(stored.x) && Number.isFinite(stored.y)) return stored
     return initial ?? { x: 24, y: 96 }
   })
   const dragOffset = useRef(null)
@@ -68,7 +66,7 @@ export default function FloatingPanel({
   }, [clamp])
 
   useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(position))
+    writeLocal(storageKey, JSON.stringify(position))
   }, [storageKey, position])
 
   useEffect(() => {
