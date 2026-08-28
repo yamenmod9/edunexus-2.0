@@ -174,6 +174,34 @@ test('the full adaptive test runs through to a score report', async ({ page }) =
   // Now the key is allowed - the attempt is over.
   await page.getByRole('button', { name: 'Review questions' }).first().click()
   await expect(page.getByText('Correct').first()).toBeVisible()
+
+  // --- reviewing the whole test, not one module at a time ------------
+  await page.getByRole('button', { name: /^Review all \d+ questions$/ }).click()
+  await expect(page).toHaveURL(/[?&]review=all/)
+
+  const all = page.getByRole('button', { name: /^All, \d+ questions$/ })
+  await expect(all).toHaveAttribute('aria-pressed', 'true')
+  // Every answer in this run was correct, so there is nothing to fix and the
+  // filter says so rather than showing an empty list.
+  await page.getByRole('button', { name: /^Incorrect, \d+ questions$/ }).click()
+  await expect(page.getByText('Nothing wrong on this test.')).toBeVisible()
+
+  // The filter lives in the URL, so it survives a reload and can be linked.
+  await page.getByRole('button', { name: /^All, \d+ questions$/ }).click()
+  await page.reload()
+  await expect(
+    page.getByRole('button', { name: /^All, \d+ questions$/ }),
+  ).toHaveAttribute('aria-pressed', 'true')
+  // The explanation is the point of reviewing at all.
+  await expect(page.getByText('Why', { exact: true }).first()).toBeVisible()
+
+  // And a past attempt links straight to what went wrong.
+  await page.getByRole('link', { name: 'Tests', exact: true }).click()
+  await page.getByRole('link', { name: 'Review answers' }).first().click()
+  await expect(page).toHaveURL(/[?&]review=incorrect/)
+  await expect(
+    page.getByRole('button', { name: /^Incorrect, \d+ questions$/ }),
+  ).toHaveAttribute('aria-pressed', 'true')
 })
 
 test('the progress page shows an empty state, then fills in after a finished test', async ({

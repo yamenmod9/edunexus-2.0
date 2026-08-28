@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 
 import { attempts as attemptsApi } from '../api/client.js'
 import MathText from '../components/MathText.jsx'
@@ -16,8 +16,15 @@ import {
   Meter,
   SectionLabel,
   Spinner,
+  formatClock,
   humanize,
 } from '../components/ui.jsx'
+import {
+  REVIEW_FILTERS,
+  flattenQuestions,
+  isReviewFilter,
+  matchesFilter,
+} from './reviewFilters.js'
 
 /**
  * A section score. The total gets its own, larger treatment in the hero, so
@@ -41,7 +48,7 @@ function SectionScore({ section }) {
   )
 }
 
-function ReviewQuestion({ entry, position }) {
+function ReviewQuestion({ entry, position, showModule = false }) {
   const { question } = entry
 
   function toneFor(choiceId) {
@@ -54,12 +61,25 @@ function ReviewQuestion({ entry, position }) {
     <Card className="mb-3">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <span className="text-sm font-semibold">Question {position}</span>
-        <Badge tone={entry.is_correct ? 'good' : 'bad'}>
+        {showModule && (
+          <span className="text-xs text-ink-faint">
+            {humanize(entry.module.section)} · Module {entry.module.sequence}
+          </span>
+        )}
+        <Badge tone={entry.is_correct ? 'good' : entry.answer ? 'bad' : 'neutral'}>
           {entry.is_correct ? 'Correct' : entry.answer ? 'Incorrect' : 'Skipped'}
         </Badge>
         <Badge>{humanize(question.domain)}</Badge>
         <Badge>{humanize(question.difficulty)}</Badge>
-        {entry.flagged && <Badge tone="info">Flagged</Badge>}
+        {entry.flagged && <Badge tone="info">Marked for review</Badge>}
+        {/* Time on this question is recorded during the test and has never
+            been shown anywhere until now. It is the thing that explains a
+            wrong answer you knew how to do. */}
+        {entry.seconds_spent > 0 && (
+          <span className="ml-auto font-mono text-xs tabular-nums text-ink-faint">
+            {formatClock(entry.seconds_spent)}
+          </span>
+        )}
       </div>
 
       {question.stimulus && (
@@ -116,6 +136,10 @@ export default function ResultPage() {
   const [review, setReview] = useState(null)
   const [error, setError] = useState(null)
   const [openModule, setOpenModule] = useState(null)
+  // In the URL rather than in state, so "here is the one I got wrong" is a
+  // link you can send yourself, and the back button undoes it.
+  const [params, setParams] = useSearchParams()
+  const reviewFilter = params.get('review')
 
   useEffect(() => {
     attemptsApi
@@ -139,6 +163,18 @@ export default function ResultPage() {
   const score = review.score
   const total = score.total
   const openedModule = review.modules.find((m) => m.order_index === openModule)
+
+  const allQuestions = flattenQuestions(review.modules)
+  const counts = Object.fromEntries(
+    REVIEW_FILTERS.map((f) => [f.id, allQuestions.filter((e) => matchesFilter(e, f.id)).length]),
+  )
+  const reviewing = isReviewFilter(reviewFilter)
+  const shown = reviewing ? allQuestions.filter((e) => matchesFilter(e, reviewFilter)) : []
+
+  function openReview(filter) {
+    setParams(filter ? { review: filter } : {}, { replace: false })
+    setOpenModule(null)
+  }
   const submitted = review.submitted_at
     ? new Date(review.submitted_at + 'Z').toLocaleDateString(undefined, {
         day: 'numeric',
@@ -253,7 +289,10 @@ export default function ResultPage() {
               than buttons — a <button> inside an <a> is invalid and axe
               rightly objects to nested interactive controls. */}
           <div className="mt-6 flex flex-wrap gap-2">
-            <Link to="/tests" className={buttonClass()}>
+            <Button onClick={() => openReview(reviewing ? null : 'all')}>
+              {reviewing ? 'Hide answers' : `Review all ${allQuestions.length} questions`}
+            </Button>
+            <Link to="/tests" className={buttonClass('secondary')}>
               Take another test
             </Link>
             <Link to="/progress" className={buttonClass('secondary')}>
@@ -264,6 +303,59 @@ export default function ResultPage() {
       </div>
 
       {/* Full width: a question with its passage does not fit a half column. */}
+      {reviewing && (
+        <div className="mt-9">
+          <SectionLabel>Every question</SectionLabel>
+
+          <div className="mb-5 flex flex-wrap gap-2" role="group" aria-label="Filter questions">
+            {REVIEW_FILTERS.map((filter) => {
+              const active = reviewFilter === filter.id
+              return (
+                <button
+                  key={filter.id}
+                  type="button"
+                  aria-pressed={active}
+                  // Without this the name computes as "All12" — the count sits
+                  // in its own element with no whitespace between.
+                  aria-label={`${filter.label}, ${counts[filter.id]} questions`}
+                  onClick={() => openReview(filter.id)}
+                  className={`rounded-full px-3.5 py-1.5 text-xs font-medium ring-1 transition
+                    ${
+                      active
+                        ? 'bg-accent text-accent-on ring-accent'
+                        : 'bg-surface text-ink-soft ring-line-strong hover:bg-sunken'
+                    }`}
+                >
+                  {filter.label}
+                  <span className={`ml-1.5 tabular-nums ${active ? 'opacity-80' : 'text-ink-faint'}`}>
+                    {counts[filter.id]}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+
+          {shown.length === 0 ? (
+            <Alert tone="success">
+              {reviewFilter === 'incorrect'
+                ? 'Nothing wrong on this test.'
+                : reviewFilter === 'skipped'
+                  ? 'You answered every question.'
+                  : 'Nothing marked for review on this test.'}
+            </Alert>
+          ) : (
+            shown.map((entry) => (
+              <ReviewQuestion
+                key={entry.question.id}
+                entry={entry}
+                position={entry.position}
+                showModule
+              />
+            ))
+          )}
+        </div>
+      )}
+
       {openedModule && (
         <div className="mt-9">
           <SectionLabel>

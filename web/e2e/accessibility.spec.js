@@ -103,8 +103,15 @@ test('the score report has no accessibility violations', async ({ page }) => {
   await page.getByRole('button', { name: 'End test now' }).click()
   await expect(page).toHaveURL(/\/result$/)
 
-  const results = await scan(page)
-  expect(results.violations).toEqual([])
+  expect((await scan(page)).violations).toEqual([])
+
+  // The answer review is a whole screen of new controls - filter chips with
+  // counts, and a card per question - that the report alone does not cover.
+  await page.getByRole('button', { name: /^Review all \d+ questions$/ }).click()
+  await expect(
+    page.getByRole('button', { name: /^All, \d+ questions$/ }),
+  ).toBeVisible()
+  expect((await scan(page)).violations).toEqual([])
 })
 
 test('the progress page has no accessibility violations, empty or filled', async ({ page }) => {

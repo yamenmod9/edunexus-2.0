@@ -164,6 +164,15 @@ export default function TestsPage() {
               >
                 View results
               </Link>
+              {/* Straight to the mistakes. Going back to a finished test is
+                  almost always about what went wrong, and making that the
+                  second click rather than the fifth is the whole point. */}
+              <Link
+                to={`/tests/${attempt.id}/result?review=incorrect`}
+                className="hidden flex-shrink-0 whitespace-nowrap text-sm text-accent sm:inline"
+              >
+                Review answers
+              </Link>
             </div>
           ))}
         </section>
