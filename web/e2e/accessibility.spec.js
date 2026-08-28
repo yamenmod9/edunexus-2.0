@@ -107,9 +107,9 @@ test('the score report has no accessibility violations', async ({ page }) => {
 
   // The answer review is a whole screen of new controls - filter chips with
   // counts, and a card per question - that the report alone does not cover.
-  await page.getByRole('button', { name: /^Review all \d+ questions$/ }).click()
+  await page.getByRole('button', { name: /^Review all \d+ questions?$/ }).click()
   await expect(
-    page.getByRole('button', { name: /^All, \d+ questions$/ }),
+    page.getByRole('button', { name: /^All, \d+ questions?$/ }),
   ).toBeVisible()
   expect((await scan(page)).violations).toEqual([])
 })

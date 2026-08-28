@@ -176,31 +176,49 @@ test('the full adaptive test runs through to a score report', async ({ page }) =
   await expect(page.getByText('Correct').first()).toBeVisible()
 
   // --- reviewing the whole test, not one module at a time ------------
-  await page.getByRole('button', { name: /^Review all \d+ questions$/ }).click()
+  await page.getByRole('button', { name: /^Review all \d+ questions?$/ }).click()
   await expect(page).toHaveURL(/[?&]review=all/)
 
-  const all = page.getByRole('button', { name: /^All, \d+ questions$/ })
+  const all = page.getByRole('button', { name: /^All, \d+ questions?$/ })
   await expect(all).toHaveAttribute('aria-pressed', 'true')
   // Every answer in this run was correct, so there is nothing to fix and the
   // filter says so rather than showing an empty list.
-  await page.getByRole('button', { name: /^Incorrect, \d+ questions$/ }).click()
+  await page.getByRole('button', { name: /^Incorrect, \d+ questions?$/ }).click()
   await expect(page.getByText('Nothing wrong on this test.')).toBeVisible()
 
   // The filter lives in the URL, so it survives a reload and can be linked.
-  await page.getByRole('button', { name: /^All, \d+ questions$/ }).click()
+  await page.getByRole('button', { name: /^All, \d+ questions?$/ }).click()
   await page.reload()
   await expect(
-    page.getByRole('button', { name: /^All, \d+ questions$/ }),
+    page.getByRole('button', { name: /^All, \d+ questions?$/ }),
   ).toHaveAttribute('aria-pressed', 'true')
   // The explanation is the point of reviewing at all.
   await expect(page.getByText('Why', { exact: true }).first()).toBeVisible()
+
+  // Opening a module accordion closes the flat list, or the same questions
+  // render twice - once in each block.
+  await page.getByRole('button', { name: 'Review questions' }).first().click()
+  await expect(page).not.toHaveURL(/[?&]review=/)
+  await expect(page.getByRole('button', { name: /^All, \d+ questions?$/ })).toHaveCount(0)
+
+  // Clicking the chip you are already on must not stack history entries, or
+  // Back stops appearing to work.
+  await page.getByRole('button', { name: /^Review all \d+ questions?$/ }).click()
+  const filtered = page.getByRole('button', { name: /^Incorrect, \d+ questions?$/ })
+  await filtered.click()
+  await filtered.click()
+  await filtered.click()
+  await page.goBack()
+  await expect(
+    page.getByRole('button', { name: /^All, \d+ questions?$/ }),
+  ).toHaveAttribute('aria-pressed', 'true')
 
   // And a past attempt links straight to what went wrong.
   await page.getByRole('link', { name: 'Tests', exact: true }).click()
   await page.getByRole('link', { name: 'Review answers' }).first().click()
   await expect(page).toHaveURL(/[?&]review=incorrect/)
   await expect(
-    page.getByRole('button', { name: /^Incorrect, \d+ questions$/ }),
+    page.getByRole('button', { name: /^Incorrect, \d+ questions?$/ }),
   ).toHaveAttribute('aria-pressed', 'true')
 })
 

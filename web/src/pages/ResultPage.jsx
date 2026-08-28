@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 
 import { attempts as attemptsApi } from '../api/client.js'
@@ -48,7 +48,12 @@ function SectionScore({ section }) {
   )
 }
 
-function ReviewQuestion({ entry, position, showModule = false }) {
+/**
+ * Memoised because a full form is 98 questions, each mounting up to seven
+ * MathText components that call KaTeX per math span. Without this, flipping
+ * All -> Incorrect -> All re-runs every one of them.
+ */
+const ReviewQuestion = memo(function ReviewQuestion({ entry, position, showModule = false }) {
   const { question } = entry
 
   function toneFor(choiceId) {
@@ -60,12 +65,18 @@ function ReviewQuestion({ entry, position, showModule = false }) {
   return (
     <Card className="mb-3">
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="text-sm font-semibold">Question {position}</span>
-        {showModule && (
-          <span className="text-xs text-ink-faint">
-            {humanize(entry.module.section)} · Module {entry.module.sequence}
-          </span>
-        )}
+        {/* The module is part of the identifier, not a footnote beside it:
+            `position` restarts per module, so a flat list otherwise holds four
+            cards all headed "Question 1". This is also what the student saw on
+            the bottom bar while they were answering it. */}
+        <span className="text-sm font-semibold">
+          {showModule && (
+            <span className="font-normal text-ink-soft">
+              {humanize(entry.module.section)} · Module {entry.module.sequence} ·{' '}
+            </span>
+          )}
+          Question {position}
+        </span>
         <Badge tone={entry.is_correct ? 'good' : entry.answer ? 'bad' : 'neutral'}>
           {entry.is_correct ? 'Correct' : entry.answer ? 'Incorrect' : 'Skipped'}
         </Badge>
@@ -129,7 +140,7 @@ function ReviewQuestion({ entry, position, showModule = false }) {
       )}
     </Card>
   )
-}
+})
 
 export default function ResultPage() {
   const { attemptId } = useParams()
@@ -140,6 +151,10 @@ export default function ResultPage() {
   // link you can send yourself, and the back button undoes it.
   const [params, setParams] = useSearchParams()
   const reviewFilter = params.get('review')
+  // A full form is 98 questions, each mounting up to seven MathText
+  // components. Rendering the lot on one click janks the page for a second on
+  // a mid-range laptop, so the tail is opt-in.
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     attemptsApi
@@ -171,9 +186,30 @@ export default function ResultPage() {
   const reviewing = isReviewFilter(reviewFilter)
   const shown = reviewing ? allQuestions.filter((e) => matchesFilter(e, reviewFilter)) : []
 
+  const PAGE = 25
+
+  /**
+   * Mutates a copy of the params rather than replacing them, so this never
+   * silently drops one it does not know about, and does nothing at all when
+   * the value is unchanged - otherwise clicking the chip you are already on
+   * pushes another history entry and Back stops appearing to work.
+   */
+  function applyReviewFilter(filter) {
+    if (filter === reviewFilter) return
+    setShowAll(false)
+    const next = new URLSearchParams(params)
+    if (filter) next.set('review', filter)
+    else next.delete('review')
+    setParams(next)
+  }
+
   function openReview(filter) {
-    setParams(filter ? { review: filter } : {}, { replace: false })
+    applyReviewFilter(filter)
     setOpenModule(null)
+  }
+
+  function closeReview() {
+    applyReviewFilter(null)
   }
   const submitted = review.submitted_at
     ? new Date(review.submitted_at + 'Z').toLocaleDateString(undefined, {
@@ -276,9 +312,15 @@ export default function ResultPage() {
                 variant="ghost"
                 className="-ml-4 mt-1.5 px-4 py-1 text-xs"
                 aria-expanded={openModule === module.order_index}
-                onClick={() =>
+                onClick={() => {
+                  // One list at a time. openReview already closes the module
+                  // accordion; without the reverse, opening a module while the
+                  // flat review is up renders that module's questions twice.
+                  // Only when there is something to close, and only the one
+                  // param, for the same reasons as openReview.
+                  if (reviewFilter) closeReview()
                   setOpenModule(openModule === module.order_index ? null : module.order_index)
-                }
+                }}
               >
                 {openModule === module.order_index ? 'Hide questions' : 'Review questions'}
               </Button>
@@ -317,7 +359,9 @@ export default function ResultPage() {
                   aria-pressed={active}
                   // Without this the name computes as "All12" — the count sits
                   // in its own element with no whitespace between.
-                  aria-label={`${filter.label}, ${counts[filter.id]} questions`}
+                  aria-label={`${filter.label}, ${counts[filter.id]} ${
+                    counts[filter.id] === 1 ? 'question' : 'questions'
+                  }`}
                   onClick={() => openReview(filter.id)}
                   className={`rounded-full px-3.5 py-1.5 text-xs font-medium ring-1 transition
                     ${
@@ -337,21 +381,35 @@ export default function ResultPage() {
 
           {shown.length === 0 ? (
             <Alert tone="success">
-              {reviewFilter === 'incorrect'
-                ? 'Nothing wrong on this test.'
-                : reviewFilter === 'skipped'
-                  ? 'You answered every question.'
-                  : 'Nothing marked for review on this test.'}
+              {
+                {
+                  incorrect: 'Nothing wrong on this test.',
+                  skipped: 'You answered every question.',
+                  marked: 'Nothing marked for review on this test.',
+                  all: 'This attempt has no questions to show.',
+                }[reviewFilter]
+              }
             </Alert>
           ) : (
-            shown.map((entry) => (
-              <ReviewQuestion
-                key={entry.question.id}
-                entry={entry}
-                position={entry.position}
-                showModule
-              />
-            ))
+            <>
+              {(showAll ? shown : shown.slice(0, PAGE)).map((entry) => (
+                <ReviewQuestion
+                  key={entry.question.id}
+                  entry={entry}
+                  position={entry.position}
+                  showModule
+                />
+              ))}
+              {!showAll && shown.length > PAGE && (
+                <Button
+                  variant="secondary"
+                  className="mt-2 w-full"
+                  onClick={() => setShowAll(true)}
+                >
+                  Show the remaining {shown.length - PAGE} questions
+                </Button>
+              )}
+            </>
           )}
         </div>
       )}

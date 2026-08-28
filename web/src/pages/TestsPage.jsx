@@ -166,12 +166,16 @@ export default function TestsPage() {
               </Link>
               {/* Straight to the mistakes. Going back to a finished test is
                   almost always about what went wrong, and making that the
-                  second click rather than the fifth is the whole point. */}
+                  second click rather than the fifth is the whole point - which
+                  is just as true on a phone, so this shortens rather than
+                  disappearing at the small breakpoint. */}
               <Link
                 to={`/tests/${attempt.id}/result?review=incorrect`}
-                className="hidden flex-shrink-0 whitespace-nowrap text-sm text-accent sm:inline"
+                aria-label="Review answers"
+                className="flex-shrink-0 whitespace-nowrap text-sm text-accent"
               >
-                Review answers
+                <span className="sm:hidden">Review</span>
+                <span className="hidden sm:inline">Review answers</span>
               </Link>
             </div>
           ))}
