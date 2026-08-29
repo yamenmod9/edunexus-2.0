@@ -91,7 +91,9 @@ test('practice mode grades an answer and shows the explanation', async ({ page }
   await register(page, uniqueEmail('practice'))
   await page.getByRole('link', { name: 'Practice' }).click()
 
+  // Practice now opens on the category browser, so pick something first.
   await expect(page.getByRole('heading', { name: 'Practice' })).toBeVisible()
+  await page.getByRole('button', { name: 'Practise' }).first().click()
   await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
 
   // The bank must not hand a student the key before they answer.

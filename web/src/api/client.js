@@ -193,13 +193,25 @@ export const auth = {
     api.post('/api/auth/password', { current_password, new_password }),
 }
 
+/**
+ * Filters serialise with one entry per value, so `{domain: ['algebra','geometry']}`
+ * becomes `?domain=algebra&domain=geometry` — which is how the practice
+ * browser asks for several categories at once. Empty values are dropped
+ * rather than sent, because `?domain=` would otherwise read as a real filter.
+ */
+function toQuery(params) {
+  const query = new URLSearchParams()
+  for (const [key, value] of Object.entries(params)) {
+    for (const item of Array.isArray(value) ? value : [value]) {
+      if (item !== '' && item != null) query.append(key, item)
+    }
+  }
+  return query
+}
+
 export const questions = {
-  list: (params = {}) => {
-    const query = new URLSearchParams(
-      Object.entries(params).filter(([, v]) => v !== '' && v != null),
-    )
-    return api.get(`/api/questions?${query}`)
-  },
+  list: (params = {}) => api.get(`/api/questions?${toQuery(params)}`),
+  counts: (params = {}) => api.get(`/api/questions/counts?${toQuery(params)}`),
   get: (id) => api.get(`/api/questions/${id}`),
   // `extra` carries seconds_spent, which the backend records as a practice
   // response. Optional so callers that only want the grade stay one argument.

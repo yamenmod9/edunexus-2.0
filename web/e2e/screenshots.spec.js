@@ -28,6 +28,10 @@ test('capture the student journey', async ({ page }) => {
   await page.screenshot({ path: `${shots}/02-dashboard.png`, fullPage: true })
 
   await page.getByRole('link', { name: 'Practice' }).click()
+  await expect(page.getByRole('heading', { name: 'Practice' })).toBeVisible()
+  await page.screenshot({ path: `${shots}/03a-practice-categories.png`, fullPage: true })
+
+  await page.getByRole('button', { name: 'Practise' }).first().click()
   await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
   await page.locator('fieldset label').first().click()
   await page.getByRole('button', { name: 'Check answer' }).first().click()
@@ -102,8 +106,12 @@ test('capture the student journey', async ({ page }) => {
   await page.screenshot({ path: `${shots}/10-dark-dashboard.png`, fullPage: true })
 
   await page.goto('/practice')
+  await expect(page.getByRole('heading', { name: 'Filters' })).toBeVisible()
+  await page.screenshot({ path: `${shots}/11-dark-practice-categories.png`, fullPage: true })
+
+  await page.getByRole('button', { name: 'Practise' }).first().click()
   await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
-  await page.screenshot({ path: `${shots}/11-dark-practice.png`, fullPage: true })
+  await page.screenshot({ path: `${shots}/11b-dark-practice.png`, fullPage: true })
 
   await page.goto('/progress')
   await expect(page.getByRole('heading', { name: 'Your progress' })).toBeVisible()

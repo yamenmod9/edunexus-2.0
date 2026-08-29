@@ -21,6 +21,8 @@ from app.services.question_import import (
 from app.services.grading_service import grade
 from app.services.practice_service import record_practice_response
 from app.services.question_service import (
+    FILTER_FIELDS,
+    count_by_category,
     create_question,
     delete_question,
     get_question,
@@ -32,17 +34,36 @@ from app.services.question_service import (
 bp = Blueprint("questions", __name__, url_prefix="/api/questions")
 
 
+def _requested_filters():
+    """Filters from the query string, each possibly repeated.
+
+    `?domain=algebra&domain=geometry_trigonometry` is how the practice browser
+    asks for several categories at once, so every field reads as a list. A
+    single occurrence still arrives as a one-element list, which the service
+    narrows back to an equality test.
+    """
+    return {
+        field: [v for v in request.args.getlist(field) if v]
+        for field in FILTER_FIELDS
+    }
+
+
+@bp.get("/counts")
+@require_auth
+def question_counts_route():
+    """How many questions sit under each category, for the practice browser.
+
+    Separate from /api/taxonomy because the taxonomy is fixed and cached
+    client-side, while these move with whatever difficulty or question type is
+    selected.
+    """
+    return jsonify(count_by_category(_requested_filters()))
+
+
 @bp.get("")
 @require_auth
 def list_questions():
-    filters = {
-        "section": request.args.get("section"),
-        "domain": request.args.get("domain"),
-        "skill": request.args.get("skill"),
-        "difficulty": request.args.get("difficulty"),
-        "question_type": request.args.get("question_type"),
-        "source": request.args.get("source"),
-    }
+    filters = _requested_filters()
     page = request.args.get("page", 1, type=int)
     per_page = min(request.args.get("per_page", 50, type=int), 200)
 
