@@ -19,7 +19,10 @@ from app.services.question_import import (
     parse_json_text,
 )
 from app.services.grading_service import grade
-from app.services.practice_service import record_practice_response
+from app.services.practice_service import (
+    latest_practice_by_question,
+    record_practice_response,
+)
 from app.services.question_service import (
     FILTER_FIELDS,
     count_by_category,
@@ -72,9 +75,20 @@ def list_questions():
     # they would otherwise be readable straight out of a live test attempt,
     # which is the answer-key leak the test engine exists to prevent.
     schema = questions_schema if g.current_user.is_admin else student_questions_schema
+    items = schema.dump(pagination.items)
+
+    if not g.current_user.is_admin:
+        # What this student has already answered here, so a practice session
+        # can be resumed instead of starting from blank every time.
+        history = latest_practice_by_question(g.current_user.id, pagination.items)
+        for item in items:
+            past = history.get(item["id"])
+            if past:
+                item["practice"] = past
+
     return jsonify(
         {
-            "items": schema.dump(pagination.items),
+            "items": items,
             "page": pagination.page,
             "per_page": pagination.per_page,
             "total": pagination.total,

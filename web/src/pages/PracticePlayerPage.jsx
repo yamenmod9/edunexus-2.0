@@ -94,6 +94,24 @@ export default function PracticePlayerPage() {
         if (cancelled) return
         setQuestions(data.items)
         setIndex(0)
+
+        // Restore whatever this student already answered. Without this,
+        // leaving a session and coming back showed every question blank again
+        // while the category list correctly said they were solved - the server
+        // knew, and nothing asked it.
+        const restoredAnswers = {}
+        const restoredResults = {}
+        for (const item of data.items) {
+          if (!item.practice) continue
+          restoredAnswers[item.id] = item.practice.answer ?? ''
+          restoredResults[item.id] = {
+            is_correct: item.practice.is_correct,
+            correct_answer: item.practice.correct_answer,
+            rationale: item.practice.rationale,
+          }
+        }
+        setAnswers(restoredAnswers)
+        setResults(restoredResults)
       })
       .catch((err) => {
         if (!cancelled) setError(err.message)
@@ -163,14 +181,22 @@ export default function PracticePlayerPage() {
   const hasPassage = Boolean(question.stimulus)
   const solved = Object.keys(results).length
 
+  /**
+   * Colour says what happened to the question; the ring says which one you are
+   * on. Letting "current" win outright meant the question you had just graded
+   * showed no verdict at all - the one you most want to see.
+   */
   function toneFor(_, i) {
     const graded = results[questions[i].id]
-    if (i === index) return 'bg-ink text-page ring-ink'
-    if (graded) return graded.is_correct
-      ? 'bg-good text-page ring-good'
-      : 'bg-bad text-page ring-bad'
-    if (marks[questions[i].id]?.flagged) return 'bg-flag-soft text-flag ring-flag'
-    return 'bg-surface text-ink-soft ring-line-strong'
+    const fill = graded
+      ? graded.is_correct
+        ? 'bg-good text-page'
+        : 'bg-bad text-page'
+      : marks[questions[i].id]?.flagged
+        ? 'bg-flag-soft text-flag'
+        : 'bg-surface text-ink-soft'
+    const ring = i === index ? 'ring-2 ring-ink' : 'ring-line-strong'
+    return `${fill} ${ring}`
   }
 
   function toneForChoice(choiceId) {

@@ -102,7 +102,7 @@ export function QuestionNav({
               aria-current={i === index ? 'true' : undefined}
               aria-label={seatLabel(response, i)}
               className={`h-8 rounded-sm text-xs font-medium ring-1 transition hover:opacity-80
-                ${tone} ${i === index ? 'ring-2 ring-ink' : ''}`}
+                ${tone} ${tone.includes('ring-') || i !== index ? '' : 'ring-2 ring-ink'}`}
             >
               {i + 1}
             </button>

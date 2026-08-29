@@ -156,3 +156,72 @@ def test_one_students_practice_does_not_show_in_anothers_counts(client, db):
 
 def test_counts_require_a_signed_in_user(client):
     assert client.get("/api/questions/counts").status_code == 401
+
+
+def test_a_practised_question_comes_back_with_its_verdict(student_client, db):
+    # Leaving a practice session and returning used to lose every graded
+    # answer: the verdicts only lived in the browser, and the server was never
+    # asked. Now the list carries them.
+    seed_bank(db, per_difficulty=2)
+    listed = student_client.get("/api/questions?per_page=1").get_json()
+    question = listed["items"][0]
+    assert "practice" not in question
+
+    student_client.post(
+        f"/api/questions/{question['id']}/check",
+        json={"answer": "A", "seconds_spent": 12},
+    )
+
+    again = student_client.get("/api/questions?per_page=1").get_json()["items"][0]
+    assert again["practice"]["answer"] == "A"
+    assert again["practice"]["is_correct"] is False
+    assert again["practice"]["seconds_spent"] == 12
+    # Both were already shown to this student for this question when they
+    # checked it, so restoring the graded state reveals nothing new.
+    assert again["practice"]["correct_answer"] == "B"
+    assert again["practice"]["rationale"]
+
+
+def test_only_answered_questions_carry_a_verdict(student_client, db):
+    seed_bank(db, per_difficulty=2)
+    listed = student_client.get("/api/questions?per_page=50").get_json()
+    student_client.post(
+        f"/api/questions/{listed['items'][0]['id']}/check", json={"answer": "B"}
+    )
+
+    again = student_client.get("/api/questions?per_page=50").get_json()["items"]
+    with_history = [q for q in again if "practice" in q]
+
+    assert len(with_history) == 1
+    # The key for everything else stays withheld, which is the thing that
+    # actually matters.
+    assert all("correct_answer" not in q for q in again)
+
+
+def test_the_newest_answer_is_the_one_restored(student_client, db):
+    # The table is append-only, so a question answered twice has two rows and
+    # only the last is the state to come back to.
+    seed_bank(db, per_difficulty=2)
+    question_id = student_client.get("/api/questions?per_page=1").get_json()["items"][0]["id"]
+
+    student_client.post(f"/api/questions/{question_id}/check", json={"answer": "A"})
+    student_client.post(f"/api/questions/{question_id}/check", json={"answer": "B"})
+
+    again = student_client.get("/api/questions?per_page=1").get_json()["items"][0]
+    assert again["practice"]["answer"] == "B"
+    assert again["practice"]["is_correct"] is True
+
+
+def test_one_students_verdicts_do_not_leak_into_anothers_list(client, db):
+    from tests.conftest import register_student
+
+    seed_bank(db, per_difficulty=2)
+    first = register_student(client, "history-one@example.com")
+    question_id = first.get("/api/questions?per_page=1").get_json()["items"][0]["id"]
+    first.post(f"/api/questions/{question_id}/check", json={"answer": "B"})
+
+    second = register_student(client, "history-two@example.com")
+    seen = second.get("/api/questions?per_page=1").get_json()["items"][0]
+
+    assert "practice" not in seen
+    assert "correct_answer" not in seen

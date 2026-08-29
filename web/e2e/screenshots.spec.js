@@ -111,8 +111,11 @@ test('capture the student journey', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Filters' })).toBeVisible()
   await page.screenshot({ path: `${shots}/11-dark-practice-categories.png`, fullPage: true })
 
+  // This account answered a question in the light pass above, so re-entering
+  // the category restores the graded state rather than offering to check it
+  // again - which is the thing worth capturing.
   await page.getByRole('button', { name: 'Algebra', exact: true }).click()
-  await expect(page.getByRole('button', { name: 'Check answer' })).toBeVisible()
+  await expect(page.getByRole('status')).toBeVisible()
   await page.screenshot({ path: `${shots}/11b-dark-practice.png`, fullPage: true })
 
   await page.goto('/progress')
