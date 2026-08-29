@@ -57,7 +57,7 @@ def question_counts_route():
     client-side, while these move with whatever difficulty or question type is
     selected.
     """
-    return jsonify(count_by_category(_requested_filters()))
+    return jsonify(count_by_category(_requested_filters(), g.current_user.id))
 
 
 @bp.get("")

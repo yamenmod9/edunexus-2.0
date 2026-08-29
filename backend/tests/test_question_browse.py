@@ -20,7 +20,7 @@ def test_counts_group_by_section_domain_and_skill(student_client, db):
     math = counts["sections"]["math"]
     assert math["total"] == sum(d["total"] for d in math["domains"].values())
     for domain in math["domains"].values():
-        assert domain["total"] == sum(domain["skills"].values())
+        assert domain["total"] == sum(s["total"] for s in domain["skills"].values())
 
 
 def test_counts_honour_the_same_filters_as_the_question_list(student_client, db):
@@ -106,6 +106,52 @@ def test_an_empty_repeated_filter_is_ignored_rather_than_matching_nothing(
     result = admin_client.get("/api/questions?domain=&domain=&per_page=200").get_json()
 
     assert result["total"] == 1
+
+
+def test_counts_report_how_much_the_student_has_already_solved(student_client, db):
+    seed_bank(db, per_difficulty=2)
+
+    before = student_client.get("/api/questions/counts").get_json()
+    assert before["solved"] == 0
+
+    listed = student_client.get("/api/questions?section=math&per_page=1").get_json()
+    question = listed["items"][0]
+    student_client.post(f"/api/questions/{question['id']}/check", json={"answer": "B"})
+
+    after = student_client.get("/api/questions/counts").get_json()
+    assert after["solved"] == 1
+    assert after["total"] == before["total"]
+
+    domain = after["sections"][question["section"]]["domains"][question["domain"]]
+    assert domain["solved"] == 1
+    assert domain["skills"][question["skill"]]["solved"] == 1
+
+
+def test_answering_the_same_question_twice_counts_once(student_client, db):
+    # practice_responses is append-only, so a student who redoes one question
+    # ten times must not look like they finished the category.
+    seed_bank(db, per_difficulty=2)
+    listed = student_client.get("/api/questions?per_page=1").get_json()
+    question_id = listed["items"][0]["id"]
+
+    for _ in range(3):
+        student_client.post(f"/api/questions/{question_id}/check", json={"answer": "B"})
+
+    assert student_client.get("/api/questions/counts").get_json()["solved"] == 1
+
+
+def test_one_students_practice_does_not_show_in_anothers_counts(client, db):
+    from tests.conftest import register_student
+
+    seed_bank(db, per_difficulty=2)
+    first = register_student(client, "first-counter@example.com")
+    listed = first.get("/api/questions?per_page=1").get_json()
+    first.post(f"/api/questions/{listed['items'][0]['id']}/check", json={"answer": "B"})
+
+    assert first.get("/api/questions/counts").get_json()["solved"] == 1
+
+    second = register_student(client, "second-counter@example.com")
+    assert second.get("/api/questions/counts").get_json()["solved"] == 0
 
 
 def test_counts_require_a_signed_in_user(client):

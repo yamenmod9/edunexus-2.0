@@ -77,10 +77,11 @@ test('practice mode has no accessibility violations', async ({ page }) => {
   await expect(page.getByRole('checkbox').nth(1)).toBeVisible()
   expect((await scan(page)).violations).toEqual([])
 
-  // And the questions themselves.
+  // And the solving screen, which is now the Bluebook player rather than a
+  // list of cards - a different set of controls entirely.
   await page.getByLabel(/Combine categories/).click()
-  await page.getByRole('button', { name: 'Practise' }).first().click()
-  await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
+  await page.getByRole('button', { name: 'Algebra', exact: true }).click()
+  await expect(page.getByRole('button', { name: 'Check answer' })).toBeVisible()
   expect((await scan(page)).violations).toEqual([])
 })
 

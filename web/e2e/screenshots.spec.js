@@ -31,14 +31,16 @@ test('capture the student journey', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Practice' })).toBeVisible()
   await page.screenshot({ path: `${shots}/03a-practice-categories.png`, fullPage: true })
 
-  await page.getByRole('button', { name: 'Practise' }).first().click()
+  await page.getByRole('button', { name: 'Algebra', exact: true }).click()
   await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
   await page.locator('fieldset label').first().click()
   await page.getByRole('button', { name: 'Check answer' }).first().click()
   await expect(page.getByRole('status').first()).toBeVisible()
   await page.screenshot({ path: `${shots}/03-practice.png`, fullPage: true })
 
-  await page.getByRole('link', { name: 'Tests' }).click()
+  // The practice player is full-bleed like the test player, so the app nav is
+  // not on it - go back to the shell before reaching for a nav link.
+  await page.goto('/tests')
   // Wait for the list, or the capture is of a spinner.
   await expect(page.getByRole('button', { name: 'Start test' }).first()).toBeVisible()
   await page.screenshot({ path: `${shots}/04-tests.png`, fullPage: true })
@@ -109,8 +111,8 @@ test('capture the student journey', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Filters' })).toBeVisible()
   await page.screenshot({ path: `${shots}/11-dark-practice-categories.png`, fullPage: true })
 
-  await page.getByRole('button', { name: 'Practise' }).first().click()
-  await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
+  await page.getByRole('button', { name: 'Algebra', exact: true }).click()
+  await expect(page.getByRole('button', { name: 'Check answer' })).toBeVisible()
   await page.screenshot({ path: `${shots}/11b-dark-practice.png`, fullPage: true })
 
   await page.goto('/progress')

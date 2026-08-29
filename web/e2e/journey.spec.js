@@ -91,10 +91,15 @@ test('practice mode grades an answer and shows the explanation', async ({ page }
   await register(page, uniqueEmail('practice'))
   await page.getByRole('link', { name: 'Practice' }).click()
 
-  // Practice now opens on the category browser, so pick something first.
+  // Practice opens on the category browser; clicking a category is what
+  // starts it, and solving happens on the full-bleed player.
   await expect(page.getByRole('heading', { name: 'Practice' })).toBeVisible()
-  await page.getByRole('button', { name: 'Practise' }).first().click()
-  await expect(page.getByRole('button', { name: 'Check answer' }).first()).toBeVisible()
+  await page.getByRole('button', { name: 'Algebra', exact: true }).click()
+  await expect(page).toHaveURL(/\/practice\/session\?/)
+  await expect(page.getByRole('button', { name: 'Check answer' })).toBeVisible()
+  // A stopwatch, not the module countdown.
+  await expect(page.getByRole('timer')).toBeVisible()
+  await expect(page.getByText('On this question')).toBeVisible()
 
   // The bank must not hand a student the key before they answer.
   const body = await page.content()

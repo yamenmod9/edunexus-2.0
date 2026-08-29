@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useResource } from '../api/cache.js'
 import { questions as questionsApi, taxonomy as taxonomyApi } from '../api/client.js'
-import PracticeQuestion from '../components/PracticeQuestion.jsx'
-import { Alert, Button, SectionLabel, Spinner } from '../components/ui.jsx'
+import { Button, SectionLabel, Spinner } from '../components/ui.jsx'
 import { readLocal, writeLocal } from '../storage.js'
 import {
   countSelected,
@@ -12,7 +11,6 @@ import {
   leafKey,
   leavesOfDomain,
   queryToSelection,
-  selectionTitle,
   selectionToQuery,
 } from './practiceSelection.js'
 
@@ -55,11 +53,37 @@ function Chevron({ open }) {
   )
 }
 
-/** One domain, with its skills underneath. */
+/** A "12 / 40" progress pair, and the bar under it. */
+function Progress({ solved, total }) {
+  const ratio = total > 0 ? solved / total : 0
+  return (
+    <span className="flex flex-shrink-0 items-center gap-2">
+      <span className="hidden h-1 w-14 overflow-hidden rounded-full bg-line sm:block">
+        <span
+          className="block h-full rounded-full bg-accent"
+          style={{ width: `${Math.round(ratio * 100)}%` }}
+        />
+      </span>
+      <span className="w-14 text-right font-mono text-[11px] tabular-nums text-ink-faint">
+        {solved}/{total}
+      </span>
+    </span>
+  )
+}
+
+/**
+ * One domain, with its skills underneath.
+ *
+ * The row itself starts practice - a category is a thing you click, not a
+ * thing with a button beside it, and a "Practise" on every line of a
+ * twenty-line list is twenty words saying the same thing. The chevron is its
+ * own control because expanding and practising are different intentions.
+ */
 function DomainRow({ section, domain, counts, combine, selected, onToggle, onPractice }) {
   const [open, setOpen] = useState(false)
   const stats = counts?.sections?.[section]?.domains?.[domain.value]
   const total = stats?.total ?? 0
+  const solved = stats?.solved ?? 0
   const leaves = leavesOfDomain(section, domain)
   const chosen = leaves.filter((leaf) => selected.has(leaf)).length
   const allChosen = leaves.length > 0 && chosen === leaves.length
@@ -87,33 +111,33 @@ function DomainRow({ section, domain, counts, combine, selected, onToggle, onPra
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
+          aria-label={`${open ? 'Hide' : 'Show'} the skills in ${domain.label}`}
           disabled={leaves.length === 0}
-          className="flex flex-grow items-center gap-2 text-left text-sm font-medium
-            text-ink hover:text-accent disabled:text-ink-faint"
+          className="flex-shrink-0 rounded p-1 text-ink-faint hover:bg-sunken hover:text-ink
+            disabled:opacity-40"
         >
           <Chevron open={open} />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => onPractice(leaves)}
+          disabled={total === 0 || combine}
+          className="flex-grow text-left text-sm font-medium text-ink hover:text-accent
+            disabled:cursor-default disabled:hover:text-ink"
+        >
           {domain.label}
         </button>
 
-        <span className="font-mono text-xs tabular-nums text-ink-faint">{total}</span>
-
-        {!combine && (
-          <Button
-            variant="ghost"
-            className="px-2 py-1 text-xs"
-            disabled={total === 0}
-            onClick={() => onPractice(leaves)}
-          >
-            Practise
-          </Button>
-        )}
+        <Progress solved={solved} total={total} />
       </div>
 
       {open && (
-        <ul className="mb-2 space-y-0.5 pl-6">
+        <ul className="mb-2 space-y-0.5 pl-8">
           {(domain.skills ?? []).map((skill) => {
             const key = leafKey(section, domain.value, skill)
-            const count = stats?.skills?.[skill] ?? 0
+            const skillStats = stats?.skills?.[skill]
+            const skillTotal = skillStats?.total ?? 0
             return (
               <li key={skill} className="flex items-center gap-2 py-1">
                 {combine && (
@@ -122,24 +146,20 @@ function DomainRow({ section, domain, counts, combine, selected, onToggle, onPra
                     checked={selected.has(key)}
                     onChange={() => onToggle([key], !selected.has(key))}
                     aria-label={skill}
-                    disabled={count === 0}
+                    disabled={skillTotal === 0}
                     className="h-3.5 w-3.5 flex-shrink-0"
                   />
                 )}
-                <span className="flex-grow text-[13px] text-ink-soft">{skill}</span>
-                <span className="font-mono text-[11px] tabular-nums text-ink-faint">
-                  {count}
-                </span>
-                {!combine && (
-                  <Button
-                    variant="ghost"
-                    className="px-2 py-0.5 text-[11px]"
-                    disabled={count === 0}
-                    onClick={() => onPractice([key])}
-                  >
-                    Practise
-                  </Button>
-                )}
+                <button
+                  type="button"
+                  onClick={() => onPractice([key])}
+                  disabled={skillTotal === 0 || combine}
+                  className="flex-grow text-left text-[13px] text-ink-soft hover:text-accent
+                    disabled:cursor-default disabled:hover:text-ink-soft"
+                >
+                  {skill}
+                </button>
+                <Progress solved={skillStats?.solved ?? 0} total={skillTotal} />
               </li>
             )
           })}
@@ -151,6 +171,7 @@ function DomainRow({ section, domain, counts, combine, selected, onToggle, onPra
 
 export default function PracticePage() {
   const [params, setParams] = useSearchParams()
+  const navigate = useNavigate()
   // The taxonomy is fixed by CLAUDE.md section 5 and never changes at runtime.
   const { data: taxonomy } = useResource('taxonomy', () => taxonomyApi.get())
   const [sidebarOpen, setSidebarOpen] = useState(() => readLocal(SIDEBAR_KEY) !== 'closed')
@@ -158,10 +179,6 @@ export default function PracticePage() {
   const difficulty = params.get('difficulty') ?? ''
   const questionType = params.get('question_type') ?? ''
   const combine = params.get('combine') === '1'
-  const chosenDomains = params.getAll('domain').filter(Boolean)
-  const chosenSkills = params.getAll('skill').filter(Boolean)
-  const solving = chosenDomains.length > 0 || chosenSkills.length > 0
-
   const filters = useMemo(
     () => ({ difficulty, question_type: questionType }),
     [difficulty, questionType],
@@ -198,7 +215,7 @@ export default function PracticePage() {
   }
 
   function practise(leaves) {
-    setParams(withFilters(selectionToQuery(new Set(leaves), taxonomy)))
+    navigate(`/practice/session?${withFilters(selectionToQuery(new Set(leaves), taxonomy))}`)
   }
 
   function toggleLeaves(leaves, on) {
@@ -222,12 +239,6 @@ export default function PracticePage() {
       setDraft(queryToSelection(params, taxonomy))
       update({ combine: '1' })
     }
-  }
-
-  function backToCategories() {
-    const query = withFilters()
-    if (combine) query.set('combine', '1')
-    setParams(query)
   }
 
   const sections = taxonomy?.sections ?? []
@@ -345,16 +356,7 @@ export default function PracticePage() {
       )}
 
       <div className="min-w-0 flex-grow">
-        {solving ? (
-          <SolvingView
-            filters={filters}
-            domains={chosenDomains}
-            skills={chosenSkills}
-            title={selectionTitle(chosenDomains, chosenSkills, taxonomy)}
-            onBack={backToCategories}
-          />
-        ) : (
-          <>
+        <>
             <h1 className="mb-1 font-serif text-3xl font-bold tracking-tight">Practice</h1>
             <p className="mb-7 text-sm text-ink-faint">
               Pick a category to work through. Nothing here is timed — the clock on each
@@ -418,75 +420,8 @@ export default function PracticePage() {
                 </div>
               </div>
             )}
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
-
-/** The questions themselves, once a category has been chosen. */
-function SolvingView({ filters, domains, skills, title, onBack }) {
-  const [page, setPage] = useState(1)
-  const query = useMemo(
-    () => ({ ...filters, domain: domains, skill: skills, page, per_page: 5 }),
-    [filters, domains, skills, page],
-  )
-  const { data, error } = useResource(`practice:${JSON.stringify(query)}`, () =>
-    questionsApi.list(query),
-  )
-
-  return (
-    <div>
-      <button
-        type="button"
-        onClick={onBack}
-        className="mb-3 flex items-center gap-1.5 text-sm text-accent hover:underline"
-      >
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M15 6l-6 6 6 6" />
-        </svg>
-        All categories
-      </button>
-
-      <h1 className="mb-1 font-serif text-3xl font-bold tracking-tight">{title}</h1>
-      <p className="mb-7 text-sm text-ink-faint">
-        {data ? `${data.total} question${data.total === 1 ? '' : 's'}` : 'Loading…'}
-      </p>
-
-      {error && <Alert>{error}</Alert>}
-      {!data && !error && <Spinner label="Loading questions" />}
-
-      {data && data.items.length === 0 && (
-        <Alert tone="info">No questions match these filters.</Alert>
-      )}
-
-      {data && data.items.length > 0 && (
-        <>
-          {data.items.map((question) => (
-            <PracticeQuestion key={question.id} question={question} />
-          ))}
-          <div className="mt-6 flex items-center gap-2">
-            <Button
-              variant="secondary"
-              disabled={data.page <= 1}
-              onClick={() => setPage((p) => p - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="secondary"
-              disabled={data.page >= data.pages}
-              onClick={() => setPage((p) => p + 1)}
-            >
-              Next
-            </Button>
-            <span className="ml-auto text-xs text-ink-faint">
-              Page {data.page} of {Math.max(1, data.pages)}
-            </span>
-          </div>
         </>
-      )}
+      </div>
     </div>
   )
 }

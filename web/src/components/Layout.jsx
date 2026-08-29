@@ -21,7 +21,9 @@ export default function Layout() {
   }
 
   return (
-    <div className="min-h-screen">
+    // Column, so the footer is pushed to the bottom of the viewport rather
+    // than sitting directly under short content with dead space beneath it.
+    <div className="flex min-h-screen flex-col">
       <a href="#main" className="skip-link">
         Skip to main content
       </a>
@@ -62,7 +64,7 @@ export default function Layout() {
         </div>
       </header>
 
-      <main id="main" className="mx-auto max-w-5xl px-4 py-8">
+      <main id="main" className="mx-auto w-full max-w-5xl flex-grow px-4 py-8">
         <Outlet />
       </main>
 

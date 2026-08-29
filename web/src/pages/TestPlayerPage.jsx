@@ -9,6 +9,8 @@ import GridInDirections from '../components/GridInDirections.jsx'
 import MathText from '../components/MathText.jsx'
 import ReferenceSheet from '../components/ReferenceSheet.jsx'
 import SplitPane from '../components/SplitPane.jsx'
+import { QuestionNav, Tool } from '../components/playerChrome.jsx'
+import { DIRECTIONS, seatLabel, splitAnnotations } from '../components/playerRules.js'
 import { Alert, Button, Modal, Spinner, formatClock, humanize } from '../components/ui.jsx'
 import { useQuestionTimer } from '../hooks/useQuestionTimer.js'
 import { readLocal, writeLocal } from '../storage.js'
@@ -34,136 +36,6 @@ import { readLocal, writeLocal } from '../storage.js'
  *    behaves so practice transfers. Nothing here is copied from College Board
  *    (see CLAUDE.md section 6).
  */
-
-/**
- * Section directions, as the exam states them.
- *
- * Paraphrased rather than transcribed: these describe our own test's rules,
- * which happen to be the same rules, and the student needs them in front of
- * them at the moment they're deciding whether to guess.
- */
-const DIRECTIONS = {
-  reading_writing: `The questions in this section address a number of important reading and writing skills. Each question includes one or more passages, which may include a table or graph. Read each passage and question carefully, then choose the best answer to the question based on the passage or passages.
-
-All questions in this section are multiple-choice with four answer options. Each question has a single best answer.`,
-  math: `The questions in this section address a number of important math skills. Use of a calculator is permitted for all questions.
-
-For multiple-choice questions, solve each problem and choose the correct answer from the choices provided. Each of these questions has a single correct answer.
-
-For student-produced response questions, solve each problem and enter your answer. If your answer is a fraction that doesn't fit in the space provided, enter the decimal equivalent. If your answer is a decimal that doesn't fit, enter it by truncating or rounding at the fourth digit. If a question asks for a value with a unit, enter only the number.
-
-Unless otherwise indicated: variables and expressions represent real numbers, figures are drawn to scale, and the domain of a given function is the set of all real numbers for which the function is defined.`,
-}
-
-/**
- * The `annotations` column carries two different tools' marks in one array -
- * the server stores it opaquely and never looks inside (see
- * backend/app/models/attempt.py), so the split has to happen here. Highlights
- * are keyed by character offset; cross-outs by choice id.
- */
-function splitAnnotations(annotations) {
-  const list = Array.isArray(annotations) ? annotations : []
-  return {
-    highlights: list.filter((a) => a.kind !== 'eliminated'),
-    eliminated: list.filter((a) => a.kind === 'eliminated').map((a) => a.choice),
-  }
-}
-
-function seatLabel(response, i) {
-  return `Question ${i + 1}${response.answered ? ', answered' : ', unanswered'}${
-    response.flagged ? ', marked for review' : ''
-  }`
-}
-
-/** A top-bar tool. Square, labelled underneath, pressed state on the ground. */
-function Tool({ label, active = false, onClick, children }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active ? 'true' : undefined}
-      className={`flex w-[68px] flex-col items-center gap-0.5 rounded-md px-1 py-1.5
-        text-[10px] font-medium leading-tight transition
-        ${active ? 'bg-accent-soft text-accent' : 'text-ink-soft hover:bg-sunken'}`}
-    >
-      <span aria-hidden="true">{children}</span>
-      {label}
-    </button>
-  )
-}
-
-/**
- * The question navigator, as a popup over the bottom bar.
- *
- * Bluebook puts the whole module one click away rather than on screen, so the
- * grid never competes with the question being answered.
- */
-function QuestionNav({ responses, index, onSelect, onReview, onClose }) {
-  return (
-    <div
-      role="dialog"
-      aria-label="Questions in this module"
-      className="absolute bottom-full left-1/2 z-30 mb-3 w-[340px] -translate-x-1/2
-        rounded-lg bg-surface p-4 shadow-xl ring-1 ring-line-strong"
-    >
-      <div className="mb-3 flex items-center">
-        <p className="text-sm font-semibold">Section questions</p>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="ml-auto rounded p-1 text-ink-faint hover:bg-sunken hover:text-ink"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
-        </button>
-      </div>
-
-      <div className="mb-3 flex flex-wrap gap-x-4 gap-y-1 border-b border-line pb-3 text-[11px] text-ink-faint">
-        <span className="flex items-center gap-1.5">
-          <span aria-hidden="true" className="h-3 w-3 rounded-sm ring-1 ring-ink" />
-          Current
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span aria-hidden="true" className="h-3 w-3 rounded-sm bg-accent" />
-          Answered
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span aria-hidden="true" className="h-3 w-3 rounded-sm bg-flag" />
-          Marked for review
-        </span>
-      </div>
-
-      <div className="grid grid-cols-8 gap-1.5">
-        {responses.map((response, i) => {
-          const tone = response.flagged
-            ? 'bg-flag-soft text-flag ring-flag'
-            : response.answered
-              ? 'bg-accent text-accent-on ring-accent'
-              : 'bg-surface text-ink-soft ring-line-strong'
-          return (
-            <button
-              key={response.question_id}
-              type="button"
-              onClick={() => onSelect(i)}
-              aria-current={i === index ? 'true' : undefined}
-              aria-label={seatLabel(response, i)}
-              className={`h-8 rounded-sm text-xs font-medium ring-1 transition hover:opacity-80
-                ${tone} ${i === index ? 'ring-2 ring-ink' : ''}`}
-            >
-              {i + 1}
-            </button>
-          )
-        })}
-      </div>
-
-      <Button variant="secondary" className="mt-4 w-full" onClick={onReview}>
-        Go to review page
-      </Button>
-    </div>
-  )
-}
 
 export default function TestPlayerPage() {
   const { attemptId } = useParams()

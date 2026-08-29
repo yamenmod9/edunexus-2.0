@@ -1,7 +1,5 @@
-from sqlalchemy import func
-
 from app.extensions import db
-from app.models import AnswerResponse, FormQuestion, Question
+from app.models import AnswerResponse, FormQuestion, PracticeResponse, Question
 
 
 def create_question(data: dict) -> Question:
@@ -86,7 +84,26 @@ def query_questions(filters: dict, page: int = 1, per_page: int = 50):
     return query.paginate(page=page, per_page=per_page, error_out=False)
 
 
-def count_by_category(filters: dict):
+def _solved_question_ids(user_id):
+    """Distinct questions this student has already answered in practice.
+
+    Distinct because `practice_responses` is append-only - answering the same
+    question a second time is a second attempt, not an edit - and "12 of 40
+    solved" has to count questions, not attempts, or a student who redoes one
+    question ten times appears to have finished the category.
+    """
+    if user_id is None:
+        return set()
+    rows = (
+        db.session.query(PracticeResponse.question_id)
+        .filter(PracticeResponse.user_id == user_id)
+        .distinct()
+        .all()
+    )
+    return {row[0] for row in rows}
+
+
+def count_by_category(filters: dict, user_id=None):
     """How many questions sit under each section, domain and skill.
 
     The practice browser puts a number beside every category, so this is one
@@ -98,29 +115,33 @@ def count_by_category(filters: dict):
     set to hard, the counts have to say how many HARD questions each category
     holds, or the browser sends students into empty pools.
     """
+    solved = _solved_question_ids(user_id)
+
     rows = (
         _apply_filters(
             db.session.query(
+                Question.id,
                 Question.section,
                 Question.domain,
                 Question.skill,
-                func.count(Question.id),
             ),
             filters,
         )
-        .group_by(Question.section, Question.domain, Question.skill)
         .all()
     )
 
     sections: dict = {}
-    for section, domain, skill, count in rows:
-        s = sections.setdefault(section, {"total": 0, "domains": {}})
-        d = s["domains"].setdefault(domain, {"total": 0, "skills": {}})
-        s["total"] += count
-        d["total"] += count
-        d["skills"][skill] = d["skills"].get(skill, 0) + count
+    for question_id, section, domain, skill in rows:
+        done = 1 if question_id in solved else 0
+        s = sections.setdefault(section, {"total": 0, "solved": 0, "domains": {}})
+        d = s["domains"].setdefault(domain, {"total": 0, "solved": 0, "skills": {}})
+        k = d["skills"].setdefault(skill, {"total": 0, "solved": 0})
+        for bucket in (s, d, k):
+            bucket["total"] += 1
+            bucket["solved"] += done
 
     return {
         "total": sum(s["total"] for s in sections.values()),
+        "solved": sum(s["solved"] for s in sections.values()),
         "sections": sections,
     }

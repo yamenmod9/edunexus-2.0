@@ -5,6 +5,7 @@ import Layout from './components/Layout.jsx'
 import { LoginPage, RegisterPage } from './pages/AuthPages.jsx'
 import HomePage from './pages/HomePage.jsx'
 import PracticePage from './pages/PracticePage.jsx'
+import PracticePlayerPage from './pages/PracticePlayerPage.jsx'
 import ProgressPage from './pages/ProgressPage.jsx'
 import ResultPage from './pages/ResultPage.jsx'
 import TestPlayerPage from './pages/TestPlayerPage.jsx'
@@ -36,6 +37,18 @@ export default function App() {
         element={
           <RequireAuth>
             <TestPlayerPage />
+          </RequireAuth>
+        }
+      />
+
+      {/* Practice solving sits outside Layout for the same reason the test
+          player does: it is the same full-bleed screen, and the app nav and
+          filter sidebar have no business on it once a student is answering. */}
+      <Route
+        path="/practice/session"
+        element={
+          <RequireAuth>
+            <PracticePlayerPage />
           </RequireAuth>
         }
       />
