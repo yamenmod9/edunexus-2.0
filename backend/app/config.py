@@ -142,7 +142,17 @@ class ProductionConfig(Config):
         )
         self.CORS_ORIGINS = Config.CORS_ORIGINS
         # Supabase's pooler drops idle connections; recycle before it does.
-        self.SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True, "pool_recycle": 280}
+        #
+        # The pool is sized to the web process rather than left at the default
+        # 5+10. One gunicorn worker with four threads can want four connections
+        # at once and no more, so a pool that can reach fifteen just holds idle
+        # sockets open against the pooler's own connection limit.
+        self.SQLALCHEMY_ENGINE_OPTIONS = {
+            "pool_pre_ping": True,
+            "pool_recycle": 280,
+            "pool_size": 4,
+            "max_overflow": 2,
+        }
 
 
 config_by_name = {

@@ -81,6 +81,30 @@ Supabase's **direct** connection host also resolves IPv6-only, and this service
 has IPv6 egress disabled — so `DATABASE_URL` must use the **pooler** host, not
 `db.<ref>.supabase.co`.
 
+## Running cost
+
+Measured over 24 hours, the service averages **0.0002 vCPU** and **103 MB**.
+There is effectively no CPU cost; the bill is memory held around the clock. So
+the deploy is sized for that shape rather than for throughput:
+
+- **One gunicorn worker with four threads**, not two worker processes. A second
+  worker is a second full fork of Flask, SQLAlchemy and its connection pool,
+  billed continuously to serve traffic that is already rounding to zero. These
+  requests spend nearly all their time waiting on Postgres, which threads cover.
+- **A pool sized to that worker** (`pool_size=4`, `max_overflow=2`). The default
+  5+10 lets one process hold up to fifteen sockets open against Supabase's own
+  connection limit for no reason.
+- **`requirements.txt` holds only what runs.** pytest and its tree live in
+  `requirements-dev.txt`; Railway installs the former into the image it ships.
+
+`startCommand` lives in `railway.json` rather than the Procfile, because a start
+command set in the Railway dashboard overrides the Procfile — the same way the
+dashboard's pre-deploy setting does. Config-as-code keeps the two from drifting.
+
+Not enabled: **app sleeping**. It would cut the idle bill to nearly nothing, at
+the price of a cold start on the first request after a quiet period. That is a
+product decision about how the app should feel, not a tuning one.
+
 ## Question bank import
 
 ```bash

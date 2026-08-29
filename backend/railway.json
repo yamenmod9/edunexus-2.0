@@ -1,6 +1,7 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "deploy": {
-    "preDeployCommand": "python -m flask --app wsgi db upgrade"
+    "preDeployCommand": "python -m flask --app wsgi db upgrade",
+    "startCommand": "gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 60"
   }
 }

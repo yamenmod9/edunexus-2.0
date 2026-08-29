@@ -1,3 +1,5 @@
+from sqlalchemy import and_, func
+
 from app.extensions import db
 from app.models import AnswerResponse, FormQuestion, PracticeResponse, Question
 
@@ -84,61 +86,57 @@ def query_questions(filters: dict, page: int = 1, per_page: int = 50):
     return query.paginate(page=page, per_page=per_page, error_out=False)
 
 
-def _solved_question_ids(user_id):
-    """Distinct questions this student has already answered in practice.
-
-    Distinct because `practice_responses` is append-only - answering the same
-    question a second time is a second attempt, not an edit - and "12 of 40
-    solved" has to count questions, not attempts, or a student who redoes one
-    question ten times appears to have finished the category.
-    """
-    if user_id is None:
-        return set()
-    rows = (
-        db.session.query(PracticeResponse.question_id)
-        .filter(PracticeResponse.user_id == user_id)
-        .distinct()
-        .all()
-    )
-    return {row[0] for row in rows}
-
-
 def count_by_category(filters: dict, user_id=None):
-    """How many questions sit under each section, domain and skill.
+    """How many questions sit under each section, domain and skill, and how
+    many of them this student has already answered.
 
-    The practice browser puts a number beside every category, so this is one
-    grouped query rather than a count per category - the bank has four domains
-    per section and dozens of skills, and a request per row would be a hundred
-    round trips to draw one screen.
+    Aggregated in SQL rather than by reading the rows and counting in Python.
+    The practice browser calls this on every filter change, and the bank is
+    hundreds of questions - pulling every matching row back to count it is a
+    cost paid per keystroke for a result that is a few dozen numbers.
 
-    Honours the same filters as the question list on purpose: with difficulty
-    set to hard, the counts have to say how many HARD questions each category
-    holds, or the browser sends students into empty pools.
+    `COUNT(DISTINCT ...)` on both sides is load-bearing. The outer join fans a
+    question out into one row per practice attempt, so counting `questions.id`
+    plainly would inflate the total; and `practice_responses` is append-only,
+    so counting its rows would report a question answered three times as three
+    questions solved.
     """
-    solved = _solved_question_ids(user_id)
+    solved_column = (
+        func.count(func.distinct(PracticeResponse.question_id))
+        if user_id is not None
+        else func.count(func.distinct(Question.id)) * 0
+    )
+
+    query = db.session.query(
+        Question.section,
+        Question.domain,
+        Question.skill,
+        func.count(func.distinct(Question.id)),
+        solved_column,
+    )
+    if user_id is not None:
+        query = query.outerjoin(
+            PracticeResponse,
+            and_(
+                PracticeResponse.question_id == Question.id,
+                PracticeResponse.user_id == user_id,
+            ),
+        )
 
     rows = (
-        _apply_filters(
-            db.session.query(
-                Question.id,
-                Question.section,
-                Question.domain,
-                Question.skill,
-            ),
-            filters,
-        )
+        _apply_filters(query, filters)
+        .group_by(Question.section, Question.domain, Question.skill)
         .all()
     )
 
     sections: dict = {}
-    for question_id, section, domain, skill in rows:
-        done = 1 if question_id in solved else 0
+    for section, domain, skill, total, solved in rows:
         s = sections.setdefault(section, {"total": 0, "solved": 0, "domains": {}})
         d = s["domains"].setdefault(domain, {"total": 0, "solved": 0, "skills": {}})
-        k = d["skills"].setdefault(skill, {"total": 0, "solved": 0})
-        for bucket in (s, d, k):
-            bucket["total"] += 1
-            bucket["solved"] += done
+        d["skills"][skill] = {"total": total, "solved": solved}
+        for bucket in (s, d):
+            bucket["total"] += total
+            bucket["solved"] += solved
 
     return {
         "total": sum(s["total"] for s in sections.values()),

@@ -1,0 +1,8 @@
+# Test-only. Deliberately not in requirements.txt: Railway installs that file
+# into the image it actually runs, and pytest and its tree have no business in
+# a production container - they cost build time and image size on every deploy
+# and are never imported by the app.
+#
+#   pip install -r requirements.txt -r requirements-dev.txt
+-r requirements.txt
+pytest==8.2.2
